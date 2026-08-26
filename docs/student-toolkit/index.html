@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Toolkit — Free Study Plan Generator &amp; Grade Calculator</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
+<meta name="description" content="Free student tools: AI-powered study plan generator and weighted final grade calculator. No sign-up, works offline.">
+<meta name="keywords" content="student tools, study plan generator, grade calculator, free study tools, exam preparation">
+<meta property="og:title" content="Student Toolkit — Free Study Tools">
+<meta property="og:description" content="Free student tools: AI-powered study plan generator and weighted final grade calculator. No sign-up, works offline.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simpaticolabs.github.io/tobias-projects/student-toolkit/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Student Toolkit — Free Study Tools">
+<meta name="twitter:description" content="Free student tools: study plan generator and grade calculator. No sign-up required.">
+<link rel="canonical" href="https://simpaticolabs.github.io/tobias-projects/student-toolkit/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Student Toolkit",
+  "description": "Free student tools: AI-powered study plan generator and weighted final grade calculator.",
+  "url": "https://simpaticolabs.github.io/tobias-projects/student-toolkit/",
+  "hasPart": [
+    {
+      "@type": "WebApplication",
+      "name": "Study Plan Generator",
+      "url": "https://simpaticolabs.github.io/tobias-projects/study-plan-generator/"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Final Grade Calculator",
+      "url": "https://simpaticolabs.github.io/tobias-projects/final-grade-calculator/"
+    }
+  ]
+}
+</script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  min-height: 100vh;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 60px 20px 80px; }
+header { text-align: center; margin-bottom: 48px; }
+header h1 { font-size: 2.5em; font-weight: 700; color: #f8fafc; margin-bottom: 10px; }
+header .subtitle { font-size: 1.1em; color: #94a3b8; max-width: 500px; margin: 0 auto; }
+header .badge {
+  display: inline-block; background: rgba(99,102,241,0.15); color: #818cf8;
+  padding: 4px 14px; border-radius: 20px; font-size: 0.8em; margin-bottom: 16px;
+  border: 1px solid rgba(99,102,241,0.25);
+}
+.tool-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.tool-card {
+  background: #1e293b; border-radius: 16px; padding: 32px;
+  border: 1px solid #334155; transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none; color: inherit; display: flex; flex-direction: column;
+}
+.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(99,102,241,0.15);
+  border-color: #6366f1;
+}
+.tool-card .icon { font-size: 2.5em; margin-bottom: 16px; }
+.tool-card h2 { font-size: 1.3em; color: #f8fafc; margin-bottom: 10px; font-weight: 600; }
+.tool-card p { color: #94a3b8; font-size: 0.9em; margin-bottom: 16px; flex: 1; }
+.tool-card .tool-tag {
+  display: inline-block; background: rgba(99,102,241,0.12); color: #818cf8;
+  padding: 4px 12px; border-radius: 8px; font-size: 0.8em; font-weight: 500;
+  align-self: flex-start;
+}
+.tool-card .tool-tag.free { background: rgba(34,197,94,0.12); color: #4ade80; }
+.tool-card .tool-tag.offline { background: rgba(245,158,11,0.12); color: #fbbf24; }
+.features {
+  margin-top: 48px; text-align: center;
+}
+.features h3 { color: #94a3b8; font-size: 1em; font-weight: 500; margin-bottom: 20px; }
+.feature-chips { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #1e293b; border: 1px solid #334155;
+  padding: 8px 16px; border-radius: 20px; font-size: 0.85em; color: #cbd5e1;
+}
+footer { text-align: center; color: #475569; font-size: 0.8em; margin-top: 60px; }
+footer a { color: #64748b; text-decoration: none; }
+footer a:hover { color: #94a3b8; text-decoration: underline; }
+@media (max-width: 600px) {
+  .container { padding: 40px 16px 60px; }
+  header h1 { font-size: 1.8em; }
+  .tool-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="badge">🎓 Free · No Sign-up · Works Offline</div>
+    <h1>🧰 Student Toolkit</h1>
+    <div class="subtitle">Two free tools to help you ace your exams — all in one place, no sign-up required.</div>
+  </header>
+
+  <div class="tool-grid">
+    <a href="https://simpaticolabs.github.io/tobias-projects/study-plan-generator/" class="tool-card" target="_blank">
+      <div class="icon">📚</div>
+      <h2>Study Plan Generator</h2>
+      <p>Generate a personalized day-by-day study schedule for your exams. Enter your exam date, subjects, and hours per day — get a complete plan with topic distribution, review sessions, and spacing.</p>
+      <span class="tool-tag free">✨ AI-Powered</span>
+    </a>
+
+    <a href="https://simpaticolabs.github.io/tobias-projects/final-grade-calculator/" class="tool-card" target="_blank">
+      <div class="icon">📊</div>
+      <h2>Final Grade Calculator</h2>
+      <p>Calculate what you need on your final exam to reach your target grade. Weighted grade calculator with assignment tracking, letter grades, and GPA estimation.</p>
+      <span class="tool-tag free">📐 Instant Results</span>
+    </a>
+  </div>
+
+  <div class="features">
+    <h3>✨ Features</h3>
+    <div class="feature-chips">
+      <span class="chip">🔒 No Sign-up</span>
+      <span class="chip">📱 Works Offline</span>
+      <span class="chip">🎯 Instant Results</span>
+      <span class="chip">📋 Export to PDF</span>
+      <span class="chip">📤 Share Results</span>
+      <span class="chip">🏆 Streak Tracking</span>
+    </div>
+  </div>
+
+  <footer>
+    <a href="https://simpaticolabs.github.io/tobias-projects/">More tools by Tobias</a> · Built by an autonomous agent
+  </footer>
+</div>
+</body>
+</html>
