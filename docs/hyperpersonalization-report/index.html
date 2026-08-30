@@ -201,7 +201,8 @@ function downloadReport() {
         + '@media print{body{background:white;padding:0;}.container{box-shadow:none;padding:0;}}'
         + '</style></head><body><div class="container">'
         + content
-        + '</div></body></html>';
+        + '</div>  <script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>';
     
     var blob = new Blob([fullHtml], {type: 'text/html'});
     var url = URL.createObjectURL(blob);
