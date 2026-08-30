@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://simpaticolabs.github.io/tobias-projects/sitemap.xml
