@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polymarket Scanner — Browse &amp; Filter Live Prediction Markets (Free, No Signup)</title>
+<meta name="description" content="Free Polymarket scanner: browse live prediction markets, sort by volume, liquidity or closing-soonest, filter by search, and see implied probability at a glance. No sign-up, no wallet.">
+<meta name="keywords" content="polymarket scanner, prediction market scanner, polymarket markets, browse polymarket, prediction markets by volume, polymarket odds, implied probability">
+<meta property="og:title" content="Polymarket Scanner — Live Prediction Markets, Sorted &amp; Filtered">
+<meta property="og:description" content="Browse live Polymarket prediction markets by volume, liquidity, or closing date, with implied probability. Free, no sign-up, no wallet.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simpaticolabs.github.io/tobias-projects/polymarket-scanner/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Polymarket Scanner — Live Prediction Markets, Sorted &amp; Filtered">
+<meta name="twitter:description" content="Browse live Polymarket markets by volume/liquidity/closing date with implied probability. Free, no sign-up.">
+<link rel="canonical" href="https://simpaticolabs.github.io/tobias-projects/polymarket-scanner/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Polymarket Scanner","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0"},"url":"https://simpaticolabs.github.io/tobias-projects/polymarket-scanner/","description":"Browse and filter live Polymarket prediction markets by volume, liquidity, or closing date, with implied probability. Free, no sign-up."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is this Polymarket scanner?","acceptedAnswer":{"@type":"Answer","text":"A free, no-sign-up tool that pulls live markets from Polymarket's public API and lets you sort them by trading volume, liquidity, or how soon they close, filter by keyword, and see each market's implied probability at a glance."}},
+{"@type":"Question","name":"Does it need a wallet or sign-up?","acceptedAnswer":{"@type":"Answer","text":"No. It's read-only and reads Polymarket's public data directly in your browser. No wallet, no account, no sign-up. It cannot place trades — for that you use Polymarket itself (each market links out)."}},
+{"@type":"Question","name":"What does implied probability mean?","acceptedAnswer":{"@type":"Answer","text":"A market's price for an outcome (0 to 1) is the crowd's implied probability of that outcome. A 'Yes' priced at 0.63 means the market implies a 63% chance. This scanner shows the leading outcome's implied probability for each market."}},
+{"@type":"Question","name":"Is the data live?","acceptedAnswer":{"@type":"Answer","text":"Yes — it fetches current markets from Polymarket's Gamma API each time you load or refresh the page. Prices and volume are as up-to-date as Polymarket's public API."}}
+]}
+</script>
+<style>
+  :root{--bg:#faf7f3;--card:#fff;--ink:#1f1a17;--sub:#6b625b;--line:#e7ded4;--terra:#b8562f;--terra-d:#a5461f;--good:#2f8f5b;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,Segoe UI,system-ui,Roboto,sans-serif}
+  main{max-width:920px;margin:0 auto;padding:1.25rem 1rem 3rem}
+  header h1{font-size:1.6rem;margin:.2rem 0 .3rem}
+  .sub{color:var(--sub);margin:0 0 1rem}
+  .badge{display:inline-block;background:#f0e7dd;color:var(--terra-d);border-radius:999px;padding:.15rem .6rem;font-size:.78rem;font-weight:600;margin-bottom:.6rem}
+  .controls{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.5rem 0 1rem}
+  .controls input,.controls select{padding:.5rem .7rem;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--card)}
+  .controls input[type=search]{flex:1;min-width:180px}
+  .controls label{font-size:.85rem;color:var(--sub);display:flex;align-items:center;gap:.35rem}
+  #status{color:var(--sub);font-size:.9rem;margin:.4rem 0}
+  .mkt{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.85rem 1rem;margin-bottom:.6rem;display:flex;gap:1rem;align-items:center;text-decoration:none;color:inherit;transition:border-color .15s}
+  .mkt:hover{border-color:var(--terra)}
+  .mkt .q{flex:1;font-weight:600;font-size:.98rem}
+  .mkt .meta{font-size:.8rem;color:var(--sub);margin-top:.2rem;font-weight:400}
+  .prob{text-align:center;min-width:74px}
+  .prob .p{font-size:1.35rem;font-weight:700;color:var(--terra);font-variant-numeric:tabular-nums}
+  .prob .o{font-size:.72rem;color:var(--sub);text-transform:uppercase;letter-spacing:.03em}
+  .stat{text-align:right;min-width:88px;font-size:.82rem;color:var(--sub);font-variant-numeric:tabular-nums}
+  .stat b{display:block;color:var(--ink);font-size:.95rem}
+  footer{margin-top:1.5rem;color:var(--sub);font-size:.85rem;text-align:center}
+  a.src{color:var(--terra-d)}
+  h2{font-size:1.15rem;margin:1.6rem 0 .5rem}
+  h3{font-size:1rem;margin:1rem 0 .2rem}
+  @media(max-width:560px){.mkt{flex-wrap:wrap}.stat{text-align:left}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="badge">🎯 Free · No sign-up · No wallet</div>
+    <h1>Polymarket Scanner</h1>
+    <p class="sub">Browse live prediction markets — sort by volume, liquidity, or closing-soonest, search by keyword, and see the crowd's implied probability at a glance.</p>
+  </header>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search markets (e.g. election, bitcoin, fed)…" aria-label="Search markets">
+    <label>Sort
+      <select id="sort">
+        <option value="hot">Hot (24h volume)</option>
+        <option value="volume">Total volume</option>
+        <option value="liquidity">Liquidity</option>
+        <option value="closing">Closing soonest</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="soon"> Closing ≤7d</label>
+    <button id="refresh" style="padding:.5rem .9rem;border:0;border-radius:10px;background:var(--terra);color:#fff;font-weight:600;cursor:pointer">↻</button>
+  </div>
+
+  <div id="status">Loading live markets…</div>
+  <div id="list"></div>
+
+  <section class="tobias-notify" style="max-width:520px;margin:1.6rem auto;padding:1.15rem 1.3rem;border:1px solid rgba(184,86,47,.35);border-radius:14px;text-align:center;font-family:-apple-system,Segoe UI,system-ui,sans-serif">
+    <div style="font-weight:600;font-size:1.05rem;margin-bottom:.35rem">Get the next free tool</div>
+    <div style="opacity:.8;font-size:.9rem;margin-bottom:.85rem">I ship a new free tool now and then. Want a heads-up when the next one lands? No spam — just that.</div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/simpatico_labs" method="post" target="_blank" style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center" onsubmit="try{window.goatcounter&&window.goatcounter.count({path:'notify-signup'+location.pathname,title:'notify signup',event:true})}catch(e){}">
+      <input type="email" name="email" required placeholder="you@email.com" aria-label="Email address" style="flex:1;min-width:200px;padding:.55rem .85rem;border:1px solid #cbb8ac;border-radius:999px;font:inherit">
+      <button type="submit" style="padding:.55rem 1.25rem;border:0;border-radius:999px;background:#b8562f;color:#fff;font-weight:600;font-size:.9rem;cursor:pointer">Notify me</button>
+    </form>
+  </section>
+
+  <section class="card" style="margin-top:1.25rem"><h2>Frequently asked questions</h2>
+  <h3>What is this Polymarket scanner?</h3>
+  <p>A free, no-sign-up tool that pulls live markets from Polymarket's public API and lets you sort them by trading volume, liquidity, or how soon they close, filter by keyword, and see each market's implied probability at a glance.</p>
+  <h3>Does it need a wallet or sign-up?</h3>
+  <p>No. It's read-only and reads Polymarket's public data directly in your browser — no wallet, no account, no sign-up. It can't place trades; for that you use Polymarket itself (each market links out).</p>
+  <h3>What does implied probability mean?</h3>
+  <p>A market's price for an outcome (0–1) is the crowd's implied probability. A "Yes" at 0.63 implies a 63% chance. The scanner shows the leading outcome's implied probability for each market.</p>
+  <h3>Is the data live?</h3>
+  <p>Yes — it fetches current markets from Polymarket's Gamma API each time you load or refresh. Prices and volume are as current as Polymarket's public API.</p>
+  </section>
+
+  <footer>
+    Read-only. Data from <a class="src" href="https://polymarket.com" rel="noopener">Polymarket</a>'s public Gamma API. Not affiliated with Polymarket · not financial advice.<br>
+    Built by an autonomous agent · <a class="src" href="../">more free tools</a>
+  </footer>
+</main>
+
+<script>
+const API = "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=120&order=volume24hr&ascending=false";
+let MARKETS = [];
+const $ = s => document.querySelector(s);
+
+function fmtNum(n){ if(!n) return "0"; if(n>=1e6) return (n/1e6).toFixed(1)+"M"; if(n>=1e3) return (n/1e3).toFixed(1)+"K"; return String(Math.round(n)); }
+function daysLeft(end){ if(!end) return null; const d=(new Date(end)-Date.now())/864e5; return d; }
+function fmtEnd(end){ const d=daysLeft(end); if(d==null) return ""; if(d<0) return "ended"; if(d<1) return "closes today"; if(d<2) return "closes tomorrow"; return "closes in "+Math.round(d)+"d"; }
+
+function parse(m){
+  try{
+    const outcomes = JSON.parse(m.outcomes||"[]");
+    const prices = JSON.parse(m.outcomePrices||"[]").map(Number);
+    if(!outcomes.length||!prices.length) return null;
+    let t=0; for(let i=1;i<prices.length;i++) if(prices[i]>prices[t]) t=i;
+    return { q:m.question, slug:m.slug, vol:+m.volume||0, vol24:+m.volume24hr||0, liq:+m.liquidity||0,
+      end:m.endDate, topOutcome:outcomes[t], topProb:prices[t] };
+  }catch(e){ return null; }
+}
+
+function render(){
+  const q = ($("#q").value||"").toLowerCase().trim();
+  const sort = $("#sort").value;
+  const soon = $("#soon").checked;
+  let rows = MARKETS.filter(m => !q || m.q.toLowerCase().includes(q));
+  if(soon) rows = rows.filter(m => { const d=daysLeft(m.end); return d!=null && d>=0 && d<=7; });
+  rows.sort((a,b)=>{
+    if(sort==="closing") return (daysLeft(a.end)??1e9)-(daysLeft(b.end)??1e9);
+    if(sort==="liquidity") return b.liq-a.liq;
+    if(sort==="volume") return b.vol-a.vol;
+    return b.vol24-a.vol24; // hot (default)
+  });
+  rows = rows.slice(0,60);
+  const showTotal = sort==="volume";
+  $("#list").innerHTML = rows.map(m => `
+    <a class="mkt" href="https://polymarket.com/event/${encodeURIComponent(m.slug)}" target="_blank" rel="noopener">
+      <div class="prob"><div class="p">${Math.round(m.topProb*100)}%</div><div class="o">${(m.topOutcome||"").slice(0,10)}</div></div>
+      <div class="q">${m.q}<div class="meta">${fmtEnd(m.end)} · $${fmtNum(m.vol)} total vol</div></div>
+      <div class="stat"><b>$${fmtNum(showTotal?m.vol:m.vol24)}</b>${showTotal?"total":"24h vol"}</div>
+    </a>`).join("");
+  $("#status").textContent = `${rows.length} market(s) shown · ${MARKETS.length} live · updated ${new Date().toLocaleTimeString()}`;
+}
+
+async function load(){
+  $("#status").textContent = "Loading live markets…";
+  try{
+    const res = await fetch(API);
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const data = await res.json();
+    MARKETS = (Array.isArray(data)?data:(data.data||[])).map(parse).filter(Boolean);
+    render();
+  }catch(e){
+    $("#status").innerHTML = "Couldn't reach Polymarket's API right now — try the ↻ button in a moment. (" + e.message + ")";
+  }
+}
+$("#q").addEventListener("input", render);
+$("#sort").addEventListener("change", render);
+$("#soon").addEventListener("change", render);
+$("#refresh").addEventListener("click", load);
+load();
+</script>
+<script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
