@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prediction Market Opportunity Scanner</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 2rem;
+  line-height: 1.5;
+}
+h1 { font-size: 1.8rem; margin-bottom: 0.25rem; color: #f1f5f9; }
+.subtitle { font-size: 1rem; color: #64748b; margin-bottom: 1.5rem; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.stat-card {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+.stat-card .value { font-size: 1.8rem; font-weight: 700; color: #38bdf8; }
+.stat-card .label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+.opp-section { margin-bottom: 2rem; }
+.opp-section h2 { font-size: 1.1rem; color: #94a3b8; margin-bottom: 0.75rem; }
+.opp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.opp-card {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid #334155;
+}
+.opp-score { font-size: 2rem; font-weight: 700; }
+.opp-detail { font-size: 0.85rem; color: #94a3b8; margin: 0.25rem 0; }
+.opp-title { font-size: 0.9rem; color: #e2e8f0; margin-top: 0.25rem; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-bottom: 1px solid #334155;
+}
+td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #1e293b;
+  font-size: 0.9rem;
+}
+tr:hover { background: #334155; }
+.title-cell { max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vol-cell { white-space: nowrap; }
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-a { background: #f59e0b; color: #1e293b; }
+.badge-b { background: #10b981; color: #fff; }
+.badge-c { background: #475569; color: #cbd5e1; }
+.footer { margin-top: 2rem; font-size: 0.75rem; color: #475569; text-align: center; }
+@media (max-width: 600px) {
+  body { padding: 1rem; }
+  .title-cell { max-width: 200px; }
+}
+</style>
+</head>
+<body>
+<h1>🎯 Prediction Market Opportunity Scanner</h1>
+<p class="subtitle">Scan: 2026-09-02T20:34:09.115184 &middot; Manifold Markets</p>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="value">67</div>
+    <div class="label">Total Markets</div>
+  </div>
+  <div class="stat-card">
+    <div class="value">0</div>
+    <div class="label">High Vol (A)</div>
+  </div>
+  <div class="stat-card">
+    <div class="value">8</div>
+    <div class="label">Sweet Spot (B)</div>
+  </div>
+  <div class="stat-card">
+    <div class="value">59</div>
+    <div class="label">Long-tail (C)</div>
+  </div>
+</div>
+
+<div class="opp-section">
+<h2>🏆 Top Opportunities (by score)</h2>
+<div class="opp-grid">
+<div class="opp-card">
+  <div class="opp-score" style="color:#f59e0b">29.8</div>
+  <div class="opp-detail">60.0% @ $3,725</div>
+  <div class="opp-title">Manifold | Will I regret purchasing a Dyson camerajet? ($500U</div>
+</div>
+<div class="opp-card">
+  <div class="opp-score" style="color:#f59e0b">25.0</div>
+  <div class="opp-detail">50.5% @ $2,527</div>
+  <div class="opp-title">Manifold | Daily Coinflip</div>
+</div>
+<div class="opp-card">
+  <div class="opp-score" style="color:#f59e0b">19.5</div>
+  <div class="opp-detail">52.6% @ $2,057</div>
+  <div class="opp-title">Manifold | ULTIMATUM GAME: two random traders negotiate this</div>
+</div>
+<div class="opp-card">
+  <div class="opp-score" style="color:#f59e0b">10.9</div>
+  <div class="opp-detail">19.3% @ $2,817</div>
+  <div class="opp-title">Manifold | Will studyofus.com (Aella's face-ranking site) hav</div>
+</div>
+<div class="opp-card">
+  <div class="opp-score" style="color:#94a3b8">6.1</div>
+  <div class="opp-detail">71.9% @ $1,079</div>
+  <div class="opp-title">Manifold | will i run 5k [quick fuse]</div>
+</div></div>
+</div>
+
+<table>
+<thead>
+<tr><th>Cat</th><th>Score</th><th>Prob</th><th>Title</th><th>Volume</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><span class="badge badge-b">B</span></td>
+  <td style="color:#f59e0b;font-weight:700">29.8</td>
+  <td style="color:#f59e0b;font-weight:600">60.0%</td>
+  <td class="title-cell">Will I regret purchasing a Dyson camerajet? ($500USD Toothbr</td>
+  <td class="vol-cell">$3,725</td>
+</tr><tr>
+  <td><span class="badge badge-b">B</span></td>
+  <td style="color:#f59e0b;font-weight:700">25.0</td>
+  <td style="color:#f59e0b;font-weight:600">50.5%</td>
+  <td class="title-cell">Daily Coinflip</td>
+  <td class="vol-cell">$2,527</td>
+</tr><tr>
+  <td><span class="badge badge-b">B</span></td>
+  <td style="color:#f59e0b;font-weight:700">19.5</td>
+  <td style="color:#f59e0b;font-weight:600">52.6%</td>
+  <td class="title-cell">ULTIMATUM GAME: two random traders negotiate this market's r</td>
+  <td class="vol-cell">$2,057</td>
+</tr><tr>
+  <td><span class="badge badge-b">B</span></td>
+  <td style="color:#f59e0b;font-weight:700">10.9</td>
+  <td style="color:#ef4444;font-weight:600">19.3%</td>
+  <td class="title-cell">Will studyofus.com (Aella's face-ranking site) have a seriou</td>
+  <td class="vol-cell">$2,817</td>
+</tr><tr>
+  <td><span class="badge badge-b">B</span></td>
+  <td style="color:#94a3b8;font-weight:700">6.1</td>
+  <td style="color:#10b981;font-weight:600">71.9%</td>
+  <td class="title-cell">will i run 5k [quick fuse]</td>
+  <td class="vol-cell">$1,079</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">5.3</td>
+  <td style="color:#f59e0b;font-weight:600">29.0%</td>
+  <td class="title-cell">Will USPS reject at least 100,000 mail ballots due to Trump'</td>
+  <td class="vol-cell">$920</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">5.0</td>
+  <td style="color:#10b981;font-weight:600">64.6%</td>
+  <td class="title-cell">EPL Week 3 Liverpool vs Ipswich- Will Liverpool WIN @ Ipswic</td>
+  <td class="vol-cell">$712</td>
+</tr><tr>
+  <td><span class="badge badge-b">B</span></td>
+  <td style="color:#94a3b8;font-weight:700">4.3</td>
+  <td style="color:#10b981;font-weight:600">88.3%</td>
+  <td class="title-cell">Will I stay in masters this season?</td>
+  <td class="vol-cell">$1,844</td>
+</tr><tr>
+  <td><span class="badge badge-b">B</span></td>
+  <td style="color:#94a3b8;font-weight:700">4.0</td>
+  <td style="color:#ef4444;font-weight:600">8.6%</td>
+  <td class="title-cell">Strait of Hormuz traffic returns to normal by end of October</td>
+  <td class="vol-cell">$2,330</td>
+</tr><tr>
+  <td><span class="badge badge-b">B</span></td>
+  <td style="color:#94a3b8;font-weight:700">3.7</td>
+  <td style="color:#10b981;font-weight:600">90.1%</td>
+  <td class="title-cell">Will my brother start reading Harry Potter in the next week?</td>
+  <td class="vol-cell">$1,858</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">3.0</td>
+  <td style="color:#ef4444;font-weight:600">16.1%</td>
+  <td class="title-cell">Will Grok 4.7 be released on 9/11?</td>
+  <td class="vol-cell">$941</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">2.6</td>
+  <td style="color:#f59e0b;font-weight:600">56.6%</td>
+  <td class="title-cell">Tesla has more fully autonomous rides than Waymo in 2027?</td>
+  <td class="vol-cell">$300</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">2.6</td>
+  <td style="color:#f59e0b;font-weight:600">34.7%</td>
+  <td class="title-cell">Will the U.S. Supreme Court grant certiorari to hear the the</td>
+  <td class="vol-cell">$377</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">2.2</td>
+  <td style="color:#10b981;font-weight:600">87.0%</td>
+  <td class="title-cell">Kommt der Goat trotz Zusage nicht zur Born?</td>
+  <td class="vol-cell">$865</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">1.8</td>
+  <td style="color:#f59e0b;font-weight:600">42.0%</td>
+  <td class="title-cell">Did the LZ detect a WIMP</td>
+  <td class="vol-cell">$215</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">1.2</td>
+  <td style="color:#f59e0b;font-weight:600">51.1%</td>
+  <td class="title-cell">Will anybody make a prediction market a baby photo before 20</td>
+  <td class="vol-cell">$124</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">1.2</td>
+  <td style="color:#10b981;font-weight:600">75.8%</td>
+  <td class="title-cell">Will OpenAI officially confirm that Astra uses a recurrent-d</td>
+  <td class="vol-cell">$247</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">1.1</td>
+  <td style="color:#f59e0b;font-weight:600">33.6%</td>
+  <td class="title-cell">will  codex  get  me  some  monero</td>
+  <td class="vol-cell">$158</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#94a3b8;font-weight:700">1.1</td>
+  <td style="color:#f59e0b;font-weight:600">50.2%</td>
+  <td class="title-cell">Will Roblox allow users to trade without a subscription befo</td>
+  <td class="vol-cell">$109</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.9</td>
+  <td style="color:#f59e0b;font-weight:600">41.0%</td>
+  <td class="title-cell">Will Moo Deng live to see the first female USA president?</td>
+  <td class="vol-cell">$107</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.9</td>
+  <td style="color:#f59e0b;font-weight:600">56.6%</td>
+  <td class="title-cell">Will Oracle report Q1 FY2027 revenue of at least $19.15 bill</td>
+  <td class="vol-cell">$101</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.8</td>
+  <td style="color:#f59e0b;font-weight:600">28.0%</td>
+  <td class="title-cell">MLB: Will the Boston Red Sox sweep the Kansas City Royals OR</td>
+  <td class="vol-cell">$147</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.7</td>
+  <td style="color:#10b981;font-weight:600">68.6%</td>
+  <td class="title-cell">Can I Beat minecraft in this month With Hot potato?</td>
+  <td class="vol-cell">$114</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.7</td>
+  <td style="color:#f59e0b;font-weight:600">31.0%</td>
+  <td class="title-cell">Current mod loses role by end Sept?</td>
+  <td class="vol-cell">$109</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.7</td>
+  <td style="color:#f59e0b;font-weight:600">33.6%</td>
+  <td class="title-cell">will i get lost on my first day of school</td>
+  <td class="vol-cell">$104</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.6</td>
+  <td style="color:#f59e0b;font-weight:600">22.7%</td>
+  <td class="title-cell">Will I believe Trump called out for shutting down the intern</td>
+  <td class="vol-cell">$132</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.6</td>
+  <td style="color:#10b981;font-weight:600">87.1%</td>
+  <td class="title-cell">If Fable 5.1 is listed on arena.ai on September 14th will it</td>
+  <td class="vol-cell">$247</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.5</td>
+  <td style="color:#f59e0b;font-weight:600">34.8%</td>
+  <td class="title-cell">Will Gavin Newsom veto the "Plug and Play" solar bill SB 868</td>
+  <td class="vol-cell">$78</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.5</td>
+  <td style="color:#ef4444;font-weight:600">11.8%</td>
+  <td class="title-cell">Will BBC News report US preparations for possible nuclear we</td>
+  <td class="vol-cell">$211</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.5</td>
+  <td style="color:#f59e0b;font-weight:600">52.5%</td>
+  <td class="title-cell">At the end of 2026 will there be any European model that ran</td>
+  <td class="vol-cell">$48</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.5</td>
+  <td style="color:#f59e0b;font-weight:600">58.1%</td>
+  <td class="title-cell">Mod queue empty by end Sept?</td>
+  <td class="vol-cell">$62</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.4</td>
+  <td style="color:#f59e0b;font-weight:600">27.0%</td>
+  <td class="title-cell">Will the U.S. prime-age employment-population ratio be below</td>
+  <td class="vol-cell">$83</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.4</td>
+  <td style="color:#10b981;font-weight:600">91.2%</td>
+  <td class="title-cell">Will Alcaraz win the next round at the US open? C.Alcaraz vs</td>
+  <td class="vol-cell">$203</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.4</td>
+  <td style="color:#f59e0b;font-weight:600">53.4%</td>
+  <td class="title-cell">Am i going to get 5 straight A-s for my first 5 grades?</td>
+  <td class="vol-cell">$41</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.4</td>
+  <td style="color:#f59e0b;font-weight:600">34.1%</td>
+  <td class="title-cell">Will The Opportunities Party get a higher party vote percent</td>
+  <td class="vol-cell">$54</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.3</td>
+  <td style="color:#10b981;font-weight:600">72.0%</td>
+  <td class="title-cell">Will Kalshi respond to New Jersey's Supreme Court petition b</td>
+  <td class="vol-cell">$60</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.3</td>
+  <td style="color:#f59e0b;font-weight:600">48.5%</td>
+  <td class="title-cell">Will Novak Djokovic retire before 2027 US Open?</td>
+  <td class="vol-cell">$27</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.3</td>
+  <td style="color:#10b981;font-weight:600">68.0%</td>
+  <td class="title-cell">Запустит ли Kaspi новый крупный раздел/сервис в экосистеме д</td>
+  <td class="vol-cell">$54</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.3</td>
+  <td style="color:#ef4444;font-weight:600">15.3%</td>
+  <td class="title-cell">Will I get called "sir" more than "ma'am" over the phone in</td>
+  <td class="vol-cell">$105</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.3</td>
+  <td style="color:#f59e0b;font-weight:600">29.6%</td>
+  <td class="title-cell">Will an agent swarm name itself after Roko's Basilisk by EOY</td>
+  <td class="vol-cell">$57</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.3</td>
+  <td style="color:#10b981;font-weight:600">97.2%</td>
+  <td class="title-cell">Will Ed Markey get at least 60% of the vote in the Massachus</td>
+  <td class="vol-cell">$525</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#f59e0b;font-weight:600">42.8%</td>
+  <td class="title-cell">Will Moo Deng live to see AGI?</td>
+  <td class="vol-cell">$25</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#f59e0b;font-weight:600">59.0%</td>
+  <td class="title-cell">NFL Week 2: Will the Chicago Bears beat the MInnesota Viking</td>
+  <td class="vol-cell">$20</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#f59e0b;font-weight:600">40.0%</td>
+  <td class="title-cell">Will Quasar 438B be listed on arena.ai in two weeks?</td>
+  <td class="vol-cell">$26</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#f59e0b;font-weight:600">41.0%</td>
+  <td class="title-cell">Will Daniel appear in Israel in September 2026?</td>
+  <td class="vol-cell">$22</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#10b981;font-weight:600">61.0%</td>
+  <td class="title-cell">Will Elizabeth Warren seek reelection to the United States S</td>
+  <td class="vol-cell">$25</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#10b981;font-weight:600">61.0%</td>
+  <td class="title-cell">MLB: Will the Chicago White Sox sweep the St. Louis Cardinal</td>
+  <td class="vol-cell">$25</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#f59e0b;font-weight:600">41.0%</td>
+  <td class="title-cell">MLB: Will the Philadelphia Phillies sweep the Atlanta Braves</td>
+  <td class="vol-cell">$20</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#f59e0b;font-weight:600">47.0%</td>
+  <td class="title-cell">Will Eric Kandel reach age 100?</td>
+  <td class="vol-cell">$19</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.2</td>
+  <td style="color:#f59e0b;font-weight:600">53.6%</td>
+  <td class="title-cell">Will my tabletop detective game sell 30+ copies before Decem</td>
+  <td class="vol-cell">$21</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.1</td>
+  <td style="color:#f59e0b;font-weight:600">50.0%</td>
+  <td class="title-cell">MLB: Will the Seattle Mariners sweep the Athletics OR will t</td>
+  <td class="vol-cell">$8</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.1</td>
+  <td style="color:#f59e0b;font-weight:600">45.3%</td>
+  <td class="title-cell">Will Corey Place At Least Gold 1</td>
+  <td class="vol-cell">$10</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.1</td>
+  <td style="color:#f59e0b;font-weight:600">55.3%</td>
+  <td class="title-cell">MLB: Will the Cleveland Guardians sweep the Minnesota Twins</td>
+  <td class="vol-cell">$11</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.1</td>
+  <td style="color:#f59e0b;font-weight:600">55.3%</td>
+  <td class="title-cell">MLB: Will the Los Angeles Dodgers sweep the Miami Marlins OR</td>
+  <td class="vol-cell">$11</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.1</td>
+  <td style="color:#f59e0b;font-weight:600">54.8%</td>
+  <td class="title-cell">MLB: Will the Houston Astros sweep the Tampa Bay Rays OR wil</td>
+  <td class="vol-cell">$10</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.1</td>
+  <td style="color:#f59e0b;font-weight:600">45.3%</td>
+  <td class="title-cell">MLB: Will the New York Yankees sweep the New York Mets OR wi</td>
+  <td class="vol-cell">$10</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">50.0%</td>
+  <td class="title-cell">Will $BTC reach $1700 by January 4?</td>
+  <td class="vol-cell">?</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">50.0%</td>
+  <td class="title-cell">archWill Donald Trump win the 2024 US Presidential Election?</td>
+  <td class="vol-cell">?</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">50.0%</td>
+  <td class="title-cell">archWill Joe Biden win the 2024 US Presidential Election?</td>
+  <td class="vol-cell">?</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">50.0%</td>
+  <td class="title-cell">archWill Gavin Newsom win the 2024 US Presidential Election?</td>
+  <td class="vol-cell">?</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">38.0%</td>
+  <td class="title-cell">🎾 Will an American man reach the 2026 US Open men's singles</td>
+  <td class="vol-cell">?</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">50.0%</td>
+  <td class="title-cell">MLB: Will the San Diego Padres sweep the San Francisco Giant</td>
+  <td class="vol-cell">$2</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">50.0%</td>
+  <td class="title-cell">MLB: Will the Arizona Diamondbacks sweep the Texas Rangers O</td>
+  <td class="vol-cell">?</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">50.0%</td>
+  <td class="title-cell">NFL Week 2: Will the Green Bay Packers beat the New York Jet</td>
+  <td class="vol-cell">?</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">52.4%</td>
+  <td class="title-cell">MLB: Will the Milwaukee Brewers sweep the Cincinnati Reds OR</td>
+  <td class="vol-cell">$5</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">47.6%</td>
+  <td class="title-cell">MLB: Will the Baltimore Orioles sweep the Toronto Blue Jays</td>
+  <td class="vol-cell">$5</td>
+</tr><tr>
+  <td><span class="badge badge-c">C</span></td>
+  <td style="color:#475569;font-weight:700">0.0</td>
+  <td style="color:#f59e0b;font-weight:600">47.6%</td>
+  <td class="title-cell">MLB: Will the Washington Nationals sweep the Los Angeles Ang</td>
+  <td class="vol-cell">$5</td>
+</tr>
+</tbody>
+</table>
+
+<div class="footer">
+Generated by Tobias Opportunity Scanner &middot; 2026-09-02 20:34
+</div>
+<!-- G1* measurement + freshness note, injected at publish time (2026-09-03). The bot's
+     generator does not emit these; without the script this page would be invisible to the
+     only meter we have for stranger signal. -->
+<p style="text-align:center;color:#94a3b8;font-size:.85em;margin:1.5rem auto;max-width:52rem">
+  This is a <strong>daily snapshot</strong>, not a live feed &mdash; the generation time is in the
+  footer. For continuously-updating Polymarket data, see the
+  <a href="../polymarket-scanner/" style="color:#b8562f">live Polymarket scanner</a>.
+</p>
+<script>
+// Fires once per visit on the first real interaction (a sort, a filter, or any table click),
+// so an engaged visitor is distinguishable from a bounce.
+(function(){var used=false;function mark(){if(used)return;used=true;
+  try{window.goatcounter&&window.goatcounter.count({path:"pmscanner-used",title:"prediction market scanner used",event:true})}catch(e){}}
+ document.addEventListener("click",mark,{once:false});
+ document.addEventListener("keydown",mark,{once:false});})();
+</script>
+<script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
