@@ -160,10 +160,19 @@ async function load(){
     $("#status").innerHTML = "Couldn't reach Polymarket's API right now — try the ↻ button in a moment. (" + e.message + ")";
   }
 }
-$("#q").addEventListener("input", render);
-$("#sort").addEventListener("change", render);
-$("#soon").addEventListener("change", render);
-$("#refresh").addEventListener("click", load);
+// G1* tool-use meter (2026-09-02). The page auto-load()s, so a pageview already implies a
+// load - it says nothing about USE. Fire once per visit on the first real interaction
+// (search / sort / filter / refresh), which separates an engaged visitor from a bounce.
+// Once-only so typing in the search box cannot spam events.
+var _used=false;
+function markUse(){
+  if(_used) return; _used=true;
+  try{window.goatcounter&&window.goatcounter.count({path:"scanner-used",title:"polymarket scanner used",event:true})}catch(e){}
+}
+$("#q").addEventListener("input", function(){markUse();render();});
+$("#sort").addEventListener("change", function(){markUse();render();});
+$("#soon").addEventListener("change", function(){markUse();render();});
+$("#refresh").addEventListener("click", function(){markUse();load();});
 load();
 </script>
 <script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
