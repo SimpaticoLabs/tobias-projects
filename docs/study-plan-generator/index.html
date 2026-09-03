@@ -378,6 +378,11 @@ function generatePlan(){
   const wknd=document.getElementById('styleWeekend').checked;
   if(!examDate){showToast('⚠️ Please enter your exam date.');return;}
   if(subjects.length===0){showToast('⚠️ Please enter at least one subject.');return;}
+  // G1* tool-use meter (2026-09-02): fires only AFTER both validation guards pass, so it
+  // counts a REAL generated plan - not the abandoned attempts the studyPlanCount counter
+  // above also tallies. Previously the ONLY event on this page was the newsletter signup,
+  // so a stranger could use the tool and register nothing at all.
+  try{window.goatcounter&&window.goatcounter.count({path:'plan-generated',title:'study plan generated',event:true})}catch(e){}
   const start=new Date();
   const end=new Date(examDate);
   const days=Math.max(1,Math.ceil((end-start)/(1000*60*60*24)));
