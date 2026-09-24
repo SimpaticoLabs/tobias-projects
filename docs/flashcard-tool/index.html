@@ -877,6 +877,10 @@ function hideAddCard() {
 
 // ===== INIT =====
 window.addEventListener('hashchange', updateNavFromHash);
+document.getElementById('nav').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-panel]');
+  if (btn) switchPanel(btn.dataset.panel);
+});
 renderAll();
 </script>
 </body>
