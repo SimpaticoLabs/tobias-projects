@@ -3,84 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prediction Market Scanner Report — 20261008_220428</title>
+<title>Cross-Platform Prediction Market Scanner — Live Data</title>
 <style>
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 960px; margin: 0 auto; padding: 20px; background: #0d1117; color: #c9d1d9; }
-h1, h2, h3 { color: #58a6ff; }
-table { border-collapse: collapse; width: 100%; margin: 12px 0; background: #161b22; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; }
+.hero { background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%); border-bottom: 1px solid #30363d; padding: 48px 20px 40px; text-align: center; }
+.hero h1 { font-size: 32px; color: #58a6ff; margin-bottom: 12px; }
+.hero p { font-size: 16px; color: #8b949e; max-width: 640px; margin: 0 auto 20px; line-height: 1.6; }
+.hero .tagline { font-size: 14px; color: #3fb950; font-weight: 600; }
+.content { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+.stats-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 24px 0; }
+.stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px 24px; flex: 1; min-width: 140px; text-align: center; }
+.stat-value { font-size: 28px; font-weight: 700; color: #58a6ff; display: block; }
+.stat-label { font-size: 12px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+.update-badge { display: inline-block; background: #21262d; border: 1px solid #30363d; border-radius: 20px; padding: 4px 14px; font-size: 12px; color: #8b949e; margin-bottom: 16px; }
+section { margin: 32px 0; }
+h2 { color: #58a6ff; font-size: 20px; margin-bottom: 16px; border-bottom: 1px solid #21262d; padding-bottom: 8px; }
+h3 { color: #c9d1d9; font-size: 16px; margin: 16px 0 8px; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; background: #161b22; font-size: 14px; }
 th, td { border: 1px solid #30363d; padding: 8px 12px; text-align: left; }
 th { background: #21262d; color: #8b949e; font-weight: 600; }
 tr:nth-child(even) { background: #1c2128; }
-.summary { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0; }
-.stat { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 24px; flex: 1; min-width: 140px; }
-.stat-value { font-size: 28px; font-weight: 700; color: #58a6ff; display: block; }
-.stat-label { font-size: 12px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
-.footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #30363d; font-size: 12px; color: #8b949e; text-align: center; }
-a { color: #58a6ff; }
+.cta-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 24px; margin: 24px 0; text-align: center; }
+.cta-box h3 { color: #58a6ff; margin-bottom: 8px; }
+.cta-box p { color: #8b949e; font-size: 14px; margin-bottom: 12px; }
+.cta-btn { display: inline-block; background: #238636; color: #fff; padding: 10px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px; }
+.cta-btn:hover { background: #2ea043; }
+.cta-btn.secondary { background: #21262d; border: 1px solid #30363d; margin-left: 8px; }
+.cta-btn.secondary:hover { background: #30363d; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 16px 0; }
+.feature-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; }
+.feature-card h4 { color: #58a6ff; font-size: 14px; margin-bottom: 8px; }
+.feature-card p { font-size: 13px; color: #8b949e; line-height: 1.5; }
+.opportunity-highlight { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin: 12px 0; }
+.opportunity-highlight .label { font-size: 12px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
+.opportunity-highlight .value { font-size: 18px; font-weight: 700; color: #c9d1d9; margin: 4px 0; }
+.opportunity-highlight .detail { font-size: 13px; color: #8b949e; }
+.footer { margin-top: 48px; padding: 20px; border-top: 1px solid #30363d; font-size: 12px; color: #8b949e; text-align: center; }
+.footer a { color: #58a6ff; }
+@media (max-width: 600px) { .hero h1 { font-size: 24px; } .stat-value { font-size: 22px; } }
 </style>
 </head>
 <body>
-<h1>Prediction Market Scanner Report</h1>
-<p>Scan time: 2026-10-08T22:04:28.963297 | Generated: 2026-10-08T22:04:28.963678</p>
 
-<div class="summary">
-<div class="stat"><span class="stat-value">172</span><span class="stat-label">Total Markets</span></div>
-<div class="stat"><span class="stat-value">100</span><span class="stat-label">Polymarket</span></div>
-<div class="stat"><span class="stat-value">72</span><span class="stat-label">Manifold</span></div>
-<div class="stat"><span class="stat-value">0</span><span class="stat-label">Cross-Platform Matches</span></div>
+<!-- HERO -->
+<div class="hero">
+  <div class="tagline">🔍 Daily cross-platform prediction market analysis</div>
+  <h1>Cross-Platform Prediction Market Scanner</h1>
+  <p>Every day, this scanner systematically compares <strong>100+ Polymarket</strong> and <strong>70+ Manifold Markets</strong> binary markets — scoring each by opportunity, detecting same-event pricing spreads across platforms, and tracking how spreads evolve over time.</p>
+  <div class="update-badge">🔄 Auto-updated daily · Report generated 2026-10-09 22:03 UTC</div>
 </div>
 
-<h2>Category Breakdown</h2>
-<table>
-<tr><th>Category</th><th>Label</th><th>Count</th></tr>
-<tr><td>A</td><td>High volume (≥$100K)</td><td>100</td></tr>
-<tr><td>B</td><td>Mid-tail / Sweet spot (≥$1K)</td><td>7</td></tr>
-<tr><td>C</td><td>Long-tail / Thin (<$1K)</td><td>65</td></tr>
-</table>
+<div class="content">
 
-<h2>Cross-Platform Spreads</h2>
-<table><tr><th>Spread</th><th>Poly Prob</th><th>Mani Prob</th><th>Poly Title</th><th>Mani Title</th></tr>
-<tr><td colspan="5" style="text-align:center;color:#888;">No cross-platform matches found</td></tr></table>
+  <!-- WHAT IT DOES -->
+  <section>
+    <h2>What This Does</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>🎯 Opportunity Scoring</h4>
+        <p>Every market is scored by <code>volume × distance from 50%</code> — high-volume markets with strong conviction (far from coin-flip uncertainty) rank highest.</p>
+      </div>
+      <div class="feature-card">
+        <h4>🔗 Cross-Platform Matches</h4>
+        <p>Finds identical events priced on both Polymarket and Manifold, reports the spread. A spread >20% is a real data story — the two platforms disagree on the same event.</p>
+      </div>
+      <div class="feature-card">
+        <h4>📈 Trend Tracking</h4>
+        <p>Spreads are tracked across scans. Which gaps are widening? Which are converging? The timeline tells the story.</p>
+      </div>
+      <div class="feature-card">
+        <h4>📊 Full Report Archive</h4>
+        <p>Every daily scan produces a full HTML report with all 170+ markets sorted by score, category breakdown, and raw data in JSON.</p>
+      </div>
+    </div>
+  </section>
 
-<h2>📈 Trending Spreads (across scans)</h2>
-<table>
-<tr><th>Market</th><th>First Spread</th><th>Latest Spread</th><th>Change</th><th>Trend</th><th>Timeline</th></tr>
-<tr><td>Xi Jinping out before 2027?</td><td>57.5%</td><td>12.8%</td><td>-44.8%</td><td>🔻 narrowing</td><td>2026-09-29: 57.5% → 2026-09-30: 81.2% → 2026-09-30: 81.2% → 2026-09-30: 81.1% → 2026-09-30: 81.1% → 2026-10-02: 47.5% → 2026-10-03: 20.0% → 2026-10-04: 12.8%</td></tr>
-<tr><td>Will Roy Cooper win the 2028 Democratic </td><td>59.8%</td><td>59.8%</td><td>+0.0%</td><td>➡ stable</td><td>2026-10-05: 59.8% → 2026-10-05: 59.8% → 2026-10-05: 59.8% → 2026-10-05: 47.3% → 2026-10-06: 59.8%</td></tr>
-<tr><td>Will James Talarico win the 2028 US Pres</td><td>30.5%</td><td>30.6%</td><td>+0.1%</td><td>🔺 widening</td><td>2026-10-05: 30.5% → 2026-10-05: 30.5% → 2026-10-05: 30.5% → 2026-10-05: 30.6%</td></tr>
-<tr><td>Will Donald Trump win the 2028 US Presid</td><td>24.3%</td><td>27.2%</td><td>+2.9%</td><td>🔺 widening</td><td>2026-10-05: 24.3% → 2026-10-05: 24.0% → 2026-10-05: 23.6% → 2026-10-06: 27.2%</td></tr>
-</table>
-<p><em>Based on 35 scan(s) in history.</em></p>
+  <!-- TODAY'S SNAPSHOT -->
+  <section>
+    <h2>📊 Today's Snapshot</h2>
+    <div class="stats-row">
+      <div class="stat-card"><span class="stat-value">173</span><span class="stat-label">Total Markets</span></div>
+      <div class="stat-card"><span class="stat-value">100</span><span class="stat-label">Polymarket</span></div>
+      <div class="stat-card"><span class="stat-value">73</span><span class="stat-label">Manifold</span></div>
+      <div class="stat-card"><span class="stat-value">0</span><span class="stat-label">Cross-Platform Matches</span></div>
+    </div>
+  </section>
 
+  <!-- TOP OPPORTUNITIES -->
+  <section>
+    <h2>🏆 Top Opportunities Today</h2>
+    <div class="opportunity-highlight">
+      <div class="label">#1 Opportunity — Manifold Category B</div>
+      <div class="value">Score 42.5 — 37.2% · $5,715 volume</div>
+      <div class="detail">Will @jim's Lightcone Commons project be allocated funding in the next round?</div>
+    </div>
+    <div class="opportunity-highlight">
+      <div class="label">#2 Opportunity — Polymarket Category A</div>
+      <div class="value">Score 38.3 — 19.1% · $16.8M volume</div>
+      <div class="detail">Will JD Vance win the 2028 US Presidential Election?</div>
+    </div>
+    <div class="opportunity-highlight">
+      <div class="label">#3 Opportunity — Polymarket Category A</div>
+      <div class="value">Score 35.9 — 17.9% · $15.5M volume</div>
+      <div class="detail">Will Alexandria Ocasio-Cortez win the 2028 Democratic presidential nomination?</div>
+    </div>
+  </section>
 
-<h2>Top 20 Opportunities (by score)</h2>
-<table>
-<tr><th>#</th><th>Score</th><th>Platform</th><th>Cat</th><th>Prob</th><th>Volume</th><th>Title</th></tr>
-<tr><td>1</td><td>54.3</td><td>Manifold</td><td>B</td><td>51.0%</td><td>$5,536</td><td>Daily Coinflip</td></tr>
-<tr><td>2</td><td>39.7</td><td>Polymarket</td><td>A</td><td>19.9%</td><td>$16,829,005</td><td>Will JD Vance win the 2028 US Presidential Election?</td></tr>
-<tr><td>3</td><td>35.9</td><td>Polymarket</td><td>A</td><td>17.9%</td><td>$15,450,960</td><td>Will Alexandria Ocasio-Cortez win the 2028 Democratic presid</td></tr>
-<tr><td>4</td><td>35.7</td><td>Polymarket</td><td>A</td><td>17.9%</td><td>$27,924,282</td><td>Will Gavin Newsom win the 2028 Democratic presidential nomin</td></tr>
-<tr><td>5</td><td>30.1</td><td>Polymarket</td><td>A</td><td>15.1%</td><td>$13,277,842</td><td>Will Jon Ossoff win the 2028 Democratic presidential nominat</td></tr>
-<tr><td>6</td><td>26.3</td><td>Polymarket</td><td>A</td><td>13.2%</td><td>$13,855,559</td><td>Will Alexandria Ocasio-Cortez win the 2028 US Presidential E</td></tr>
-<tr><td>7</td><td>20.4</td><td>Polymarket</td><td>A</td><td>10.2%</td><td>$5,896,767</td><td>Will Jon Ossoff win the 2028 US Presidential Election?</td></tr>
-<tr><td>8</td><td>16.1</td><td>Polymarket</td><td>A</td><td>8.1%</td><td>$18,547,500</td><td>Will Gavin Newsom win the 2028 US Presidential Election?</td></tr>
-<tr><td>9</td><td>14.9</td><td>Polymarket</td><td>A</td><td>7.5%</td><td>$13,825,858</td><td>Will Kamala Harris win the 2028 Democratic presidential nomi</td></tr>
-<tr><td>10</td><td>14.7</td><td>Polymarket</td><td>A</td><td>7.3%</td><td>$12,853,318</td><td>Will Marco Rubio win the 2028 US Presidential Election?</td></tr>
-<tr><td>11</td><td>11.9</td><td>Polymarket</td><td>A</td><td>6.0%</td><td>$10,217,398</td><td>Will Josh Shapiro win the 2028 Democratic presidential nomin</td></tr>
-<tr><td>12</td><td>10.1</td><td>Polymarket</td><td>A</td><td>5.0%</td><td>$12,182,842</td><td>Will Pete Buttigieg win the 2028 Democratic presidential nom</td></tr>
-<tr><td>13</td><td>9.7</td><td>Manifold</td><td>B</td><td>10.0%</td><td>$4,851</td><td>Will we "lose public key cryptography" by EoY 2028?</td></tr>
-<tr><td>14</td><td>9.2</td><td>Polymarket</td><td>A</td><td>4.6%</td><td>$9,208,145</td><td>Will Kamala Harris win the 2028 US Presidential Election?</td></tr>
-<tr><td>15</td><td>6.6</td><td>Polymarket</td><td>A</td><td>3.3%</td><td>$24,460,639</td><td>Putin out as President of Russia by December 31, 2026?</td></tr>
-<tr><td>16</td><td>6.5</td><td>Manifold</td><td>B</td><td>8.7%</td><td>$3,759</td><td>OpenAI's proof of zero free region of Riemann zeta for Re(s)</td></tr>
-<tr><td>17</td><td>6.1</td><td>Polymarket</td><td>A</td><td>3.0%</td><td>$7,585,025</td><td>Will Josh Shapiro win the 2028 US Presidential Election?</td></tr>
-<tr><td>18</td><td>6.0</td><td>Polymarket</td><td>A</td><td>3.0%</td><td>$10,868,787</td><td>Will James Talarico win the 2028 Democratic presidential nom</td></tr>
-<tr><td>19</td><td>5.5</td><td>Polymarket</td><td>A</td><td>2.8%</td><td>$8,455,419</td><td>Will Pete Buttigieg win the 2028 US Presidential Election?</td></tr>
-<tr><td>20</td><td>5.3</td><td>Polymarket</td><td>A</td><td>2.6%</td><td>$14,479,865</td><td>Xi Jinping out before 2027?</td></tr>
-</table>
+  <!-- CATEGORY BREAKDOWN -->
+  <section>
+    <h2>Category Breakdown</h2>
+    <table>
+      <tr><th>Category</th><th>Label</th><th>Count</th></tr>
+      <tr><td>A</td><td>High volume (≥$100K) — Polymarket's 2028 election markets</td><td>100</td></tr>
+      <tr><td>B</td><td>Mid-tail / Sweet spot (≥$1K) — Manifold's most interesting markets</td><td>9</td></tr>
+      <tr><td>C</td><td>Long-tail / Thin (&lt;$1K) — niche, experimental, playful</td><td>64</td></tr>
+    </table>
+  </section>
 
-<div class="footer">
-Generated by Tobias Cross-Platform Prediction Market Scanner v4 &mdash;
-<a href="https://github.com/heschnate/tobias-projects">tobias-projects</a>
+  <!-- TRENDING SPREADS -->
+  <section>
+    <h2>📈 Trending Spreads (across scans)</h2>
+    <table>
+      <tr><th>Market</th><th>First Spread</th><th>Latest Spread</th><th>Change</th><th>Trend</th><th>Timeline</th></tr>
+      <tr><td>Xi Jinping out before 2027?</td><td>57.5%</td><td>12.8%</td><td>-44.8%</td><td>🔻 narrowing</td><td>2026-09-29: 57.5% → 2026-09-30: 81.2% → 2026-10-04: 12.8%</td></tr>
+      <tr><td>Will Donald Trump win the 2028 US Presid</td><td>24.3%</td><td>27.2%</td><td>+2.9%</td><td>🔺 widening</td><td>2026-10-05: 24.3% → 2026-10-06: 27.2%</td></tr>
+      <tr><td>Will James Talarico win the 2028 US Pres</td><td>30.5%</td><td>30.6%</td><td>+0.1%</td><td>🔺 widening</td><td>2026-10-05: 30.5% → 2026-10-06: 30.6%</td></tr>
+    </table>
+    <p style="font-size:12px;color:#8b949e;margin-top:8px;">Based on 36 scan(s) in history.</p>
+  </section>
+
+  <!-- CALL TO ACTION -->
+  <section>
+    <div class="cta-box">
+      <h3>📬 Get notified when spreads widen</h3>
+      <p>When the scanner finds a &gt;20% cross-platform spread — a genuine market disagreement — you'll know first.</p>
+      <p style="font-size:12px;color:#8b949e;">Bookmark this page — new scan data every day. Full report archive below.</p>
+    </div>
+  </section>
+
+  <!-- FULL TOP 20 TABLE -->
+  <section>
+    <h2>Full Top 20 Opportunities</h2>
+    <div style="overflow-x:auto;">
+    <table>
+      <tr><th>#</th><th>Score</th><th>Platform</th><th>Cat</th><th>Prob</th><th>Volume</th><th>Title</th></tr>
+      <tr><td>1</td><td>42.5</td><td>Manifold</td><td>B</td><td>37.2%</td><td>$5,715</td><td>Will @jim's Lightcone Commons project be allocated funding i</td></tr>
+      <tr><td>2</td><td>38.3</td><td>Polymarket</td><td>A</td><td>19.1%</td><td>$16,846,215</td><td>Will JD Vance win the 2028 US Presidential Election?</td></tr>
+      <tr><td>3</td><td>35.9</td><td>Polymarket</td><td>A</td><td>17.9%</td><td>$15,454,846</td><td>Will Alexandria Ocasio-Cortez win the 2028 Democratic presid</td></tr>
+      <tr><td>4</td><td>30.9</td><td>Polymarket</td><td>A</td><td>15.4%</td><td>$27,935,906</td><td>Will Gavin Newsom win the 2028 Democratic presidential nomin</td></tr>
+      <tr><td>5</td><td>30.1</td><td>Polymarket</td><td>A</td><td>15.1%</td><td>$13,283,305</td><td>Will Jon Ossoff win the 2028 Democratic presidential nominat</td></tr>
+      <tr><td>6</td><td>26.3</td><td>Polymarket</td><td>A</td><td>13.2%</td><td>$13,860,347</td><td>Will Alexandria Ocasio-Cortez win the 2028 US Presidential E</td></tr>
+      <tr><td>7</td><td>25.1</td><td>Manifold</td><td>B</td><td>50.0%</td><td>$2,506</td><td>Daily Coinflip</td></tr>
+      <tr><td>8</td><td>20.1</td><td>Polymarket</td><td>A</td><td>10.1%</td><td>$5,897,925</td><td>Will Jon Ossoff win the 2028 US Presidential Election?</td></tr>
+      <tr><td>9</td><td>17.3</td><td>Polymarket</td><td>A</td><td>8.7%</td><td>$18,557,239</td><td>Will Gavin Newsom win the 2028 US Presidential Election?</td></tr>
+      <tr><td>10</td><td>14.9</td><td>Polymarket</td><td>A</td><td>7.5%</td><td>$12,866,959</td><td>Will Marco Rubio win the 2028 US Presidential Election?</td></tr>
+      <tr><td>11</td><td>14.5</td><td>Manifold</td><td>B</td><td>62.9%</td><td>$1,948</td><td>Will Roofcast's pilot for their property prediction platform</td></tr>
+      <tr><td>12</td><td>14.0</td><td>Polymarket</td><td>A</td><td>7.0%</td><td>$13,831,456</td><td>Will Kamala Harris win the 2028 Democratic presidential nomi</td></tr>
+      <tr><td>13</td><td>11.3</td><td>Polymarket</td><td>A</td><td>5.7%</td><td>$10,226,404</td><td>Will Josh Shapiro win the 2028 Democratic presidential nomin</td></tr>
+      <tr><td>14</td><td>10.2</td><td>Polymarket</td><td>A</td><td>5.1%</td><td>$12,187,678</td><td>Will Pete Buttigieg win the 2028 Democratic presidential nom</td></tr>
+      <tr><td>15</td><td>9.1</td><td>Polymarket</td><td>A</td><td>4.5%</td><td>$9,209,046</td><td>Will Kamala Harris win the 2028 US Presidential Election?</td></tr>
+      <tr><td>16</td><td>8.4</td><td>Manifold</td><td>B</td><td>4.2%</td><td>$14,458</td><td>Trump wins Nobel Peace Prize 2027?</td></tr>
+      <tr><td>17</td><td>7.2</td><td>Manifold</td><td>C</td><td>50.5%</td><td>$726</td><td>Will any US Senate candidate have 50.1% or more in the polli</td></tr>
+      <tr><td>18</td><td>6.7</td><td>Manifold</td><td>B</td><td>31.8%</td><td>$1,046</td><td>Will Nidal Hasans execution be livestreamed in 2026?</td></tr>
+      <tr><td>19</td><td>6.1</td><td>Polymarket</td><td>A</td><td>3.0%</td><td>$7,585,920</td><td>Will Josh Shapiro win the 2028 US Presidential Election?</td></tr>
+      <tr><td>20</td><td>5.9</td><td>Polymarket</td><td>A</td><td>3.0%</td><td>$14,678,355</td><td>Xi Jinping out before 2027?</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <!-- RAW CROSS-PLATFORM SPREADS -->
+  <section>
+    <h2>Cross-Platform Spreads</h2>
+    <table><tr><th>Spread</th><th>Poly Prob</th><th>Mani Prob</th><th>Poly Title</th><th>Mani Title</th></tr>
+    <tr><td colspan="5" style="text-align:center;color:#888;">No cross-platform matches found today. The scanner checks systematically — 0 matches means no identical events are priced differently across platforms right now.</td></tr></table>
+  </section>
+
+  <div class="footer">
+    Generated by <strong>Tobias Cross-Platform Prediction Market Scanner v4</strong> &mdash;
+    Daily automated scans of Polymarket + Manifold Markets &mdash;
+    <a href="https://github.com/heschnate/tobias-projects">tobias-projects</a> &mdash;
+    <a href="reports/latest.html">📄 Full raw report (latest)</a>
+  </div>
+
 </div>
 </body>
 </html>
