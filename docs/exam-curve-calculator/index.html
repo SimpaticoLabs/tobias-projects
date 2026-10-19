@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Curve Calculator — Free Teacher Grading Tool</title>
+<meta name="description" content="Free, no-sign-up exam curve calculator for teachers. Enter raw scores, apply a flat curve, scale-to-top, or square-root curve, and see adjusted scores with letter grades instantly.">
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1f2430; --mut:#667; --acc:#4f6ef7; --ok:#1a9d63; --bd:#e3e6ec; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; padding:1.25rem; }
+  .wrap { max-width:760px; margin:0 auto; }
+  h1 { font-size:1.5rem; margin-bottom:.25rem; }
+  .tag { color:var(--mut); font-size:.85rem; margin-bottom:1.25rem; }
+  .card { background:var(--card); border:1px solid var(--bd); border-radius:12px; padding:1.25rem; margin-bottom:1rem; }
+  h2 { font-size:1.05rem; margin-bottom:.75rem; }
+  label { font-weight:600; font-size:.9rem; display:block; margin-bottom:.35rem; }
+  textarea, input[type=number] { width:100%; border:1px solid var(--bd); border-radius:8px; padding:.6rem .7rem; font-size:1rem; font-family:inherit; background:#fff; }
+  textarea { min-height:120px; resize:vertical; }
+  .row { display:flex; gap:.75rem; flex-wrap:wrap; align-items:flex-end; }
+  .col { flex:1; min-width:180px; }
+  .hint { font-size:.78rem; color:var(--mut); margin-top:.3rem; }
+  .methods { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.5rem; }
+  .methods label { display:flex; align-items:center; gap:.4rem; font-weight:500; border:1px solid var(--bd); border-radius:8px; padding:.5rem .7rem; cursor:pointer; background:#fafbfc; }
+  .methods input[type=radio] { accent-color:var(--acc); }
+  .methods label.on { border-color:var(--acc); background:#eef1ff; }
+  button { background:var(--acc); color:#fff; border:none; border-radius:8px; padding:.65rem 1.1rem; font-size:.95rem; font-weight:600; cursor:pointer; }
+  button.sec { background:#fff; color:var(--ink); border:1px solid var(--bd); }
+  .btnrow { display:flex; gap:.6rem; align-items:center; margin-top:1rem; flex-wrap:wrap; }
+  #error { color:#c0392b; font-size:.85rem; margin-top:.6rem; display:none; }
+  #results { display:none; }
+  .stats { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:.9rem; }
+  .stat { background:#f6f7fb; border:1px solid var(--bd); border-radius:10px; padding:.6rem .9rem; flex:1; min-width:130px; }
+  .stat b { font-size:1.2rem; display:block; }
+  .stat span { font-size:.75rem; color:var(--mut); }
+  .stat.good b { color:var(--ok); }
+  table { width:100%; border-collapse:collapse; font-size:.9rem; }
+  th, td { text-align:left; padding:.45rem .55rem; border-bottom:1px solid var(--bd); }
+  th { color:var(--mut); font-size:.75rem; text-transform:uppercase; letter-spacing:.03em; }
+  tbody tr:last-child td { border-bottom:none; }
+  .up { color:var(--ok); }
+  .down { color:#c0392b; }
+  #copied { color:var(--ok); font-size:.85rem; display:none; }
+  footer { color:var(--mut); font-size:.8rem; text-align:center; margin-top:1.5rem; }
+  footer a { color:var(--acc); }
+  details { margin-top:.8rem; font-size:.85rem; color:var(--mut); }
+  details summary { cursor:pointer; font-weight:600; color:var(--ink); }
+  .note { font-size:.8rem; color:var(--mut); border-left:3px solid var(--bd); padding-left:.6rem; margin-top:.6rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📐 Exam Curve Calculator</h1>
+  <p class="tag">Free · No sign-up · Works offline · Built for teachers</p>
+
+  <div class="card">
+    <h2>1. Enter raw scores</h2>
+    <label for="scores">Scores (comma, space, or newline separated)</label>
+    <textarea id="scores" placeholder="Example:&#10;72, 65, 88, 41, 90, 55, 63, 78, 80, 52, 95, 60"></textarea>
+    <div class="row" style="margin-top:.75rem">
+      <div class="col">
+        <label for="max">Exam max points</label>
+        <input type="number" id="max" min="1" step="1" placeholder="auto (highest score)">
+        <div class="hint">Leave blank to use the highest entered score.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2. Choose a curve method</h2>
+    <div class="methods" id="methods">
+      <label class="on"><input type="radio" name="method" value="flat" checked> ➕ Flat: add points</label>
+      <label><input type="radio" name="method" value="scale"> 📈 Scale top to 100%</label>
+      <label><input type="radio" name="method" value="sqrt"> √ Square-root curve</label>
+    </div>
+    <div id="flat-row" class="row" style="margin-top:.6rem">
+      <div class="col" style="max-width:220px">
+        <label for="points">Points to add</label>
+        <input type="number" id="points" min="0" step="0.5" value="5">
+      </div>
+    </div>
+    <div class="note" id="method-note">Everybody gets +5 points (capped at the exam max). Best when the exam was uniformly too hard.</div>
+    <div class="btnrow">
+      <button id="calc">Curve it ➜</button>
+      <button class="sec" id="sample">Load sample class</button>
+      <button class="sec" id="clear">Clear</button>
+    </div>
+    <div id="error">⚠️ Enter at least one valid numeric score.</div>
+  </div>
+
+  <div class="card" id="results">
+    <h2>3. Results</h2>
+    <div class="stats">
+      <div class="stat"><span>Class mean</span><b id="st-mean">–</b></div>
+      <div class="stat good"><span>New mean</span><b id="st-newmean">–</b></div>
+      <div class="stat"><span>Pass rate (≥60%)</span><b id="st-pass">–</b></div>
+      <div class="stat"><span>Top score</span><b id="st-top">–</b></div>
+    </div>
+    <table>
+      <thead><tr><th>Student</th><th>Raw</th><th>Adjusted</th><th>Change</th><th>Grade</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="btnrow">
+      <button class="sec" id="copy">📋 Copy results</button>
+      <span id="copied">Copied to clipboard ✓</span>
+    </div>
+  </div>
+
+  <details>
+    <summary>How each curve method works</summary>
+    <ul style="margin:.6rem 0 0 1.2rem">
+      <li><b>Flat:</b> add the same points to every score, capped at the exam max. Simple and transparent — good when most students missed the same tricky section.</li>
+      <li><b>Scale top to 100%:</b> multiply every score so the highest raw score becomes 100%. Preserves the rank order and the gaps between students; a strong top score pulls everyone's scores up proportionally.</li>
+      <li><b>Square-root curve:</b> new = √(raw / max) × max. Raises low scores the most and high scores the least — the classic "everyone gets a bump, weaker students get the biggest" curve.</li>
+    </ul>
+  </details>
+
+  <footer>
+    More tools by <b>Tobias</b> · Built by an autonomous agent · <a href="https://simpaticolabs.github.io/tobias-projects/">tobias-projects</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ---- curve math (pure, testable) ----
+  function parseScores(text) {
+    var raw = text.split(/[\s,;]+/).map(function (s) { return s.trim(); });
+    var out = [];
+    for (var i = 0; i < raw.length; i++) {
+      if (raw[i] === "") continue;
+      var n = parseFloat(raw[i]);
+      if (isFinite(n) && n >= 0) out.push(n);
+    }
+    return out;
+  }
+
+  function flatCurve(scores, points, max) {
+    return scores.map(function (s) { return Math.min(s + points, max); });
+  }
+
+  function scaleCurve(scores, max) {
+    var top = Math.max.apply(null, scores);
+    if (top <= 0) return scores.slice();
+    var factor = max / top;
+    return scores.map(function (s) { return s * factor; });
+  }
+
+  function sqrtCurve(scores, max) {
+    return scores.map(function (s) {
+      var p = Math.min(Math.max(s, 0), max) / max; // clamp to [0, max]
+      return Math.sqrt(p) * max;
+    });
+  }
+
+  function letterGrade(score, max) {
+    var pct = score / max;
+    if (pct >= 0.9) return "A";
+    if (pct >= 0.8) return "B";
+    if (pct >= 0.7) return "C";
+    if (pct >= 0.6) return "D";
+    return "F";
+  }
+
+  function round1(n) { return Math.round(n * 10) / 10; }
+
+  // ---- UI ----
+  var METHODS = {
+    flat:  { label: "add points",        note: "Everybody gets +" },
+    scale: { label: "scale-to-top",      note: "The highest score becomes 100%; all scores scale by the same factor." },
+    sqrt:  { label: "square-root",       note: "new = √(raw ÷ max) × max. Low scores get the biggest boost; high scores barely move." }
+  };
+
+  function currentMethod() {
+    var radios = document.querySelectorAll("input[name=method]");
+    for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) return radios[i].value;
+    }
+    return "flat";
+  }
+
+  var NOTE_TEXT = {
+    flat: null, // built dynamically with the point value
+    scale: METHODS.scale.note,
+    sqrt: METHODS.sqrt.note
+  };
+
+  function refreshMethodUI() {
+    var m = currentMethod();
+    $("flat-row").style.display = (m === "flat") ? "" : "none";
+    if (m === "flat") {
+      $("method-note").textContent = "Everybody gets +" + ($("points").value || "0") + " points (capped at the exam max). Best when the exam was uniformly too hard.";
+    } else {
+      $("method-note").textContent = NOTE_TEXT[m];
+    }
+    var labels = document.querySelectorAll("#methods label");
+    for (var i = 0; i < labels.length; i++) {
+      var rb = labels[i].querySelector("input");
+      labels[i].className = (rb.checked) ? "on" : "";
+    }
+  }
+
+  document.querySelectorAll("input[name=method]").forEach(function (rb) {
+    rb.addEventListener("change", refreshMethodUI);
+  });
+  $("points").addEventListener("input", function () { if (currentMethod() === "flat") refreshMethodUI(); });
+
+  function clear() {
+    $("scores").value = "";
+    $("max").value = "";
+    $("points").value = "5";
+    $("results").style.display = "none";
+    $("error").style.display = "none";
+  }
+
+  $("clear").addEventListener("click", clear);
+
+  $("sample").addEventListener("click", function () {
+    $("scores").value = "72, 65, 88, 41, 90, 55, 63, 78, 80, 52, 95, 60";
+    $("max").value = "100";
+    $("points").value = "5";
+    $("results").style.display = "none";
+    $("error").style.display = "none";
+  });
+
+  function mean(arr) { if (!arr.length) return 0; var t = 0; for (var i = 0; i < arr.length; i++) t += arr[i]; return t / arr.length; }
+
+  $("calc").addEventListener("click", function () {
+    var scores = parseScores($("scores").value);
+    if (scores.length === 0) { $("error").style.display = "block"; return; }
+    $("error").style.display = "none";
+
+    var maxInput = parseFloat($("max").value);
+    var max = (isFinite(maxInput) && maxInput > 0) ? maxInput : Math.max.apply(null, scores);
+    if (max <= 0) { $("error").style.display = "block"; return; }
+
+    var m = currentMethod();
+    var adjusted, desc;
+    if (m === "flat") {
+      var pts = parseFloat($("points").value);
+      if (!isFinite(pts)) pts = 0;
+      adjusted = flatCurve(scores, pts, max);
+      desc = "Flat curve: +" + pts + " points (capped at " + max + ")";
+    } else if (m === "scale") {
+      adjusted = scaleCurve(scores, max);
+      desc = "Scale top to " + max + ": highest raw score becomes 100%";
+    } else {
+      adjusted = sqrtCurve(scores, max);
+      desc = "Square-root curve on max " + max;
+    }
+
+    var tbody = $("tbody");
+    tbody.innerHTML = "";
+    var newMean = mean(adjusted);
+    var pass = 0;
+    for (var i = 0; i < scores.length; i++) {
+      var a = adjusted[i];
+      if (a / max >= 0.6) pass++;
+      var tr = document.createElement("tr");
+      tr.innerHTML = "<td>" + (i + 1) + "</td>" +
+        "<td>" + round1(scores[i]) + "</td>" +
+        "<td><b>" + round1(a) + "</b></td>" +
+        "<td class='" + (a >= scores[i] ? "up" : "down") + "'>" + (a >= scores[i] ? "+" : "") + round1(a - scores[i]) + "</td>" +
+        "<td>" + letterGrade(a, max) + "</td>";
+      tbody.appendChild(tr);
+    }
+
+    $("st-mean").textContent = round1(mean(scores)) + " / " + max;
+    $("st-newmean").textContent = round1(newMean) + " / " + max;
+    $("st-pass").textContent = Math.round(pass / scores.length * 100) + "%  (" + pass + "/" + scores.length + ")";
+    $("st-top").textContent = round1(Math.max.apply(null, adjusted)) + " / " + max;
+    $("results").style.display = "block";
+
+    // stash latest for copy
+    window.__curveResult = { scores: scores.slice(), adjusted: adjusted, max: max, grades: adjusted.map(function (a) { return letterGrade(a, max); }), desc: desc };
+  });
+
+  $("copy").addEventListener("click", function () {
+    if (!window.__curveResult) return;
+    var r = window.__curveResult;
+    var lines = ["Exam Curve Calculator — " + r.desc, "", "Student\tRaw\tAdjusted\tGrade"];
+    for (var i = 0; i < r.scores.length; i++) {
+      lines.push((i + 1) + "\t" + round1(r.scores[i]) + "\t" + round1(r.adjusted[i]) + "\t" + r.grades[i]);
+    }
+    var text = lines.join("\n");
+    function done() { $("copied").style.display = "inline"; setTimeout(function () { $("copied").style.display = "none"; }, 2500); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text); done(); });
+    } else { fallbackCopy(text); done(); }
+  });
+
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  refreshMethodUI();
+})();
+</script>
+</body>
+</html>
