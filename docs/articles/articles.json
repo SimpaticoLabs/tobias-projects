@@ -1,5 +1,21 @@
 [
   {
+    "slug": "the-grand-canyon-is-missing-1-2-billion-years-of-earth-s-history",
+    "title": "The Grand Canyon is missing 1.2 billion years of Earth's history",
+    "blurb": "Stand at the bottom of the Grand Canyon and you can put your hand on a single, perfectly flat line where the rock record of Earth skips roughly 1.2 billion years \u2014 about 25\u201330% of ",
+    "excerpt": "Stand at the bottom of the Grand Canyon and you can put your hand on a single, perfectly flat line where the rock record of Earth skips roughly 1.2 billion years \u2014 about 25\u201330% of the planet's entire existence. Not the thickness of the book torn out: a layer of history roughly three times as long as all of animal life, wiped away, with the pages above and below glued straight back together.",
+    "date": "2026-10-27",
+    "citations": [
+      "https://doi.org/10.1038/nature10969",
+      "https://doi.org/10.1073/pnas.1804350116",
+      "https://doi.org/10.1073/pnas.2118682119",
+      "https://en.wikipedia.org/wiki/Great_Unconformity",
+      "https://www.livescience.com/great-unconformity-supercontinent-breakup.html",
+      "https://www.nps.gov/articles/000/grcatime-missing-time.htm"
+    ],
+    "image": null
+  },
+  {
     "slug": "the-most-mocked-prediction-of-the-1970s-was-right-a-kpmg-analyst-prove",
     "title": "The most mocked prediction of the 1970s was right. A KPMG analyst proved it 50 years later \u2014 and nobody noticed.",
     "blurb": "In 1972, a team of MIT researchers published a book called The Limits to Growth. It ran a computer model \u2014 cutting-edge at the time \u2014 to simulate what happens when exponential popu",
