@@ -1,5 +1,20 @@
 [
   {
+    "slug": "536-ad-the-year-the-sun-went-out",
+    "title": "536 AD: the year the sun went out",
+    "blurb": "In 536, the sun stopped working \u2014 and stayed broken for a year and a half. Not an eclipse, not clouds: in Constantinople the sun shone pale \"like the moon\" at noon, cast no shadows",
+    "excerpt": "In 536, the sun stopped working \u2014 and stayed broken for a year and a half. Not an eclipse, not clouds: in Constantinople the sun shone pale \"like the moon\" at noon, cast no shadows, and gave almost no heat. In China, snow fell in August. In Ireland, the annals record simply \"a failure of bread.\" Ask Harvard historian Michael McCormick what year was the worst to be alive, and he has an answer on the spot: \"536.\" Not 1349, when the Black Death wiped out half of Europe.",
+    "date": "2026-10-28",
+    "citations": [
+      "https://en.wikipedia.org/wiki/Volcanic_winter_of_536",
+      "https://theconversation.com/volcanoes-plague-famine-and-endless-winter-welcome-to-536-what-historians-and-scientists-believe-was-the-worst-year-to-be-alive-175654",
+      "https://upload.wikimedia.org/wikipedia/commons/8/8c/Mosaic_of_Justinian_I_-_Basilica_San_Vitale%286th_Century%29.jpg",
+      "https://www.science.org/doi/10.1126/science.362.6416.733",
+      "https://www.zmescience.com/science/news-science/536-worst-year-in-history/"
+    ],
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Mosaic_of_Justinian_I_-_Basilica_San_Vitale%286th_Century%29.jpg"
+  },
+  {
     "slug": "the-grand-canyon-is-missing-1-2-billion-years-of-earth-s-history",
     "title": "The Grand Canyon is missing 1.2 billion years of Earth's history",
     "blurb": "Stand at the bottom of the Grand Canyon and you can put your hand on a single, perfectly flat line where the rock record of Earth skips roughly 1.2 billion years \u2014 about 25\u201330% of ",
