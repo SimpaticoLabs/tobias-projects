@@ -9,6 +9,7 @@
   h1 { color: #1a237e; border-bottom: 3px solid #3949ab; padding-bottom: 8px; }
   h2 { color: #283593; margin-top: 30px; }
   p.updated { color: #666; font-size: 0.9em; }
+  #src { background: #e8eaf6; border-left: 4px solid #3949ab; padding: 8px 12px; border-radius: 4px; margin: 12px 0; font-size: 0.9em; }
   table { width: 100%; border-collapse: collapse; margin: 10px 0 25px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; }
   th { background: #3949ab; color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 0.85em; }
   td { padding: 8px 12px; border-bottom: 1px solid #eee; font-size: 0.85em; vertical-align: top; }
@@ -19,24 +20,191 @@
   .days { color: #c62828; font-weight: 600; }
   a { color: #1565c0; text-decoration: none; }
   a:hover { text-decoration: underline; }
-  .summary { background: #e8eaf6; padding: 15px; border-radius: 6px; margin: 15px 0; }
-  .summary span { font-weight: 600; }
   footer { margin-top: 40px; font-size: 0.8em; color: #999; text-align: center; border-top: 1px solid #ddd; padding-top: 15px; }
 </style>
 </head>
 <body>
 <h1>📋 FedReg Deadline Calendar</h1>
-<p class="updated"><strong>For government contractors.</strong> Upcoming effective dates for FAR, DFARS, SBA, and procurement-related rules from the Federal Register.</p>
-<p class="updated">Last updated: 2026-10-30 | Sources: Federal Register API (usagov)</p>
+<p class="updated"><strong>For government contractors.</strong> Upcoming effective dates and comment deadlines for FAR, DFARS, SBA and other procurement-related rules from the Federal Register.</p>
+<p id="src">Loading…</p>
 
-<h2>📋 Proposed Rules & Notices (no effective date yet)</h2>
-<table><tr><th>Published</th><th>Type</th><th>Title</th><th>Agency</th><th>Comments</th><th>Link</th></tr><tr><td>2026-10-05</td><td>Proposed Rule</td><td>General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Uti</td><td>GSA</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-22</td><td>Proposed Rule</td><td>Revisions to the Office of Hearings and Appeals Procedural Regulations for the DOE Contractor Employee Protection Progra</td><td>Energy Department</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/22/2026-19332/revisions-to-the-office-of-hearings-and-appeals-procedural-regulations-for-the-doe-contractor" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-22</td><td>Proposed Rule</td><td>General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Federal Supply Sch</td><td>GSA</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/22/2026-19331/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-18</td><td>Rule</td><td>Homeland Security Acquisition Regulation, Make Personal Protective Equipment in America Act Restrictions on Foreign Acqu</td><td>Homeland Security Department</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/18/2026-19207/homeland-security-acquisition-regulation-make-personal-protective-equipment-in-america-act" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-18</td><td>Proposed Rule</td><td>Federal Acquisition Regulation: Revolutionary FAR Overhaul Parts 8, 12, 13, 15, 38, 44, and 51</td><td>Management and Budget Office; Federal Procurement Policy Office; Defense Department</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/18/2026-19162/federal-acquisition-regulation-revolutionary-far-overhaul-parts-8-12-13-15-38-44-and-51" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-18</td><td>Proposed Rule</td><td>Federal Acquisition Regulation: Revolutionary Federal Acquisition Regulation Overhaul Parts 16, 17, and 35</td><td>Management and Budget Office; Federal Procurement Policy Office; Defense Department</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/18/2026-19160/federal-acquisition-regulation-revolutionary-federal-acquisition-regulation-overhaul-parts-16-17-and" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-18</td><td>Proposed Rule</td><td>Federal Acquisition Regulation: Revolutionary Federal Acquisition Regulation Overhaul Parts 9, 27, and 47</td><td>Management and Budget Office; Federal Procurement Policy Office; Defense Department</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/18/2026-19159/federal-acquisition-regulation-revolutionary-federal-acquisition-regulation-overhaul-parts-9-27-and" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-18</td><td>Proposed Rule</td><td>Federal Acquisition Regulation: Revolutionary Federal Acquisition Regulation Overhaul Parts 14, 28, 36, and 52</td><td>Management and Budget Office; Federal Procurement Policy Office; Defense Department</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/18/2026-19158/federal-acquisition-regulation-revolutionary-federal-acquisition-regulation-overhaul-parts-14-28-36" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-01</td><td>Rule</td><td>Conformance of Cost Accounting Standards to Generally Accepted Accounting Principles for CAS 407 Use of Standard Costs f</td><td>Management and Budget Office; Federal Procurement Policy Office</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/01/2026-17903/conformance-of-cost-accounting-standards-to-generally-accepted-accounting-principles-for-cas-407-use" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-01</td><td>Rule</td><td>Increase of Monetary Thresholds and Other Matters Related to Cost Accounting Standards Program Requirements</td><td>Management and Budget Office; Federal Procurement Policy Office</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/01/2026-17901/increase-of-monetary-thresholds-and-other-matters-related-to-cost-accounting-standards-program" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-10-19</td><td>Proposed Rule</td><td>Further Definition of “Swap”-Inclusions</td><td>Commodity Futures Trading Commission</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/10/19/2026-21377/further-definition-of-swap-inclusions" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-08-31</td><td>Proposed Rule</td><td>Promoting Telehealth in Rural America</td><td>Federal Communications Commission</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/08/31/2026-17767/promoting-telehealth-in-rural-america" target="_blank">📄 FR Link</a></td></tr><tr><td>2026-09-21</td><td>Presidential Document</td><td>Restoring Reciprocity in Government Procurement</td><td>Executive Office of the President</td><td>—</td><td><a href="https://www.federalregister.gov/documents/2026/09/21/2026-19336/restoring-reciprocity-in-government-procurement" target="_blank">📄 FR Link</a></td></tr></table>
-
-
+<div id="content"></div>
 
 <footer>
-  <p>Free tool — no accounts, no tracking. Data from the <a href="https://www.federalregister.gov/developers/api/v1">Federal Register API</a>.</p>
+  <p>Free tool — no accounts, no tracking. Data pulled live in your browser from the <a href="https://www.federalregister.gov/developers/api/v1">Federal Register API</a>.</p>
   <p>Not legal compliance advice. Always consult the full rule text and your contracting officer.</p>
 </footer>
+
+<script>
+const API = "https://www.federalregister.gov/api/v1/documents.json";
+const TERMS = ["\"Federal Acquisition Regulation\"", "DFARS", "\"Small Business\" procurement", "\"FAR\" clause", "\"Cost Accounting Standards\"", "\"Federal Procurement\""];
+const KEEP = new Set(["Rule", "Proposed Rule", "Presidential Document"]);
+const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": null, "a": "GSA", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Proposed Rule", "ti": "Revisions to the Office of Hearings and Appeals Procedural Regulations for the DOE Contractor Employee Protection Program", "p": "2026-09-22", "e": null, "c": null, "a": "Energy Department", "u": "https://www.federalregister.gov/documents/2026/09/22/2026-19332/revisions-to-the-office-of-hearings-and-appeals-procedural-regulations-for-the-doe-contractor"}, {"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Federal Supply Schedule Ordering Procedures", "p": "2026-09-22", "e": null, "c": null, "a": "GSA", "u": "https://www.federalregister.gov/documents/2026/09/22/2026-19331/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Rule", "ti": "Homeland Security Acquisition Regulation, Make Personal Protective Equipment in America Act Restrictions on Foreign Acquisition (HSAR Case 2024-003)", "p": "2026-09-18", "e": null, "c": null, "a": "Homeland Security Department", "u": "https://www.federalregister.gov/documents/2026/09/18/2026-19207/homeland-security-acquisition-regulation-make-personal-protective-equipment-in-america-act"}, {"t": "Proposed Rule", "ti": "Federal Acquisition Regulation: Revolutionary FAR Overhaul Parts 8, 12, 13, 15, 38, 44, and 51", "p": "2026-09-18", "e": null, "c": null, "a": "Management and Budget Office; Federal Procurement Policy Office; Defense Department", "u": "https://www.federalregister.gov/documents/2026/09/18/2026-19162/federal-acquisition-regulation-revolutionary-far-overhaul-parts-8-12-13-15-38-44-and-51"}, {"t": "Proposed Rule", "ti": "Federal Acquisition Regulation: Revolutionary Federal Acquisition Regulation Overhaul Parts 16, 17, and 35", "p": "2026-09-18", "e": null, "c": null, "a": "Management and Budget Office; Federal Procurement Policy Office; Defense Department", "u": "https://www.federalregister.gov/documents/2026/09/18/2026-19160/federal-acquisition-regulation-revolutionary-federal-acquisition-regulation-overhaul-parts-16-17-and"}, {"t": "Proposed Rule", "ti": "Federal Acquisition Regulation: Revolutionary Federal Acquisition Regulation Overhaul Parts 9, 27, and 47", "p": "2026-09-18", "e": null, "c": null, "a": "Management and Budget Office; Federal Procurement Policy Office; Defense Department", "u": "https://www.federalregister.gov/documents/2026/09/18/2026-19159/federal-acquisition-regulation-revolutionary-federal-acquisition-regulation-overhaul-parts-9-27-and"}, {"t": "Proposed Rule", "ti": "Federal Acquisition Regulation: Revolutionary Federal Acquisition Regulation Overhaul Parts 14, 28, 36, and 52", "p": "2026-09-18", "e": null, "c": null, "a": "Management and Budget Office; Federal Procurement Policy Office; Defense Department", "u": "https://www.federalregister.gov/documents/2026/09/18/2026-19158/federal-acquisition-regulation-revolutionary-federal-acquisition-regulation-overhaul-parts-14-28-36"}, {"t": "Rule", "ti": "Conformance of Cost Accounting Standards to Generally Accepted Accounting Principles for CAS 407 Use of Standard Costs for Direct Material and Direct Labor", "p": "2026-09-01", "e": null, "c": null, "a": "Management and Budget Office; Federal Procurement Policy Office", "u": "https://www.federalregister.gov/documents/2026/09/01/2026-17903/conformance-of-cost-accounting-standards-to-generally-accepted-accounting-principles-for-cas-407-use"}, {"t": "Rule", "ti": "Improving Transparency Into Pharmacy Benefit Manager Fee Disclosure", "p": "2026-11-02", "e": null, "c": null, "a": "Labor Department; Employee Benefits Security Administration", "u": "https://www.federalregister.gov/documents/2026/11/02/2026-22306/improving-transparency-into-pharmacy-benefit-manager-fee-disclosure"}, {"t": "Rule", "ti": "Increase of Monetary Thresholds and Other Matters Related to Cost Accounting Standards Program Requirements", "p": "2026-09-01", "e": null, "c": null, "a": "Management and Budget Office; Federal Procurement Policy Office", "u": "https://www.federalregister.gov/documents/2026/09/01/2026-17901/increase-of-monetary-thresholds-and-other-matters-related-to-cost-accounting-standards-program"}, {"t": "Proposed Rule", "ti": "Further Definition of “Swap”-Inclusions", "p": "2026-10-19", "e": null, "c": null, "a": "Commodity Futures Trading Commission", "u": "https://www.federalregister.gov/documents/2026/10/19/2026-21377/further-definition-of-swap-inclusions"}, {"t": "Presidential Document", "ti": "Restoring Reciprocity in Government Procurement", "p": "2026-09-21", "e": null, "c": null, "a": "Executive Office of the President", "u": "https://www.federalregister.gov/documents/2026/09/21/2026-19336/restoring-reciprocity-in-government-procurement"}];
+const SEED_DATE = "2026-10-31";
+
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function today() {
+  const d = new Date();
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+}
+
+function daysUntil(iso) {
+  if (!iso) return null;
+  const p = String(iso).split("-");
+  if (p.length !== 3) return null;
+  const d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2]));
+  if (isNaN(d.getTime())) return null;
+  return Math.round((d - today()) / 86400000);
+}
+
+function relevance(d) {
+  if (!KEEP.has(d.t || "")) return false;
+  const title = (d.ti || "").toLowerCase();
+  if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0) return false;
+  const blob = title + " " + ((d.ab || "").toLowerCase());
+  const terms = ["far ", "dfars", "procurement", "contractor", "contracting", "contract",
+                 "acquisition", "small business", "sba", "cost accounting", "gsar"];
+  return terms.some(function (t) { return blob.indexOf(t) >= 0; });
+}
+
+function statusOf(d) {
+  const n = daysUntil(d.e);
+  if (n === null) return { status: "none", days: null };
+  if (n < 0) return { status: "past", days: n };
+  if (n <= 30) return { status: "urgent", days: n };
+  if (n <= 90) return { status: "upcoming", days: n };
+  return { status: "distant", days: n };
+}
+
+const PRIORITY = { urgent: 0, upcoming: 1, distant: 2, past: 3, none: 4 };
+
+function row(d, marker) {
+  const st = statusOf(d);
+  const eff = d.e || "—";
+  const daysTag = (typeof st.days === "number" && st.days >= 0)
+    ? ' <span class="days">(' + st.days + "d away)</span>" : "";
+  const cmt = d.c ? " | Comments due: " + esc(d.c) : "";
+  const link = d.u ? '<a href="' + esc(d.u) + '" target="_blank">📄 FR Link</a>' : "";
+  const cls = marker === "urgent" ? " class='urgent'" : (marker === "past" ? " class='past'" : "");
+  return "<tr" + cls + "><td>" + esc(d.p) + "</td><td><strong>" + esc(d.t) + "</strong></td>" +
+         "<td>" + esc((d.ti || "Untitled").slice(0, 120)) + "</td><td>" + esc(d.a) + "</td>" +
+         "<td>" + esc(eff) + daysTag + cmt + "</td><td>" + link + "</td></tr>";
+}
+
+const HEAD = "<tr><th>Published</th><th>Type</th><th>Title</th><th>Agency</th><th>Effective / Comments</th><th>Link</th></tr>";
+
+function render(docs, label) {
+  const full = docs.filter(relevance).map(function (d) {
+    const st = statusOf(d);
+    return { d: d, status: st.status, days: st.days };
+  });
+  full.sort(function (a, b) {
+    const pa = PRIORITY[a.status], pb = PRIORITY[b.status];
+    if (pa !== pb) return pa - pb;
+    const da = (a.days === null || a.days < 0) ? 9999 : a.days;
+    const db = (b.days === null || b.days < 0) ? 9999 : b.days;
+    return da - db;
+  });
+
+  const buckets = { urgent: [], upcoming: [], distant: [], past: [], none: [] };
+  full.forEach(function (x) { buckets[x.status].push(x.d); });
+
+  const head = {
+    urgent: "🔴 Taking Effect Within 30 Days",
+    upcoming: "🟡 Taking Effect Within 90 Days",
+    distant: "🔵 Taking Effect Later (90+ days)",
+    past: "⚪ Recently Taken Effect",
+    none: "📋 Proposed Rules & Notices (no effective date yet)"
+  };
+  const cap = { urgent: 999, upcoming: 999, distant: 999, past: 20, none: 15 };
+
+  let html = "";
+  ["urgent", "upcoming", "distant", "past", "none"].forEach(function (k) {
+    const list = buckets[k];
+    if (!list.length) return;
+    html += "<h2>" + head[k] + "</h2><table>" + HEAD;
+    list.slice(0, cap[k]).forEach(function (d) { html += row(d, k); });
+    html += "</table>";
+  });
+
+  const nUrgent = buckets.urgent.length, nUpcoming = buckets.upcoming.length;
+  html = '<p class="updated"><strong>' + full.length + " documents tracked — " +
+         nUrgent + " taking effect within 30 days, " + nUpcoming + " within 90 days.</strong> " +
+         "See <a href='#top'>the bottom</a> for the data source.</p>" + html;
+
+  document.getElementById("content").innerHTML = html;
+  document.getElementById("src").innerHTML = label;
+}
+
+function apiUrl(term, gte) {
+  return API +
+    "?conditions%5Bterm%5D=" + encodeURIComponent(term) +
+    "&conditions%5Bpublication_date%5D%5Bgte%5D=" + gte +
+    "&per_page=100&order=newest";
+}
+
+function isoDaysAgo(n) {
+  const d = today();
+  d.setUTCDate(d.getUTCDate() - n);
+  return d.toISOString().slice(0, 10);
+}
+
+function normalize(r) {
+  const ag = (r.agencies || []).map(function (a) { return a && a.name ? a.name : ""; })
+    .filter(Boolean).map(function (n) {
+      return n.replace("Management and Budget Office; Federal Procurement Policy Office", "OFPP")
+              .replace("Defense Department; Defense Acquisition Regulations System", "DoD (DARS)")
+              .replace("General Services Administration", "GSA");
+    }).slice(0, 3).join("; ");
+  return {
+    t: r.type || "",
+    ti: r.title || "Untitled",
+    p: r.publication_date || "",
+    e: r.effective_on || null,
+    c: r.comments_close_on || null,
+    a: ag,
+    u: r.html_url || ""
+  };
+}
+
+async function refresh() {
+  const gte = isoDaysAgo(60);
+  const seen = {};
+  const out = [];
+  for (let i = 0; i < TERMS.length; i++) {
+    try {
+      const res = await fetch(apiUrl(TERMS[i], gte));
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      (data.results || []).forEach(function (r) {
+        const key = r.html_url || r.document_number;
+        if (key && !seen[key]) { seen[key] = 1; out.push(normalize(r)); }
+      });
+    } catch (e) {
+      // One term failing is normal (rate limit / transient); the seed still renders.
+      console.warn("term failed:", TERMS[i], e);
+    }
+  }
+  if (!out.length) throw new Error("no documents returned");
+  const stamp = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
+  render(out, "<strong>🟢 Live data</strong> — fetched from the Federal Register API in your browser at " + stamp + ".");
+}
+
+(function init() {
+  render(SEED, "<strong>🟡 Snapshot</strong> — generated " + SEED_DATE +
+    ". Refreshing from the Federal Register API…");
+  refresh().catch(function (e) {
+    console.warn("live refresh failed:", e);
+    document.getElementById("src").innerHTML =
+      "<strong>🟡 Snapshot</strong> — generated " + SEED_DATE +
+      ". Live refresh unavailable in this browser right now (showing the snapshot; reload to retry).";
+  });
+})();
+</script>
 </body>
 </html>
