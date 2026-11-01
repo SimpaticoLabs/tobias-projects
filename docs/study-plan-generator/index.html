@@ -269,18 +269,6 @@ Biology</textarea>
   </div>
 
   <!-- Email capture (lead gen) -->
-  <div class="card" style="text-align:center;">
-    <h2>📬 Save & Share Your Plan</h2>
-    <p style="color:#94a3b8;font-size:0.9em;margin-bottom:16px;">
-      Get your plan emailed to you + weekly study tips
-    </p>
-    <form id="emailForm" style="display:flex;gap:10px;max-width:400px;margin:0 auto;">
-      <input type="email" name="email" placeholder="your@email.com" required
-             style="flex:1;padding:12px 16px;background:#0f172a;border:1px solid #334155;border-radius:10px;color:#e2e8f0;font-size:0.95em;">
-      <button type="submit" class="btn-secondary" style="white-space:nowrap;">📬 Subscribe</button>
-    </form>
-    <p class="small">🔒 Your email stays private. Unsubscribe anytime.</p>
-  </div>
 
   <!-- Progress Tracking & Streak -->
   <div class="card" style="text-align:center;">
@@ -682,19 +670,6 @@ function sharePlan(){
   const url=hash?base+hash:base;
   navigator.clipboard?.writeText(url).then(function(){showToast('📋 Link copied!');}).catch(function(){showToast('📋 '+url);});}
 function shareTool(){const url=window.location.href;const txt='Check out this free AI Study Plan Generator: '+url;if(navigator.share){navigator.share({title:'Study Plan Generator',text:txt,url:url}).catch(function(){});}else{navigator.clipboard?.writeText(txt).then(function(){showToast('📋 Copied to clipboard!');}).catch(function(){showToast('📋 '+txt);});}}
-// Email capture handler
-document.getElementById('emailForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const email = this.querySelector('input[type="email"]').value.trim();
-  if (!email) return;
-  const emails = JSON.parse(localStorage.getItem('subscribedEmails') || '[]');
-  if (!emails.includes(email)) {
-    emails.push(email);
-    localStorage.setItem('subscribedEmails', JSON.stringify(emails));
-  }
-  this.querySelector('input[type="email"]').value = '';
-  showToast('✅ Subscribed! You\'ll get your plan + study tips.');
-});
 
 // Visit counter + referrer tracking
 (function() {
