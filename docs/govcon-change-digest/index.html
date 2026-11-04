@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GovCon Change Digest — This Week in FAR/DFARS/SBA Rulemaking</title>
+<meta name="description" content="Weekly digest of Federal Register procurement rule changes — FAR, DFARS, SBA, GSAR. Free, no accounts. Refreshes live from the Federal Register API.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tobias Projects">
+<meta property="og:title" content="GovCon Change Digest — This Week in Procurement Rulemaking">
+<meta property="og:description" content="Weekly digest of Federal Register procurement rule changes — FAR, DFARS, SBA, GSAR. Pulled live from the Federal Register API. Free, no accounts.">
+<meta property="og:url" content="https://simpaticolabs.github.io/tobias-projects/govcon-change-digest/">
+<meta name="twitter:card" content="summary">
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #f8f9fa; color: #333; }
+  h1 { color: #1a237e; border-bottom: 3px solid #3949ab; padding-bottom: 8px; }
+  h2 { color: #283593; margin-top: 30px; }
+  h3 { color: #3949ab; margin: 18px 0 6px; font-size: 1em; }
+  p.updated { color: #666; font-size: 0.9em; }
+  #src { background: #e8eaf6; border-left: 4px solid #3949ab; padding: 8px 12px; border-radius: 4px; margin: 12px 0; font-size: 0.9em; }
+  .week-label { color: #555; font-weight: 600; margin-top: 24px; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 4px; font-size: 0.95em; }
+  .doc-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px 16px; margin: 8px 0; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+  .doc-card:hover { border-color: #3949ab; box-shadow: 0 2px 8px rgba(57,73,171,0.15); }
+  .doc-type { display: inline-block; font-size: 0.7em; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-right: 6px; }
+  .doc-type.Rule { background: #c8e6c9; color: #2e7d32; }
+  .doc-type.Proposed { background: #fff3e0; color: #e65100; }
+  .doc-type.Presidential { background: #e8eaf6; color: #283593; }
+  .doc-meta { font-size: 0.8em; color: #777; margin-top: 6px; }
+  .doc-meta a { color: #1565c0; }
+  .doc-meta a:hover { text-decoration: underline; }
+  .doc-abstract { font-size: 0.85em; color: #555; margin-top: 6px; line-height: 1.4; }
+  .stat-box { background: #e8eaf6; border-radius: 6px; padding: 12px 16px; margin: 16px 0; display: inline-block; }
+  .stat-box span { font-size: 1.8em; font-weight: 700; color: #1a237e; display: block; }
+  .stat-box small { font-size: 0.8em; color: #666; }
+  .day-header { font-weight: 600; color: #3949ab; margin: 14px 0 4px; font-size: 0.9em; }
+  .empty { color: #999; font-style: italic; margin: 12px 0; }
+  footer { margin-top: 40px; font-size: 0.8em; color: #999; text-align: center; border-top: 1px solid #ddd; padding-top: 15px; }
+</style>
+</head>
+<body>
+<h1>📋 GovCon Change Digest</h1>
+<p class="updated"><strong>This week in FAR, DFARS, SBA &amp; GSAR procurement rulemaking.</strong> A weekly digest of Federal Register changes for government contractors.</p>
+<p id="src">Loading…</p>
+
+<div class="stat-box" id="statbox">
+  <span id="statcount">—</span>
+  <small>procurement-related changes this period</small>
+</div>
+
+<div id="content"></div>
+
+<footer>
+  <p>Free tool — no accounts. Anonymous page-view counts only. Data pulled live in your browser from the <a href="https://www.federalregister.gov/developers/api/v1">Federal Register API</a>.</p>
+  <p>Not legal compliance advice. Always consult the full rule text and your contracting officer.</p>
+</footer>
+
+<script>
+const API = "https://www.federalregister.gov/api/v1/documents.json";
+const TERMS = ["\"Federal Acquisition Regulation\"", "DFARS", "\"Small Business\" procurement", "\"FAR\" clause", "\"Cost Accounting Standards\"", "\"Federal Procurement\""];
+const KEEP = new Set(["Rule", "Proposed Rule", "Presidential Document"]);
+const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": null, "a": "GSA", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Rule", "ti": "Medicare and Medicaid Programs; Organ Procurement Organizations Conditions for Coverage: Revisions to the Conditions for Coverage", "p": "2026-11-03", "e": null, "c": null, "a": "Health and Human Services Department; Centers for Medicare & Medicaid Services", "u": "https://www.federalregister.gov/documents/2026/11/03/2026-22381/medicare-and-medicaid-programs-organ-procurement-organizations-conditions-for-coverage-revisions-to"}, {"t": "Rule", "ti": "Improving Transparency Into Pharmacy Benefit Manager Fee Disclosure", "p": "2026-11-02", "e": null, "c": null, "a": "Labor Department; Employee Benefits Security Administration", "u": "https://www.federalregister.gov/documents/2026/11/02/2026-22306/improving-transparency-into-pharmacy-benefit-manager-fee-disclosure"}, {"t": "Proposed Rule", "ti": "Further Definition of “Swap”-Inclusions", "p": "2026-10-19", "e": null, "c": null, "a": "Commodity Futures Trading Commission", "u": "https://www.federalregister.gov/documents/2026/10/19/2026-21377/further-definition-of-swap-inclusions"}];
+const SEED_DATE = "2026-11-04";
+
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function today() {
+  const d = new Date();
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+}
+
+function isoDaysAgo(n) {
+  const d = today();
+  d.setUTCDate(d.getUTCDate() - n);
+  return d.toISOString().slice(0, 10);
+}
+
+function relevance(d) {
+  if (!KEEP.has(d.t || "")) return false;
+  const title = (d.ti || "").toLowerCase();
+  if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0) return false;
+  const blob = title + " " + ((d.ab || "").toLowerCase());
+  const terms = ["far ", "dfars", "procurement", "contractor", "contracting", "contract",
+                 "acquisition", "small business", "sba", "cost accounting", "gsar"];
+  return terms.some(function (t) { return blob.indexOf(t) >= 0; });
+}
+
+function typeLabel(t) {
+  if (t === "Rule") return '<span class="doc-type Rule">Rule</span>';
+  if (t === "Proposed Rule") return '<span class="doc-type Proposed">Proposed</span>';
+  if (t === "Presidential Document") return '<span class="doc-type Presidential">Executive</span>';
+  return '<span class="doc-type">' + esc(t) + '</span>';
+}
+
+function formatDate(iso) {
+  if (!iso) return "—";
+  var parts = iso.split("-");
+  if (parts.length < 3) return iso;
+  var d = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+}
+
+function weekGroup(pubDate) {
+  if (!pubDate) return "Unknown date";
+  var parts = pubDate.split("-");
+  if (parts.length < 3) return "Unknown date";
+  var d = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+  if (isNaN(d.getTime())) return "Unknown date";
+  var now = today();
+  var diffDays = Math.round((now - d) / 86400000);
+  if (diffDays < 0) return "Future";
+  if (diffDays === 0) return "Today";
+  if (diffDays === 1) return "Yesterday";
+  if (diffDays <= 7) return "This week";
+  if (diffDays <= 14) return "Last week";
+  return "Older";
+}
+
+var GROUP_ORDER = ["Today", "Yesterday", "This week", "Last week", "Older", "Future", "Unknown date"];
+
+function docCard(d) {
+  var abs = (d.ab || "").trim();
+  var absHtml = abs ? '<div class="doc-abstract">' + esc(abs.slice(0, 300)) + (abs.length > 300 ? "…" : "") + '</div>' : "";
+  var eff = d.e ? "Effective: " + formatDate(d.e) : "";
+  var cmt = d.c ? "Comments due: " + formatDate(d.c) : "";
+  var metaParts = [formatDate(d.p)];
+  if (eff) metaParts.push(eff);
+  if (cmt) metaParts.push(cmt);
+  if (d.a) metaParts.push(esc(d.a));
+  var link = d.u ? '<a href="' + esc(d.u) + '" target="_blank">📄 View in Federal Register</a>' : "";
+  return '<div class="doc-card">' +
+    '<div>' + typeLabel(d.t) + ' <strong>' + esc((d.ti || "Untitled").slice(0, 150)) + '</strong></div>' +
+    absHtml +
+    '<div class="doc-meta">' + metaParts.join(" · ") + (link ? " · " + link : "") + '</div>' +
+    '</div>';
+}
+
+function render(docs, label) {
+  var full = docs.filter(relevance);
+  document.getElementById("statcount").textContent = full.length;
+
+  var grouped = {};
+  full.forEach(function (d) {
+    var g = weekGroup(d.p);
+    if (!grouped[g]) grouped[g] = [];
+    grouped[g].push(d);
+  });
+
+  var html = "";
+  GROUP_ORDER.forEach(function (g) {
+    var list = grouped[g];
+    if (!list || !list.length) return;
+    html += '<div class="week-label">' + g + ' (' + list.length + ' document' + (list.length !== 1 ? "s" : "") + ')</div>';
+    list.forEach(function (d) { html += docCard(d); });
+  });
+
+  if (!html) html = '<div class="empty">No procurement-related changes found in the current period.</div>';
+
+  document.getElementById("content").innerHTML = html;
+  document.getElementById("src").innerHTML = label;
+}
+
+function apiUrl(term, gte) {
+  return API +
+    "?conditions%5Bterm%5D=" + encodeURIComponent(term) +
+    "&conditions%5Bpublication_date%5D%5Bgte%5D=" + gte +
+    "&per_page=100&order=newest";
+}
+
+function normalize(r) {
+  var ag = (r.agencies || []).map(function (a) { return a && a.name ? a.name : ""; })
+    .filter(Boolean).map(function (n) {
+      return n.replace("Management and Budget Office; Federal Procurement Policy Office", "OFPP")
+              .replace("Defense Department; Defense Acquisition Regulations System", "DoD (DARS)")
+              .replace("General Services Administration", "GSA");
+    }).slice(0, 3).join("; ");
+  return {
+    t: r.type || "",
+    ti: r.title || "Untitled",
+    p: r.publication_date || "",
+    e: r.effective_on || null,
+    c: r.comments_close_on || null,
+    ab: (r.abstract || "").trim(),
+    a: ag,
+    u: r.html_url || ""
+  };
+}
+
+async function refresh() {
+  var gte = isoDaysAgo(30);
+  var seen = {};
+  var out = [];
+  for (var i = 0; i < TERMS.length; i++) {
+    try {
+      var res = await fetch(apiUrl(TERMS[i], gte));
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      var data = await res.json();
+      (data.results || []).forEach(function (r) {
+        var key = r.html_url || r.document_number;
+        if (key && !seen[key]) { seen[key] = 1; out.push(normalize(r)); }
+      });
+    } catch (e) {
+      console.warn("term failed:", TERMS[i], e);
+    }
+  }
+  if (!out.length) throw new Error("no documents returned");
+  var stamp = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
+  render(out, "<strong>🟢 Live data</strong> — fetched from the Federal Register API in your browser at " + stamp + ".");
+}
+
+(function init() {
+  render(SEED, "<strong>🟡 Snapshot</strong> — generated " + SEED_DATE +
+    ". Refreshing from the Federal Register API…");
+  refresh().catch(function (e) {
+    console.warn("live refresh failed:", e);
+    document.getElementById("src").innerHTML =
+      "<strong>🟡 Snapshot</strong> — generated " + SEED_DATE +
+      ". Live refresh unavailable in this browser right now (showing the snapshot; reload to retry).";
+  });
+})();
+</script>
+<script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
