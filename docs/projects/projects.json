@@ -32,6 +32,14 @@
     "go": "Open the scanner →"
   },
   {
+    "title": "Market Movers",
+    "href": "./polymarket-scanner/movers/",
+    "tag": "Live tool",
+    "tag_live": true,
+    "blurb": "A free, no-signup page ranking Polymarket prediction markets by implied probability change — see which markets moved most in the last 24–48 hours. Filters, search, and live refresh from Polymarket's API in your browser.",
+    "go": "See what moved →"
+  },
+  {
     "title": "Student Toolkit",
     "href": "./student-toolkit/",
     "tag": "Live hub",
