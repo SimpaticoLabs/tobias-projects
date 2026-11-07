@@ -1,0 +1,82 @@
+[
+  {
+    "title": "The Citation Brief",
+    "href": "./briefs/",
+    "tag": "Newsletter",
+    "tag_live": true,
+    "blurb": "A free, cited newsletter on business-valuation and trust-estate regulatory developments — every claim resolves to a real, independently verified source. New issues added here as they publish.",
+    "go": "Read the issues →"
+  },
+  {
+    "title": "GovCon Change Digest",
+    "href": "./govcon-change-digest/",
+    "tag": "Live tool",
+    "tag_live": true,
+    "blurb": "A free, no-signup weekly digest of Federal Register procurement rule changes — FAR, DFARS, SBA, GSAR. See what changed and when it takes effect, pulled live from the Federal Register API in your browser. No accounts needed.",
+    "go": "See this week's changes →"
+  },
+  {
+    "title": "Far-Deadline Calendar",
+    "href": "./far-deadline-calendar/",
+    "tag": "Live tool",
+    "tag_live": true,
+    "blurb": "A free, no-signup timeline of upcoming Federal Register procurement deadlines (FAR, DFARS, SBA rules) — comment-close dates and effective dates, grouped by urgency, auto-refreshed from live data in your browser. No accounts needed.",
+    "go": "Check deadlines →"
+  },
+  {
+    "title": "Polymarket Scanner",
+    "href": "./polymarket-scanner/",
+    "tag": "Live tool",
+    "tag_live": true,
+    "blurb": "A free, no-signup, no-wallet scanner for Polymarket prediction markets: browse live markets by 24h volume, liquidity, or closing date, filter by keyword, and see the crowd's implied probability at a glance. Reads Polymarket's public data in your browser.",
+    "go": "Open the scanner →"
+  },
+  {
+    "title": "Student Toolkit",
+    "href": "./student-toolkit/",
+    "tag": "Live hub",
+    "tag_live": true,
+    "blurb": "One home for the free, no-signup student tools — the study plan generator and the final grade calculator, cross-linked. Everything runs in your browser; nothing to install.",
+    "go": "Open the toolkit →"
+  },
+  {
+    "title": "Flashcard Study Tool",
+    "href": "./flashcard-tool/",
+    "tag": "Live tool",
+    "tag_live": true,
+    "blurb": "A free flashcard app with SM-0 spaced repetition, multiple decks, and statistics — no signup, no ads, works offline. Installs to your homescreen as a PWA. All your data stays in your browser.",
+    "go": "Open the flashcards →"
+  },
+  {
+    "title": "Study Plan Generator",
+    "href": "./study-plan-generator/",
+    "tag": "Live tool",
+    "tag_live": true,
+    "blurb": "A free, no-signup tool: enter your exam date, subjects, and hours per day, and get a day-by-day schedule that rotates subjects through learn → practice → review phases. Save plans in your browser and share them by link. Runs entirely client-side.",
+    "go": "Open the tool →"
+  },
+  {
+    "title": "Final Grade Calculator",
+    "href": "./final-grade-calculator/",
+    "tag": "Live tool",
+    "tag_live": true,
+    "blurb": "A free weighted-grade & exam-score calculator: enter your assignments and weights to see your current grade, or the score you need on the final to hit a target. No signup, works offline.",
+    "go": "Open the tool →"
+  },
+  {
+    "title": "Currency API",
+    "href": "https://currency-api-ogzw.onrender.com",
+    "tag": "Live API",
+    "tag_live": true,
+    "blurb": "A small exchange-rate API serving live rates from public ECB data. Hosted as a running service.",
+    "go": "Open the API →"
+  },
+  {
+    "title": "Hyper-personalization in AI-Powered Education",
+    "href": "./hyperpersonalization-report/",
+    "tag": "Report",
+    "tag_live": false,
+    "blurb": "A researched report on adaptive, personalized learning — market landscape, case studies, and where the equity questions sit.",
+    "go": "Read the report →"
+  }
+]
