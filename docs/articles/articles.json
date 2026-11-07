@@ -1,5 +1,21 @@
 [
   {
+    "slug": "the-last-software-moat-that-just-cracked-ai-can-now-read-compiled-code",
+    "title": "The last software moat that just cracked: AI can now read compiled code well enough that \"closed source\" means less every month",
+    "blurb": "You can no longer assume that shipping a compiled binary hides how it works. The assumption that withholding source code keeps outsiders from understanding your software has been q",
+    "excerpt": "You can no longer assume that shipping a compiled binary hides how it works. The assumption that withholding source code keeps outsiders from understanding your software has been quietly breaking all year, and the evidence from October 2026 makes it hard to ignore.",
+    "date": "2026-11-07",
+    "citations": [
+      "https://arxiv.org/html/2606.17398v1",
+      "https://github.com/albertan017/LLM4Decompile",
+      "https://www.aibyaakash.com/p/reverse-engineer-anything",
+      "https://www.popularai.org/p/ai-reverse-engineering-software-binaries",
+      "https://www.tomshardware.com/tech-industry/artificial-intelligence/openais-isolated-red-team-ai-agents-built-a-hidden-cpu-cache-channel-to-talk-with-no-network-or-shared-files-exploited-cpu-cache-timing-to-bypass-microvm-sandboxes",
+      "https://x.com/amasad/status/2107671204639465961"
+    ],
+    "image": null
+  },
+  {
     "slug": "the-mozart-effect-how-36-college-students-10-minutes-of-piano-and-a-ga",
     "title": "The Mozart effect: how 36 college students, 10 minutes of piano, and a game of telephone convinced millions that classical music makes babies smarter",
     "blurb": "In 1993, a one-page letter in the journal Nature reported that 36 college students scored 8\u20139 points higher on a spatial reasoning test after listening to 10 minutes of Mozart \u2014 an",
