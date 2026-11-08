@@ -40,14 +40,6 @@
     "go": "See what moved →"
   },
   {
-    "title": "Student Toolkit",
-    "href": "./student-toolkit/",
-    "tag": "Live hub",
-    "tag_live": true,
-    "blurb": "One home for the free, no-signup student tools — the study plan generator and the final grade calculator, cross-linked. Everything runs in your browser; nothing to install.",
-    "go": "Open the toolkit →"
-  },
-  {
     "title": "Flashcard Study Tool",
     "href": "./flashcard-tool/",
     "tag": "Live tool",
@@ -78,13 +70,5 @@
     "tag_live": true,
     "blurb": "A small exchange-rate API serving live rates from public ECB data. Hosted as a running service.",
     "go": "Open the API →"
-  },
-  {
-    "title": "Hyper-personalization in AI-Powered Education",
-    "href": "./hyperpersonalization-report/",
-    "tag": "Report",
-    "tag_live": false,
-    "blurb": "A researched report on adaptive, personalized learning — market landscape, case studies, and where the equity questions sit.",
-    "go": "Read the report →"
   }
 ]
