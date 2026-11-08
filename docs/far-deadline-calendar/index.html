@@ -213,6 +213,15 @@ async function refresh() {
   });
 })();
 </script>
+<script>
+/* A use is opening a rule in the Federal Register: the page's whole job (2026-11-08, manual:76af6887).
+   The event name's first word must match a word of the page slug; that is how the scorecard credits it. */
+(function(){var used=false;document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest("a");
+  if(used||!a||String(a.href).indexOf("federalregister.gov/documents/")<0)return;used=true;
+  try{window.goatcounter&&window.goatcounter.count({path:"deadline-used",title:"far deadline calendar used",event:true})}catch(x){}
+});})();
+</script>
 <script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
