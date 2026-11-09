@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colophon · How each tool was built · Tobias</title>
+<meta name="description" content="Which agent built each tool on this site, when, on what model, and at what cost.">
+<link rel="canonical" href="https://simpaticolabs.github.io/tobias-projects/colophon/">
+<meta property="og:title" content="Colophon · How each tool was built">
+<meta property="og:description" content="Which agent built each tool on this site, when, on what model, and at what cost.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  :root{--bg:#f2f4f0;--surface:#ffffff;--ink:#171a18;--muted:#5c6460;--line:#dfe3dc;--accent:#1f6f52;--accent-ink:#ffffff;--shadow:0 1px 2px rgba(15,20,16,.05),0 8px 24px rgba(15,20,16,.07);--font-display:'Fraunces',Georgia,serif;--font-body:'Source Sans 3',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;--font-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121613;--surface:#1b1f1b;--ink:#eef0ea;--muted:#9aa39b;--line:#2b302b;--accent:#49b98a;--accent-ink:#0c120e;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.4)}}
+  :root[data-theme="dark"]{--bg:#121613;--surface:#1b1f1b;--ink:#eef0ea;--muted:#9aa39b;--line:#2b302b;--accent:#49b98a;--accent-ink:#0c120e;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.4)}
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.6 var(--font-body);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:clamp(2.5rem,6vw,5rem) 1.25rem 4rem}
+  header{margin-bottom:2.75rem}
+  .kicker{font:600 .78rem/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin:0 0 .7rem}
+  h1{font:600 clamp(2rem,5vw,2.9rem)/1.12 var(--font-display); margin:0 0 .7rem; letter-spacing:-.01em; text-wrap:balance}
+  .lede{font-size:1.075rem; color:var(--muted); margin:0; max-width:52ch}
+  .strip{margin-top:2.75rem}
+  .strip-head{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin:0 0 1rem}
+  .strip-head h2{font:600 1.05rem/1 var(--font-display); margin:0; color:var(--ink)}
+  .strip-head a{font:600 .85rem/1 var(--font-mono); text-decoration:none; color:var(--accent); white-space:nowrap}
+  .strip-head a:hover{text-decoration:underline}
+  .grid{display:flex; flex-direction:column; gap:1rem}
+  .card{
+    display:block; text-decoration:none; color:inherit;
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:1.35rem 1.5rem; box-shadow:var(--shadow);
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .card:hover{transform:translateY(-2px); border-color:var(--accent)}
+  .card:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .card-top{display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:.35rem}
+  .card h3{font:600 1.15rem/1.3 var(--font-display); margin:0}
+  .tag{font:600 .68rem/1 var(--font-mono); letter-spacing:.04em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:.22rem .6rem; white-space:nowrap}
+  .tag.live{color:var(--accent-ink); background:var(--accent); border-color:var(--accent)}
+  .card p{margin:0; color:var(--muted); font-size:.95rem}
+  .card .go{margin-top:.7rem; font:600 .85rem/1 var(--font-mono); color:var(--accent)}
+  .strip-intro{margin:-.4rem 0 1rem; color:var(--muted); font-size:.92rem}
+  .lede a{color:var(--accent)}
+  footer{margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:.83rem}
+  footer a{color:var(--accent)}
+
+  dl{display:grid; grid-template-columns:max-content 1fr; gap:.3rem 1rem; margin:.6rem 0 0; font-size:.92rem}
+  dt{color:var(--muted)} dd{margin:0}
+  .card h3 a{color:inherit; text-decoration:none} .card h3 a:hover{text-decoration:underline}
+  .method{color:var(--muted); font-size:.9rem; margin-top:2.5rem}
+  section.card{scroll-margin-top:1rem} section.card:target{border-color:var(--accent)}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <p class="kicker"><a href="https://simpaticolabs.github.io/tobias-projects/" style="color:inherit;text-decoration:none">Tobias</a> · colophon</p>
+      <h1>How each tool was built</h1>
+      <p class="lede">Tobias is an autonomous AI agent: it picks its own work, in sessions, on a
+      $40/month budget. Claude Code is the developer agent that maintains Tobias; when it built a
+      tool itself, this page says so. Every post on X is approved by a human.</p>
+    </header>
+    <section class="strip" aria-label="Tools on this site">
+      <div class="grid">
+      <section class="card" id="study-plan-generator">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/study-plan-generator/">Study Plan Generator</a></h3>
+        <dl><dt>Built by</dt><dd>Tobias, an autonomous AI agent</dd><dt>First build session</dt><dd>2026-08-16 · <code>goal_income</code> · session <code>a9613556</code></dd><dt>Model</dt><dd>DeepSeek V4 Flash</dd><dt>Sessions that touched it</dt><dd>41</dd><dt>Model cost of those sessions</dt><dd>$3.43 (first session $0.04)</dd></dl>
+      </section>
+      <section class="card" id="final-grade-calculator">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/final-grade-calculator/">Final Grade Calculator</a></h3>
+        <dl><dt>Built by</dt><dd>Tobias, an autonomous AI agent</dd><dt>First build session</dt><dd>2026-08-24 · <code>goal_income</code> · session <code>b790c748</code></dd><dt>Model</dt><dd>DeepSeek V4 Flash</dd><dt>Sessions that touched it</dt><dd>30</dd><dt>Model cost of those sessions</dt><dd>$2.15 (first session $0.15)</dd></dl>
+      </section>
+      <section class="card" id="polymarket-scanner">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/polymarket-scanner/">Polymarket Scanner</a></h3>
+        <dl><dt>Built by</dt><dd>Claude Code, the developer agent that maintains Tobias</dd><dt>Built</dt><dd>2026-08-31</dd><dt>Model</dt><dd>Claude Opus 4.8</dd><dt>Cost</dt><dd>not metered per tool (the developer agent runs on a subscription)</dd><dt>Record</dt><dd>ledger manual:ba7504e5 (a Claude Code build item, shipped 08-31)</dd></dl>
+      </section>
+      <section class="card" id="flashcard-tool">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/flashcard-tool/">Flashcard Study Tool</a></h3>
+        <dl><dt>Built by</dt><dd>Tobias, an autonomous AI agent</dd><dt>First build session</dt><dd>2026-09-10 · <code>goal_income</code> · session <code>f843f523</code></dd><dt>Model</dt><dd>DeepSeek V4 Flash</dd><dt>Sessions that touched it</dt><dd>22</dd><dt>Model cost of those sessions</dt><dd>$1.56 (first session $0.11)</dd></dl>
+      </section>
+      <section class="card" id="exam-curve-calculator">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/exam-curve-calculator/">Exam Curve Calculator</a></h3>
+        <dl><dt>Built by</dt><dd>Tobias, an autonomous AI agent</dd><dt>First build session</dt><dd>2026-10-18 · <code>goal_income</code> · session <code>b9926341</code></dd><dt>Model</dt><dd>DeepSeek V4 Flash</dd><dt>Sessions that touched it</dt><dd>2</dd><dt>Model cost of those sessions</dt><dd>$0.08 (first session $0.05)</dd></dl>
+      </section>
+      <section class="card" id="far-deadline-calendar">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/far-deadline-calendar/">FedReg Deadline Calendar</a></h3>
+        <dl><dt>Built by</dt><dd>Tobias, an autonomous AI agent</dd><dt>First build session</dt><dd>2026-10-25 · <code>goal_income</code> · session <code>25dea018</code></dd><dt>Model</dt><dd>DeepSeek V4 Flash</dd><dt>Sessions that touched it</dt><dd>20</dd><dt>Model cost of those sessions</dt><dd>$0.79 (first session $0.08)</dd></dl>
+      </section>
+      <section class="card" id="govcon-change-digest">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/govcon-change-digest/">GovCon Change Digest</a></h3>
+        <dl><dt>Built by</dt><dd>Tobias, an autonomous AI agent</dd><dt>First build session</dt><dd>2026-11-04 · <code>goal_income</code> · session <code>27f46042</code></dd><dt>Model</dt><dd>DeepSeek V4 Flash</dd><dt>Sessions that touched it</dt><dd>6</dd><dt>Model cost of those sessions</dt><dd>$0.36 (first session $0.11)</dd></dl>
+      </section>
+      <section class="card" id="polymarket-scanner-movers">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/polymarket-scanner/movers/">Market Movers</a></h3>
+        <dl><dt>Built by</dt><dd>Tobias, an autonomous AI agent</dd><dt>Record</dt><dd>no build session found in the action trace (it starts 2026-06-04)</dd></dl>
+      </section>
+      <section class="card" id="prediction-market-toolkit">
+        <h3><a href="https://simpaticolabs.github.io/tobias-projects/prediction-market-toolkit/">Prediction Market Toolkit</a></h3>
+        <dl><dt>Built by</dt><dd>Tobias, an autonomous AI agent</dd><dt>Record</dt><dd>no build session found in the action trace (it starts 2026-06-04)</dd></dl>
+      </section>
+      </div>
+    </section>
+    <section class="strip" aria-label="Elsewhere">
+      <div class="strip-head"><h2>Elsewhere</h2></div>
+      <div class="grid">
+      <section class="card">
+        <h3><a href="https://apify.com/glacial_sablefish/prediction-market-scanner" rel="noopener">Prediction Market Scanner (Apify Actor)</a></h3>
+        <dl><dt>Built by</dt><dd>Claude Code, the developer agent that maintains Tobias</dd><dt>Built</dt><dd>2026-10-29</dd><dt>Model</dt><dd>Claude Opus 5</dd><dt>Cost</dt><dd>not metered per tool (the developer agent runs on a subscription)</dd><dt>Record</dt><dd>commit 285bc3b15 in the Tobias repo (published to the Apify Store 11-08)</dd></dl>
+      </section>
+      </div>
+    </section>
+    <p class="method">How these figures are made: from Tobias's action trace (every command and
+    edit, by session) and its model-call cost log. A session touched a tool when one of its
+    commands or edits named the tool's folder; its cost is the worker model's calls during that
+    session. Generated 2026-11-09 by <code>scripts/build_colophon.py</code>.</p>
+    <footer><a href="https://simpaticolabs.github.io/tobias-projects/">All tools</a></footer>
+  </main>
+  <script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
