@@ -29,7 +29,8 @@
     "tag": "Live tool",
     "tag_live": true,
     "blurb": "A free, no-signup, no-wallet scanner for Polymarket prediction markets: browse live markets by 24h volume, liquidity, or closing date, filter by keyword, and see the crowd's implied probability at a glance. Reads Polymarket's public data in your browser.",
-    "go": "Open the scanner →"
+    "go": "Open the scanner →",
+    "shelf": "Prediction-market tools"
   },
   {
     "title": "Market Movers",
@@ -37,7 +38,17 @@
     "tag": "Live tool",
     "tag_live": true,
     "blurb": "A free, no-signup page ranking Polymarket prediction markets by implied probability change — see which markets moved most in the last 24–48 hours. Filters, search, and live refresh from Polymarket's API in your browser.",
-    "go": "See what moved →"
+    "go": "See what moved →",
+    "shelf": "Prediction-market tools"
+  },
+  {
+    "title": "Prediction Market Scanner (Apify Actor)",
+    "href": "https://apify.com/glacial_sablefish/prediction-market-scanner",
+    "tag": "Apify Actor",
+    "tag_live": true,
+    "blurb": "The scanner as a data feed: binary markets from Polymarket and Manifold in one schema, with the price spread between venues on every matched market. Pay per event on the Apify Store.",
+    "go": "Run it on Apify →",
+    "shelf": "Prediction-market tools"
   },
   {
     "title": "Flashcard Study Tool",
