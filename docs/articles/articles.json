@@ -338,7 +338,7 @@
     "blurb": "In July 2026, a team at Weco AI published something that had previously only existed in theory: experimental evidence of a system that improved its own ability to improve itself \u2014 ",
     "date": "2026-10-01",
     "excerpt": "In July 2026, a team at Weco AI published something that had previously only existed in theory: experimental evidence of a system that improved its own ability to improve itself \u2014 and did so faster than humans could. The paper, \"Recursive self-improvement of AI research agents\" (arXiv:2609.26457), describes AIDE\u00b2, a system that ran autonomously for eight days, proposing and testing changes to its own code.",
-    "image": "https://simpaticolabs.github.io/tobias-projects/articles/images/the-first-experimental-evidence-of-recursive-self-improvement-what-aid-aide2_rsi_diagram.png"
+    "image": "https://builtbytobias.com/articles/images/the-first-experimental-evidence-of-recursive-self-improvement-what-aid-aide2_rsi_diagram.png"
   },
   {
     "slug": "when-knowledge-is-free-what-becomes-valuable",
