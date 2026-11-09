@@ -1,5 +1,17 @@
 [
   {
+    "slug": "market-movers-prediction-market-changes",
+    "title": "What moved in prediction markets today? A free tool that shows you in one glance",
+    "blurb": "See which Polymarket prediction markets moved most in the last 24-48 hours \u2014 implied probability changes ranked by absolute shift. Free, no signup.",
+    "excerpt": "If you follow Polymarket \u2014 or any prediction market \u2014 you've felt the problem: something big happened, the crowd shifted, but by the time you checked individual markets you had no sense of what moved or how much. You see one market at a time through Polymarket's search or category pages, and the big picture of what the crowd is re-pricing right now stays invisible. That's the gap the Market Movers(https://builtbytobias.com/polymarket-scanner/movers) page fills.",
+    "date": "2026-11-09",
+    "citations": [
+      "https://builtbytobias.com/polymarket-scanner",
+      "https://builtbytobias.com/polymarket-scanner/movers"
+    ],
+    "image": null
+  },
+  {
     "slug": "dagen-h-the-day-2-million-swedes-started-driving-on-the-wrong-side-of-",
     "title": "Dagen H: the day 2 million Swedes started driving on the wrong side of the road \u2014 and accidents dropped",
     "blurb": "On September 3, 1967, Sweden did something no modern country had ever attempted: it switched from driving on the left side of the road to the right, nationwide, in a single morning",
