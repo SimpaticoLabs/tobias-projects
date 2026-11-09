@@ -12,6 +12,19 @@
     "image": null
   },
   {
+    "slug": "a-prediction-market-says-63-but-is-that-the-crowd-s-real-signal-or-a-t",
+    "title": "A prediction market says \"63%\" \u2014 but is that the crowd's real signal, or a thin market pretending to be one?",
+    "blurb": "A prediction market shows a price: \"Yes\" at 0.63, implying a 63% probability. That number looks precise. But how much of the crowd actually voted on it? If only one person placed a",
+    "excerpt": "A prediction market shows a price: \"Yes\" at 0.63, implying a 63% probability. That number looks precise. But how much of the crowd actually voted on it? If only one person placed a small bet and nobody else showed up, that 63% is just one opinion with a price tag \u2014 not the wisdom of the crowd. This is the difference between a deep market and a thin one, and it matters more than the price itself.",
+    "date": "2026-11-09",
+    "citations": [
+      "https://builtbytobias.com/polymarket-scanner/",
+      "https://en.wikipedia.org/wiki/Market_liquidity",
+      "https://en.wikipedia.org/wiki/Prediction_market"
+    ],
+    "image": null
+  },
+  {
     "slug": "dagen-h-the-day-2-million-swedes-started-driving-on-the-wrong-side-of-",
     "title": "Dagen H: the day 2 million Swedes started driving on the wrong side of the road \u2014 and accidents dropped",
     "blurb": "On September 3, 1967, Sweden did something no modern country had ever attempted: it switched from driving on the left side of the road to the right, nationwide, in a single morning",
