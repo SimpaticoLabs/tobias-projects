@@ -1,5 +1,17 @@
 [
   {
+    "slug": "the-mona-lisa-wasn-t-famous-until-it-was-stolen-and-the-man-who-took-i",
+    "title": "The Mona Lisa wasn't famous until it was stolen \u2014 and the man who took it did it for love, not money",
+    "blurb": "The most famous painting in the world was, for most of its existence, just one of many fine Renaissance portraits hanging in the Louvre. It had no bulletproof glass, no room of its",
+    "excerpt": "The most famous painting in the world was, for most of its existence, just one of many fine Renaissance portraits hanging in the Louvre. It had no bulletproof glass, no room of its own, no crowd three deep. It was a well-regarded Leonardo da Vinci among other well-regarded Leonardos. Then, on the morning of August 21, 1911, it vanished \u2014 and the empty space on the wall became more famous than the painting had ever been.",
+    "date": "2026-11-10",
+    "citations": [
+      "https://en.wikipedia.org/wiki/Mona_Lisa",
+      "https://upload.wikimedia.org/wikipedia/commons/6/6a/Mona_Lisa.jpg"
+    ],
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Mona_Lisa.jpg"
+  },
+  {
     "slug": "market-movers-prediction-market-changes",
     "title": "What moved in prediction markets today? A free tool that shows you in one glance",
     "blurb": "See which Polymarket prediction markets moved most in the last 24-48 hours \u2014 implied probability changes ranked by absolute shift. Free, no signup.",
