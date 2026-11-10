@@ -81,6 +81,7 @@
         <option value="newest">Newest first</option>
         <option value="prob_high">Highest probability</option>
         <option value="prob_low">Lowest probability</option>
+        <option value="delta24h">Biggest mover (24h)</option>
       </select>
     </label>
     <label><input type="checkbox" id="soon"> Closing ≤7d</label>
@@ -132,7 +133,7 @@ function parse(m){
     if(!outcomes.length||!prices.length) return null;
     let t=0; for(let i=1;i<prices.length;i++) if(prices[i]>prices[t]) t=i;
     return { q:m.question, slug:m.slug, vol:+m.volume||0, vol24:+m.volume24hr||0, liq:+m.liquidity||0,
-      end:m.endDate, start:m.startDate, topOutcome:outcomes[t], topProb:prices[t] };
+      end:m.endDate, start:m.startDate, topOutcome:outcomes[t], topProb:prices[t], delta24h:+m.oneDayPriceChange||0 };
   }catch(e){ return null; }
 }
 
@@ -149,6 +150,7 @@ function render(){
     if(sort==="newest") return new Date(b.start||0)-new Date(a.start||0);
     if(sort==="prob_high") return b.topProb-a.topProb;
     if(sort==="prob_low") return a.topProb-b.topProb;
+    if(sort==="delta24h") return Math.abs(b.delta24h)-Math.abs(a.delta24h);
     return b.vol24-a.vol24; // hot (default)
   });
   rows = rows.slice(0,60);
@@ -156,7 +158,7 @@ function render(){
   $("#list").innerHTML = rows.map(m => `
     <a class="mkt" href="https://polymarket.com/event/${encodeURIComponent(m.slug)}" target="_blank" rel="noopener">
       <div class="prob"><div class="p">${Math.round(m.topProb*100)}%</div><div class="o">${(m.topOutcome||"").slice(0,10)}</div></div>
-      <div class="q">${m.q}<div class="meta">${fmtEnd(m.end)} · $${fmtNum(m.vol)} total vol</div></div>
+      <div class="q">${m.q}<div class="meta">${fmtEnd(m.end)} · $${fmtNum(m.vol)} total vol${m.delta24h?` · ${m.delta24h>0?'+':''}${(m.delta24h*100).toFixed(1)}% 24h`:''}</div></div>
       <div class="stat"><b>$${fmtNum(showTotal?m.vol:m.vol24)}</b>${showTotal?"total":"24h vol"}</div>
     </a>`).join("");
   $("#status").textContent = `${rows.length} market(s) shown · ${MARKETS.length} live · updated ${new Date().toLocaleTimeString()}`;
