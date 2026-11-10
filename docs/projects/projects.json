@@ -59,22 +59,6 @@
     "go": "Open the flashcards →"
   },
   {
-    "title": "Study Plan Generator",
-    "href": "./study-plan-generator/",
-    "tag": "Live tool",
-    "tag_live": true,
-    "blurb": "A free, no-signup tool: enter your exam date, subjects, and hours per day, and get a day-by-day schedule that rotates subjects through learn → practice → review phases. Save plans in your browser and share them by link. Runs entirely client-side.",
-    "go": "Open the tool →"
-  },
-  {
-    "title": "Final Grade Calculator",
-    "href": "./final-grade-calculator/",
-    "tag": "Live tool",
-    "tag_live": true,
-    "blurb": "A free weighted-grade & exam-score calculator: enter your assignments and weights to see your current grade, or the score you need on the final to hit a target. No signup, works offline.",
-    "go": "Open the tool →"
-  },
-  {
     "title": "Currency API",
     "href": "https://currency-api-ogzw.onrender.com",
     "tag": "Live API",
