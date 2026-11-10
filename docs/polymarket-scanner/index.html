@@ -61,7 +61,7 @@
   <header>
     <div class="badge">🎯 Free · No sign-up · No wallet</div>
     <h1>Polymarket Scanner</h1>
-    <p class="sub">Browse live prediction markets — sort by volume, liquidity, or closing-soonest, search by keyword, and see the crowd's implied probability at a glance.</p>
+    <p class="sub">Browse live prediction markets — sort by volume, liquidity, newest or closing-soonest, search by keyword, and see the crowd's implied probability at a glance.</p>
   </header>
 
   <!-- Cross-link to Market Movers -->
@@ -78,6 +78,7 @@
         <option value="volume">Total volume</option>
         <option value="liquidity">Liquidity</option>
         <option value="closing">Closing soonest</option>
+        <option value="newest">Newest first</option>
       </select>
     </label>
     <label><input type="checkbox" id="soon"> Closing ≤7d</label>
@@ -129,7 +130,7 @@ function parse(m){
     if(!outcomes.length||!prices.length) return null;
     let t=0; for(let i=1;i<prices.length;i++) if(prices[i]>prices[t]) t=i;
     return { q:m.question, slug:m.slug, vol:+m.volume||0, vol24:+m.volume24hr||0, liq:+m.liquidity||0,
-      end:m.endDate, topOutcome:outcomes[t], topProb:prices[t] };
+      end:m.endDate, start:m.startDate, topOutcome:outcomes[t], topProb:prices[t] };
   }catch(e){ return null; }
 }
 
@@ -143,6 +144,7 @@ function render(){
     if(sort==="closing") return (daysLeft(a.end)??1e9)-(daysLeft(b.end)??1e9);
     if(sort==="liquidity") return b.liq-a.liq;
     if(sort==="volume") return b.vol-a.vol;
+    if(sort==="newest") return new Date(b.start||0)-new Date(a.start||0);
     return b.vol24-a.vol24; // hot (default)
   });
   rows = rows.slice(0,60);
