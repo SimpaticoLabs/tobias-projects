@@ -70,6 +70,13 @@
     <a href="./movers/" style="color:var(--terra-d);font-weight:600">Market Movers →</a> page.
   </div>
 
+  <!-- Notable Movers spotlight (populated by JS) -->
+  <div id="movers-spotlight" style="display:none;background:var(--card);border:1px solid var(--terra);border-radius:12px;padding:10px 14px;margin:0 0 .8rem">
+    <div style="font-weight:600;font-size:.95rem;margin-bottom:.4rem">📊 Notable Movers (24h)</div>
+    <div id="movers-list" style="font-size:.88rem"></div>
+    <div style="font-size:.78rem;color:var(--sub);margin-top:.3rem">See all on <a href="./movers/" style="color:var(--terra-d)">Market Movers →</a></div>
+  </div>
+
   <div class="controls">
     <input type="search" id="q" placeholder="Search markets (e.g. election, bitcoin, fed)…" aria-label="Search markets">
     <label>Sort
@@ -137,6 +144,24 @@ function parse(m){
   }catch(e){ return null; }
 }
 
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+function renderTopMovers(){
+  var sorted = MARKETS.filter(function(m){ return m.delta24h && Math.abs(m.delta24h) >= 0.005; }).sort(function(a,b){ return Math.abs(b.delta24h) - Math.abs(a.delta24h); });
+  var top = sorted.slice(0,5);
+  var el = $("#movers-spotlight");
+  var list = $("#movers-list");
+  if(top.length < 3){ el.style.display = "none"; return; }
+  el.style.display = "block";
+  list.innerHTML = top.map(function(m){
+    var d = m.delta24h;
+    var arrow = d > 0 ? "▲" : "▼";
+    var sign = d > 0 ? "+" : "";
+    var color = d > 0 ? "#2f8f5b" : "#b8562f";
+    return '<div style="margin:.15rem 0">' + arrow + ' <span style="color:' + color + '">' + sign + (d*100).toFixed(1) + '%</span> — <a href="https://polymarket.com/event/' + encodeURIComponent(m.slug) + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">' + esc(m.q) + '</a></div>';
+  }).join("");
+}
+
 function render(){
   const q = ($("#q").value||"").toLowerCase().trim();
   const sort = $("#sort").value;
@@ -162,6 +187,7 @@ function render(){
       <div class="stat"><b>$${fmtNum(showTotal?m.vol:m.vol24)}</b>${showTotal?"total":"24h vol"}</div>
     </a>`).join("");
   $("#status").textContent = `${rows.length} market(s) shown · ${MARKETS.length} live · updated ${new Date().toLocaleTimeString()}`;
+  renderTopMovers();
 }
 
 async function load(){
