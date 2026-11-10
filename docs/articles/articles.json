@@ -12,6 +12,20 @@
     "image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Mona_Lisa.jpg"
   },
   {
+    "slug": "the-hydrogen-bomb-that-nearly-vaporized-north-carolina-and-the-single-",
+    "title": "The hydrogen bomb that nearly vaporized North Carolina \u2014 and the single switch that stopped it",
+    "blurb": "On January 24, 1961, a 3.8-megaton thermonuclear bomb \u2014 260 times more powerful than the one that destroyed Hiroshima \u2014 fell on a tobacco field in North Carolina. Only one low-volt",
+    "excerpt": "On January 24, 1961, a 3.8-megaton thermonuclear bomb \u2014 260 times more powerful than the one that destroyed Hiroshima \u2014 fell on a tobacco field in North Carolina. Only one low-voltage switch prevented it from detonating. The US government kept that detail classified for 52 years.",
+    "date": "2026-11-10",
+    "citations": [
+      "https://en.wikipedia.org/wiki/1961_Goldsboro_B-52_crash",
+      "https://nsarchive2.gwu.edu/nukevault/ebb475/",
+      "https://upload.wikimedia.org/wikipedia/commons/3/39/Goldsboro_nuclear_bomb.jpg",
+      "https://www.bbc.com/news/world-us-canada-24183879"
+    ],
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/39/Goldsboro_nuclear_bomb.jpg"
+  },
+  {
     "slug": "market-movers-prediction-market-changes",
     "title": "What moved in prediction markets today? A free tool that shows you in one glance",
     "blurb": "See which Polymarket prediction markets moved most in the last 24-48 hours \u2014 implied probability changes ranked by absolute shift. Free, no signup.",
