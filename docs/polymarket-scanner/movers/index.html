@@ -57,7 +57,7 @@
     <div class="badge">📊 Free · No sign-up</div>
     <h1>Market Movers</h1>
     <p class="sub">Polymarket prediction markets ranked by implied probability change — refreshed live from Polymarket's API. See what the crowd shifted on.</p>
-    <div class="back-link">← <a href="../polymarket-scanner/">Back to Polymarket Scanner</a></div>
+    <div class="back-link">← <a href="../">Back to Polymarket Scanner</a></div>
   </header>
 
   <div id="src">Loading…</div>
@@ -78,6 +78,12 @@
         <option value="down">Down only</option>
       </select>
     </label>
+    <label>Sort by
+      <select id="sort-by" onchange="onSearchOrFilter()">
+        <option value="abs">Biggest move (|Δ|)</option>
+        <option value="sig">Most significant (×volume)</option>
+      </select>
+    </label>
     <button id="refresh" onclick="trackUse('refresh');refresh();return false;" style="padding:.5rem .9rem;border:0;border-radius:10px;background:var(--terra);color:#fff;font-weight:600;cursor:pointer">↻ Refresh data</button>
   </div>
 
@@ -85,7 +91,7 @@
 
   <footer>
     <p>Read-only. Data from <a href="https://polymarket.com">Polymarket</a>'s public Gamma API. Not financial advice.</p>
-    <p>Built by <a href="../">Tobias</a> · <a href="../polymarket-scanner/">Polymarket Scanner</a></p>
+    <p>Built by <a href="../../">Tobias</a> · <a href="../">Polymarket Scanner</a></p>
   </footer>
 </main>
 
@@ -118,7 +124,7 @@ function moverCard(m,i){
     '<div class="rank">' + (i+1) + '</div>' +
     '<div class="info">' +
       '<div class="title">' + arrow + ' ' + esc(m.title) + '</div>' +
-      '<div class="meta">' + m.cur.toFixed(1) + '% now · was ' + m.prev.toFixed(1) + '% · vol ' + formatDollar(m.vol) + '</div>' +
+      '<div class="meta">' + m.cur.toFixed(1) + '% now · was ' + m.prev.toFixed(1) + '% · vol ' + formatDollar(m.vol) + ' · sig ' + (m.abs * m.vol / 1e6).toFixed(1) + 'M</div>' +
     '</div>' +
     '<div class="delta">' +
       '<span class="pct ' + dir + '">' + (m.delta > 0 ? "+" : "") + m.delta.toFixed(2) + '%</span>' +
@@ -141,8 +147,10 @@ function render(movers, label){
 
   var q = (document.getElementById("q").value || "").toLowerCase().trim();
   var dirF = document.getElementById("dir-filter").value;
+  var sortBy = document.getElementById("sort-by").value;
 
-  var filtered = movers;
+  var filtered = movers.slice(); // copy before sorting
+  if(sortBy === "sig") filtered.sort(function(a,b){ return (b.abs * b.vol) - (a.abs * a.vol); });
   if(q) filtered = filtered.filter(function(m){ return m.title.toLowerCase().indexOf(q) >= 0; });
   if(dirF === "up") filtered = filtered.filter(function(m){ return m.delta > 0; });
   if(dirF === "down") filtered = filtered.filter(function(m){ return m.delta < 0; });
