@@ -61,7 +61,7 @@
   <header>
     <div class="badge">🎯 Free · No sign-up · No wallet</div>
     <h1>Polymarket Scanner</h1>
-    <p class="sub">Browse live prediction markets — sort by volume, liquidity, newest or closing-soonest, search by keyword, and see the crowd's implied probability at a glance.</p>
+    <p class="sub">Browse live prediction markets — sort by volume, liquidity, probability, newest or closing-soonest, search by keyword, and see the crowd's implied probability at a glance.</p>
   </header>
 
   <!-- Cross-link to Market Movers -->
@@ -79,6 +79,8 @@
         <option value="liquidity">Liquidity</option>
         <option value="closing">Closing soonest</option>
         <option value="newest">Newest first</option>
+        <option value="prob_high">Highest probability</option>
+        <option value="prob_low">Lowest probability</option>
       </select>
     </label>
     <label><input type="checkbox" id="soon"> Closing ≤7d</label>
@@ -145,6 +147,8 @@ function render(){
     if(sort==="liquidity") return b.liq-a.liq;
     if(sort==="volume") return b.vol-a.vol;
     if(sort==="newest") return new Date(b.start||0)-new Date(a.start||0);
+    if(sort==="prob_high") return b.topProb-a.topProb;
+    if(sort==="prob_low") return a.topProb-b.topProb;
     return b.vol24-a.vol24; // hot (default)
   });
   rows = rows.slice(0,60);
