@@ -36,9 +36,6 @@
   .mover .delta .pct.up{color:#2f8f5b}
   .mover .delta .pct.dn{color:#b8562f}
   .mover .delta .dir{font-size:.7rem;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;display:block}
-  .prob-bar{height:6px;background:var(--line);border-radius:3px;position:relative;margin:4px 0}
-  .prob-bar .fill{height:100%;border-radius:3px;position:absolute;left:0;top:0}
-  .prob-bar .prev-marker{position:absolute;top:-4px;width:2px;height:14px;background:var(--sub);opacity:.6}
   .controls{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.7rem 0}
   .controls input,.controls select{padding:.5rem .7rem;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--card)}
   .controls input[type=search]{flex:1;min-width:160px}
@@ -96,11 +93,9 @@
 </main>
 
 <script>
-const API = "https://gamma-api.polymarket.com/markets?limit=200&closed=false";
-const SEED = [{"title":"Will Gavin Newsom win the 2028 Democratic presidential nomination?","cur":8.95,"prev":10.55,"delta":-1.6,"abs":1.6,"vol":28678451.403832003},{"title":"Will Jon Ossoff win the 2028 Democratic presidential nomination?","cur":27.65,"prev":26.15,"delta":1.5,"abs":1.5,"vol":14894174.494168999},{"title":"Will Ro Khanna win the 2028 Democratic presidential nomination?","cur":3.1,"prev":1.85,"delta":1.25,"abs":1.25,"vol":11888756.918389},{"title":"Will James Talarico win the 2028 Democratic presidential nomination?","cur":1.7,"prev":2.75,"delta":-1.05,"abs":1.05,"vol":11952048.951538},{"title":"Will Alexandria Ocasio-Cortez win the 2028 Democratic presidential nomination?","cur":16.05,"prev":16.65,"delta":-0.6,"abs":0.6,"vol":15943145.021615004},{"title":"Will Chelsea Clinton win the 2028 Democratic presidential nomination?","cur":1.0,"prev":0.45,"delta":0.55,"abs":0.55,"vol":51133122.78015},{"title":"Will Kamala Harris win the 2028 Democratic presidential nomination?","cur":5.35,"prev":5.85,"delta":-0.5,"abs":0.5,"vol":14807436.222724998},{"title":"Will Raphael Warnock win the 2028 Democratic presidential nomination?","cur":3.55,"prev":3.05,"delta":0.5,"abs":0.5,"vol":34614643.73438599},{"title":"Will Gavin Newsom win the 2028 US Presidential Election?","cur":7.65,"prev":7.15,"delta":0.5,"abs":0.5,"vol":19131523.424713},{"title":"Will Kamala Harris win the 2028 US Presidential Election?","cur":3.05,"prev":3.55,"delta":-0.5,"abs":0.5,"vol":9781472.683954},{"title":"Will Dwayne 'The Rock' Johnson win the 2028 US Presidential Election?","cur":1.35,"prev":0.85,"delta":0.5,"abs":0.5,"vol":8639069.783116},{"title":"Will Andy Beshear win the 2028 US Presidential Election?","cur":1.95,"prev":1.5,"delta":0.45,"abs":0.45,"vol":19544938.769339997},{"title":"Will Alexandria Ocasio-Cortez win the 2028 US Presidential Election?","cur":11.65,"prev":12.05,"delta":-0.4,"abs":0.4,"vol":14416157.139348},{"title":"Will Pete Buttigieg win the 2028 Democratic presidential nomination?","cur":5.55,"prev":5.25,"delta":0.3,"abs":0.3,"vol":12399890.559234},{"title":"Will Chris Van Hollen win the 2028 Democratic presidential nomination?","cur":0.25,"prev":0.55,"delta":-0.3,"abs":0.3,"vol":2931092.9112309995},{"title":"Will JD Vance win the 2028 US Presidential Election?","cur":17.35,"prev":17.65,"delta":-0.3,"abs":0.3,"vol":18858121.516249},{"title":"Will Marco Rubio win the 2028 US Presidential Election?","cur":9.25,"prev":9.55,"delta":-0.3,"abs":0.3,"vol":13487788.873663004},{"title":"Putin out as President of Russia by December 31, 2026?","cur":1.5,"prev":1.75,"delta":-0.25,"abs":0.25,"vol":27984693.095764995},{"title":"Will Pete Buttigieg win the 2028 US Presidential Election?","cur":2.65,"prev":2.45,"delta":0.2,"abs":0.2,"vol":8736699.338483995},{"title":"Will Wes Moore win the 2028 Democratic presidential nomination?","cur":2.35,"prev":2.5,"delta":-0.15,"abs":0.15,"vol":18765787.119946003},{"title":"Will Mark Cuban win the 2028 Democratic presidential nomination?","cur":0.15,"prev":0.3,"delta":-0.15,"abs":0.15,"vol":23929406.150839},{"title":"Will Dwayne 'The Rock' Johnson win the 2028 Democratic presidential nomination?","cur":0.7,"prev":0.55,"delta":0.15,"abs":0.15,"vol":12579538.148084002},{"title":"Will Ron DeSantis win the 2028 US Presidential Election?","cur":5.45,"prev":5.6,"delta":-0.15,"abs":0.15,"vol":13002942.390089},{"title":"Will James Talarico win the 2028 US Presidential Election?","cur":1.2,"prev":1.05,"delta":0.15,"abs":0.15,"vol":9067671.66939},{"title":"Xi Jinping out before 2027?","cur":1.65,"prev":1.75,"delta":-0.1,"abs":0.1,"vol":17109724.241377003},{"title":"Will Josh Shapiro win the 2028 Democratic presidential nomination?","cur":4.65,"prev":4.55,"delta":0.1,"abs":0.1,"vol":10635936.541005002},{"title":"Will J.B. Pritzker win the 2028 Democratic presidential nomination?","cur":1.55,"prev":1.45,"delta":0.1,"abs":0.1,"vol":15945038.677847998},{"title":"Will Mark Kelly win the 2028 Democratic presidential nomination?","cur":1.85,"prev":1.95,"delta":-0.1,"abs":0.1,"vol":18234437.674312003},{"title":"Will Jon Stewart win the 2028 Democratic presidential nomination?","cur":0.25,"prev":0.35,"delta":-0.1,"abs":0.1,"vol":24938453.892109},{"title":"Will Elissa Slotkin win the 2028 Democratic presidential nomination?","cur":0.15,"prev":0.25,"delta":-0.1,"abs":0.1,"vol":2126481.228219},{"title":"Will Adam Hamilton win the 2028 Democratic presidential nomination?","cur":0.05,"prev":0.15,"delta":-0.1,"abs":0.1,"vol":985272.582367},{"title":"Will Josh Shapiro win the 2028 US Presidential Election?","cur":2.6,"prev":2.7,"delta":-0.1,"abs":0.1,"vol":7911822.989950001},{"title":"Will Donald Trump win the 2028 US Presidential Election?","cur":1.25,"prev":1.35,"delta":-0.1,"abs":0.1,"vol":11017164.735265},{"title":"Will Tucker Carlson win the 2028 US Presidential Election?","cur":1.55,"prev":1.45,"delta":0.1,"abs":0.1,"vol":14563443.102208002},{"title":"Will Michelle Obama win the 2028 US Presidential Election?","cur":0.15,"prev":0.25,"delta":-0.1,"abs":0.1,"vol":19717335.073332},{"title":"Will Ro Khanna win the 2028 US Presidential Election?","cur":0.85,"prev":0.75,"delta":0.1,"abs":0.1,"vol":11090079.235141998},{"title":"Will Thomas Massie win the 2028 US Presidential Election?","cur":1.75,"prev":1.65,"delta":0.1,"abs":0.1,"vol":8798964.532126999},{"title":"Will Jon Ossoff win the 2028 US Presidential Election?","cur":17.65,"prev":17.55,"delta":0.1,"abs":0.1,"vol":7039052.053571002},{"title":"Will Tim Walz win the 2028 Democratic presidential nomination?","cur":0.1,"prev":0.05,"delta":0.05,"abs":0.05,"vol":44403249.39515},{"title":"Will Rahm Emanuel win the 2028 Democratic presidential nomination?","cur":1.1,"prev":1.05,"delta":0.05,"abs":0.05,"vol":14817601.059393002},{"title":"Will MrBeast win the 2028 Democratic presidential nomination?","cur":0.1,"prev":0.05,"delta":0.05,"abs":0.05,"vol":41272901.14066299},{"title":"Will Oprah Winfrey win the 2028 Democratic presidential nomination?","cur":0.1,"prev":0.05,"delta":0.05,"abs":0.05,"vol":54660980.08575801},{"title":"Will Abdul El-Sayed win the 2028 Democratic presidential nomination?","cur":1.3,"prev":1.35,"delta":-0.05,"abs":0.05,"vol":1868643.974901},{"title":"Will Stephen Smith win the 2028 US Presidential Election?","cur":0.05,"prev":0.1,"delta":-0.05,"abs":0.05,"vol":34138709.305911},{"title":"Will JB Pritzker win the 2028 US Presidential Election?","cur":0.55,"prev":0.6,"delta":-0.05,"abs":0.05,"vol":13361485.853273997},{"title":"Will Tulsi Gabbard win the 2028 US Presidential Election?","cur":0.1,"prev":0.15,"delta":-0.05,"abs":0.05,"vol":35707077.097926},{"title":"Will Nikki Haley win the 2028 US Presidential Election?","cur":0.35,"prev":0.4,"delta":-0.05,"abs":0.05,"vol":32207096.960239004},{"title":"Will Zohran Mamdani win the 2028 US Presidential Election?","cur":0.1,"prev":0.05,"delta":0.05,"abs":0.05,"vol":23223962.376913004},{"title":"Will Elissa Slotkin win the 2028 US Presidential Election?","cur":0.1,"prev":0.05,"delta":0.05,"abs":0.05,"vol":1235926.782666}];
-const SEED_LABEL = "snapshot_20261108T110734Z.json → snapshot_20261110T044203Z.json";
-const LS_KEY = "movers_last_response";
-const LS_TIME_KEY = "movers_last_fetch";
+// Market Movers — uses Polymarket's oneDayPriceChange field directly.
+// No seed data, no caching, no prev-snapshot comparison needed.
+const API = "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=200&order=volume24hr&ascending=false";
 
 function esc(s) { return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
@@ -111,23 +106,25 @@ function formatDollar(v){
 }
 
 function moverCard(m,i){
-  var dir = m.delta > 0 ? "up" : "dn";
-  var arrow = m.delta > 0 ? "▲" : "▼";
-  var dirLabel = m.delta > 0 ? "Up" : "Down";
-  var barPct = Math.min(Math.max(m.cur, 0.5), 100);
-  var prevPct = Math.min(Math.max(m.prev, 0.5), 100);
-  var barLeft = Math.min(barPct, prevPct) - 2;
-  if(barLeft < 0) barLeft = 0;
-  var barWidth = Math.abs(barPct - prevPct) + 4;
-  if(barWidth > 100) barWidth = 100;
+  var deltaPct = (m.oneDayPriceChange||0) * 100;
+  var dir = deltaPct > 0 ? "up" : "dn";
+  var arrow = deltaPct > 0 ? "▲" : "▼";
+  var dirLabel = deltaPct > 0 ? "Up" : "Down";
+  var curProb = 0;
+  try{
+    var prices = JSON.parse(m.outcomePrices||"[]").map(Number);
+    var outcomes = JSON.parse(m.outcomes||"[]");
+    var yesIdx = outcomes.map(function(o){ return (o||"").trim().toLowerCase(); }).indexOf("yes");
+    if(yesIdx >= 0) curProb = prices[yesIdx] * 100;
+  }catch(e){}
   return '<div class="mover">' +
     '<div class="rank">' + (i+1) + '</div>' +
     '<div class="info">' +
-      '<div class="title">' + arrow + ' ' + esc(m.title) + '</div>' +
-      '<div class="meta">' + m.cur.toFixed(1) + '% now · was ' + m.prev.toFixed(1) + '% · vol ' + formatDollar(m.vol) + ' · sig ' + (m.abs * m.vol / 1e6).toFixed(1) + 'M</div>' +
+      '<div class="title">' + arrow + ' ' + esc(m.question || m.title || "") + '</div>' +
+      '<div class="meta">' + curProb.toFixed(1) + '% now · vol ' + formatDollar(m.volume||0) + ' · 24h vol ' + formatDollar(m.volume24hr||0) + '</div>' +
     '</div>' +
     '<div class="delta">' +
-      '<span class="pct ' + dir + '">' + (m.delta > 0 ? "+" : "") + m.delta.toFixed(2) + '%</span>' +
+      '<span class="pct ' + dir + '">' + (deltaPct > 0 ? "+" : "") + deltaPct.toFixed(2) + '%</span>' +
       '<span class="dir">' + dirLabel + '</span>' +
     '</div>' +
   '</div>';
@@ -135,9 +132,9 @@ function moverCard(m,i){
 
 function render(movers, label){
   var total = movers.length;
-  var up = movers.filter(function(m){ return m.delta > 0; }).length;
-  var dn = movers.filter(function(m){ return m.delta < 0; }).length;
-  var avg = total > 0 ? movers.reduce(function(s,m){ return s + Math.abs(m.delta); }, 0) / total : 0;
+  var up = movers.filter(function(m){ return (m.oneDayPriceChange||0) > 0; }).length;
+  var dn = movers.filter(function(m){ return (m.oneDayPriceChange||0) < 0; }).length;
+  var avg = total > 0 ? movers.reduce(function(s,m){ return s + Math.abs(m.oneDayPriceChange||0) * 100; }, 0) / total : 0;
 
   document.getElementById("s-total").textContent = total;
   document.getElementById("s-up").textContent = up;
@@ -149,148 +146,53 @@ function render(movers, label){
   var dirF = document.getElementById("dir-filter").value;
   var sortBy = document.getElementById("sort-by").value;
 
-  var filtered = movers.slice(); // copy before sorting
-  if(sortBy === "sig") filtered.sort(function(a,b){ return (b.abs * b.vol) - (a.abs * a.vol); });
-  if(q) filtered = filtered.filter(function(m){ return m.title.toLowerCase().indexOf(q) >= 0; });
-  if(dirF === "up") filtered = filtered.filter(function(m){ return m.delta > 0; });
-  if(dirF === "down") filtered = filtered.filter(function(m){ return m.delta < 0; });
+  var filtered = movers.slice();
+  if(sortBy === "sig") filtered.sort(function(a,b){ return Math.abs(b.oneDayPriceChange||0) * (b.volume24hr||b.volume||0) - Math.abs(a.oneDayPriceChange||0) * (a.volume24hr||a.volume||0); });
+  if(q) filtered = filtered.filter(function(m){ return (m.question||m.title||"").toLowerCase().indexOf(q) >= 0; });
+  if(dirF === "up") filtered = filtered.filter(function(m){ return (m.oneDayPriceChange||0) > 0; });
+  if(dirF === "down") filtered = filtered.filter(function(m){ return (m.oneDayPriceChange||0) < 0; });
 
   var html = filtered.map(function(m,i){ return moverCard(m,i); }).join("");
   if(!html) html = '<div style="color:var(--sub);font-style:italic;margin:1rem 0">No movers match your filter.</div>';
   document.getElementById("list").innerHTML = html;
 }
 
-/* Track a "use" event — fires on refresh/search so the contract's signal test can see it */
 function trackUse(label){
   try{
     if(window.goatcounter && goatcounter.count){
       goatcounter.count({path:"movers-used", event:true, title:"Market Movers — "+label});
     }
-  }catch(e){ /* goatcounter not loaded yet — silent */ }
+  }catch(e){}
 }
 var _trackedSearch = false;
 function onSearchOrFilter(){
   if(!_trackedSearch){ trackUse("search/filter"); _trackedSearch = true; }
 }
 
-function today(){ var d=new Date(); return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())); }
-
-function fetchPoly(){
-  return fetch(API, {headers:{"User-Agent":"TobiasMovers/1.0"}})
-    .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); });
-}
-
-function computeMovers(curMarkets, prevMarkets){
-  var prevMap = {};
-  prevMarkets.forEach(function(m){ if(m.title) prevMap[m.title] = m; });
-  var out = [];
-  curMarkets.forEach(function(m){
-    var title = (m.title || "").trim();
-    if(!title || !prevMap[title]) return;
-    var curP, prevP;
-    var op = m.outcomePrices;
-    if(typeof op === "string") try{ op = JSON.parse(op); }catch(e){ return; }
-    if(!op || op.length < 2) return;
-    var outcomes = m.outcomes;
-    if(typeof outcomes === "string") try{ outcomes = JSON.parse(outcomes); }catch(e){ outcomes = []; }
-    try{
-      var prices = op.map(function(p){ return parseFloat(p); });
-      var yesIdx = outcomes.map(function(o){ return (o||"").trim().toLowerCase(); }).indexOf("yes");
-      if(yesIdx < 0) return;
-      curP = prices[yesIdx] * 100;
-    }catch(e){ return; }
-
-    var prevOp = prevMap[title].outcomePrices;
-    if(typeof prevOp === "string") try{ prevOp = JSON.parse(prevOp); }catch(e){ return; }
-    if(!prevOp || prevOp.length < 2) return;
-    var prevOutcomes = prevMap[title].outcomes;
-    if(typeof prevOutcomes === "string") try{ prevOutcomes = JSON.parse(prevOutcomes); }catch(e){ prevOutcomes = []; }
-    try{
-      var prevPrices = prevOp.map(function(p){ return parseFloat(p); });
-      var prevYesIdx = prevOutcomes.map(function(o){ return (o||"").trim().toLowerCase(); }).indexOf("yes");
-      if(prevYesIdx < 0) return;
-      prevP = prevPrices[prevYesIdx] * 100;
-    }catch(e){ return; }
-
-    var delta = parseFloat((curP - prevP).toFixed(2));
-    if(Math.abs(delta) < 0.05) return;
-    out.push({
-      title: title,
-      cur: curP,
-      prev: prevP,
-      delta: delta,
-      abs: Math.abs(delta),
-      vol: parseFloat(m.volume || 0)
-    });
-  });
-  out.sort(function(a,b){ return b.abs - a.abs; });
-  return out;
-}
-
-function getCachedResponse(){
-  try{
-    var raw = localStorage.getItem(LS_KEY);
-    if(!raw) return null;
-    var parsed = JSON.parse(raw);
-    if(!Array.isArray(parsed) || parsed.length < 1) return null;
-    return parsed;
-  }catch(e){ return null; }
-}
-
-function setCachedResponse(data){
-  try{
-    localStorage.setItem(LS_KEY, JSON.stringify(data));
-    localStorage.setItem(LS_TIME_KEY, new Date().toISOString());
-  }catch(e){ /* localStorage full or unavailable — silent */ }
-}
-
 function refresh(){
-  var label = '<strong>🟡 Refreshing from Polymarket API…</strong>';
-  render(SEED, label);
-  fetchPoly().then(function(data){
-    var cur = data || [];
-    if(cur.length === 0){ fallbackToSeed("live API returned empty"); return; }
-
-    // Use cached previous response for comparison, or fall back to seed
-    var prev = getCachedResponse();
-    var usingCache = !!prev;
-    if(!prev){
-      // Reconstruct previous snapshot from seed data
-      prev = SEED.map(function(m){
-        return {
-          title: m.title,
-          outcomePrices: [String(m.prev/100), String(1 - m.prev/100)],
-          outcomes: ["Yes", "No"],
-          volume: m.vol
-        };
-      });
-    }
-
-    var movers = computeMovers(cur, prev);
-    var stamp = new Date().toISOString().replace("T"," ").slice(0,16)+" UTC";
-
-    // Cache current response for next refresh
-    setCachedResponse(cur);
-
-    if(movers.length > 0){
-      var sourceNote = usingCache ? 'cached previous fetch' : 'seed snapshot';
-      render(movers, '<strong>🟢 Live data</strong> — fetched from Polymarket at '+stamp+'. Compared against '+sourceNote+'.');
-    } else {
-      // No significant movement — show seed with note that comparison found nothing new
-      render(SEED, '<strong>🟢 Live data</strong> — fetched at '+stamp+'. No markets moved >0.05% since last check. Showing seed snapshot.');
-    }
-  }).catch(function(e){
-    console.warn("live refresh failed:", e);
-    fallbackToSeed("live refresh unavailable");
-  });
-}
-
-function fallbackToSeed(reason){
-  render(SEED, '<strong>🟡 Snapshot</strong> — generated '+SEED_LABEL+'. '+reason+'; reload to retry.');
+  var label = '<strong>🟢 Loading from Polymarket API…</strong>';
+  document.getElementById("list").innerHTML = '<div style="color:var(--sub);font-style:italic;margin:1rem 0">Loading live data…</div>';
+  fetch(API, {headers:{"User-Agent":"TobiasMovers/1.0"}})
+    .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+    .then(function(data){
+      var markets = Array.isArray(data) ? data : (data.data||[]);
+      var movers = markets.filter(function(m){ return m.oneDayPriceChange != null && Math.abs(m.oneDayPriceChange) >= 0.0005; });
+      movers.sort(function(a,b){ return Math.abs(b.oneDayPriceChange) - Math.abs(a.oneDayPriceChange); });
+      var stamp = new Date().toISOString().replace("T"," ").slice(0,16)+" UTC";
+      if(movers.length > 0){
+        render(movers, '<strong>🟢 Live data</strong> — fetched from Polymarket at '+stamp+'. Showing markets with 24h price change.');
+      } else {
+        document.getElementById("list").innerHTML = '<div style="color:var(--sub);font-style:italic;margin:1rem 0">No markets moved significantly in the last 24h.</div>';
+        document.getElementById("src").innerHTML = '<strong>🟢 Live data</strong> — fetched at '+stamp+'. No significant movers.';
+      }
+    })
+    .catch(function(e){
+      document.getElementById("src").innerHTML = '<strong>🔴 Error</strong> — could not reach Polymarket API. Try again later.';
+      document.getElementById("list").innerHTML = '<div style="color:var(--sub);font-style:italic;margin:1rem 0">API error. Please refresh.</div>';
+    });
 }
 
 (function init(){
-  render(SEED, '<strong>🟡 Snapshot</strong> — generated '+SEED_LABEL+'. Refreshing from Polymarket API…');
   refresh();
 })();
 </script>
