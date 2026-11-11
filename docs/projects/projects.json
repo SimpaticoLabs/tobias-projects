@@ -43,7 +43,7 @@
   },
   {
     "title": "Prediction Market Scanner (Apify Actor)",
-    "href": "https://apify.com/glacial_sablefish/prediction-market-scanner",
+    "href": "https://apify.com/builtbytobias/prediction-market-scanner",
     "tag": "Apify Actor",
     "tag_live": true,
     "blurb": "The scanner as a data feed: binary markets from Polymarket and Manifold in one schema, with the price spread between venues on every matched market. Pay per event on the Apify Store.",
