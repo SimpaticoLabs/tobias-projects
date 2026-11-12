@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="refresh" content="0;url=./movers/">
 <title>Market Movers — Polymarket Scanner</title>
-<meta name="description" content="Which Polymarket prediction markets moved most in the last 24–48 hours? See the biggest probability swings, ranked by delta.">
+<meta name="description" content="Which Polymarket prediction markets moved most in the last 24–48 hours? See the biggest probability swings, ranked by absolute change. Live from Polymarket's API.">
 <meta name="keywords" content="polymarket movers, prediction market movers, biggest market moves, polymarket probability changes, market movement tracker">
 <meta property="og:title" content="Market Movers — Polymarket Scanner">
-<meta property="og:description" content="See which Polymarket prediction markets shifted most in the last 24–48 hours, ranked by probability delta.">
+<meta property="og:description" content="See which Polymarket prediction markets shifted most in the last 24–48 hours, ranked by probability delta. Live data from Polymarket's API.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://builtbytobias.com/polymarket-scanner/movers.html">
 <link rel="canonical" href="https://builtbytobias.com/polymarket-scanner/movers.html">
@@ -18,32 +18,35 @@
   body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,Segoe UI,system-ui,Roboto,sans-serif}
   main{max-width:920px;margin:0 auto;padding:1.25rem 1rem 3rem}
   header h1{font-size:1.6rem;margin:.2rem 0 .3rem}
-  .sub{color:var(--sub);margin:0 0 1rem}
+  .sub{color:var(--sub);margin:0 0 .5rem}
   .badge{display:inline-block;background:#f0e7dd;color:var(--terra-d);border-radius:999px;padding:.15rem .6rem;font-size:.78rem;font-weight:600;margin-bottom:.6rem}
-  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-  th{background:#f0e7dd;color:var(--ink);padding:.6rem .5rem;font-size:.82rem;font-weight:600;text-align:left;cursor:pointer;white-space:nowrap}
-  th:hover{background:#e7dcd0}
-  th.sorted{background:#dacfc0}
-  td{padding:.5rem;border-bottom:1px solid var(--line);font-size:.88rem;vertical-align:top}
-  tr:last-child td{border-bottom:none}
-  tr:hover td{background:#f5f0ea}
-  .rank{color:var(--sub);text-align:center;width:2rem}
-  .up{color:var(--good);font-weight:600}
-  .down{color:#b83a2f;font-weight:600}
-  .delta-bar{display:inline-block;height:4px;border-radius:2px;margin-right:.3rem;vertical-align:middle}
-  .vol{color:var(--sub);font-size:.8rem}
-  .prob{font-weight:600}
-  .summary{background:var(--card);border-radius:10px;padding:.8rem 1rem;margin:0 0 1rem;border:1px solid var(--line)}
-  .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
-  .summary-item{text-align:center}
-  .summary-item .num{font-size:1.3rem;font-weight:700;display:block}
-  .summary-item .lbl{font-size:.78rem;color:var(--sub)}
-  .back-link{margin:1rem 0;font-size:.9rem}
+  .back-link{margin:1rem 0;font-size:.88rem}
   .back-link a{color:var(--terra-d)}
-  .last-updated{color:var(--sub);font-size:.8rem;margin:.5rem 0}
+  .stat-row{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0}
+  .stat-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8rem 1.2rem;text-align:center;flex:1;min-width:120px}
+  .stat-box .num{font-size:1.6rem;font-weight:700;color:var(--terra);display:block}
+  .stat-box .lbl{font-size:.75rem;color:var(--sub);text-transform:uppercase;letter-spacing:.04em}
+  .stat-box .num.up{color:#2f8f5b}
+  .stat-box .num.dn{color:#b8562f}
+  .controls{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.7rem 0}
+  .controls input,.controls select{padding:.5rem .7rem;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--card)}
+  .controls input[type=search]{flex:1;min-width:160px}
+  .controls label{font-size:.85rem;color:var(--sub);display:flex;align-items:center;gap:.35rem}
   #status{color:var(--sub);font-size:.9rem;margin:.4rem 0}
-  th .sort-icon{font-size:.65rem;color:var(--sub);margin-left:.2rem}
-  @media(max-width:560px){.summary-grid{grid-template-columns:1fr 1fr} td{padding:.4rem .3rem;font-size:.82rem}}
+  .mover{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.75rem 1rem;margin:.5rem 0;display:flex;gap:1rem;align-items:center;text-decoration:none;color:inherit;transition:border-color .15s}
+  .mover:hover{border-color:var(--terra)}
+  .mover .rank{font-size:1.1rem;font-weight:700;color:var(--sub);min-width:28px;text-align:center}
+  .mover .info{flex:1}
+  .mover .info .title{font-weight:600;font-size:.98rem}
+  .mover .info .meta{font-size:.78rem;color:var(--sub);margin-top:.2rem}
+  .mover .delta{text-align:center;min-width:70px}
+  .mover .delta .pct{font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .mover .delta .pct.up{color:#2f8f5b}
+  .mover .delta .pct.dn{color:#b8562f}
+  .mover .delta .dir{font-size:.7rem;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;display:block}
+  .last-updated{color:var(--sub);font-size:.8rem;margin:.5rem 0}
+  footer{margin-top:2rem;color:var(--sub);font-size:.82rem;text-align:center;border-top:1px solid var(--line);padding-top:1rem}
+  @media(max-width:560px){.mover{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -51,141 +54,196 @@
   <header>
     <div class="badge">📊 Market Movement Tracker</div>
     <h1>Market Movers</h1>
-    <p class="sub">Prediction markets that shifted most since the last scan — sorted by absolute probability change.</p>
+    <p class="sub">Polymarket prediction markets ranked by implied probability change — live from Polymarket's API. See what the crowd shifted on in the last 24 hours.</p>
     <div class="back-link">← <a href="../">Back to Polymarket Scanner</a></div>
   </header>
 
-  <div id="summary-area"></div>
   <div id="status">Loading mover data…</div>
-  <div style="overflow-x:auto">
-    <table id="movers-table">
-      <thead>
-        <tr>
-          <th data-col="rank" title="Rank">#</th>
-          <th data-col="title" title="Market title">Market</th>
-          <th data-col="delta" title="Probability change" style="text-align:right">Δ Prob</th>
-          <th data-col="direction" title="Direction">Dir</th>
-          <th data-col="cur" title="Current probability" style="text-align:right">Now</th>
-          <th data-col="prev" title="Previous probability" style="text-align:right">Before</th>
-          <th data-col="vol" title="Trading volume" style="text-align:right">Volume</th>
-        </tr>
-      </thead>
-      <tbody id="movers-body"></tbody>
-    </table>
+
+  <div class="stat-row" id="stats">
+    <div class="stat-box"><span class="num" id="s-total">—</span><span class="lbl">Markets Moved</span></div>
+    <div class="stat-box"><span class="num up" id="s-up">—</span><span class="lbl">Up</span></div>
+    <div class="stat-box"><span class="num dn" id="s-dn">—</span><span class="lbl">Down</span></div>
+    <div class="stat-box"><span class="num" id="s-avg">—</span><span class="lbl">Avg |Δ|</span></div>
   </div>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search movers…" aria-label="Search movers">
+    <label>Direction
+      <select id="dir-filter">
+        <option value="all">All</option>
+        <option value="up">Up only</option>
+        <option value="down">Down only</option>
+      </select>
+    </label>
+    <label>Sort by
+      <select id="sort-by">
+        <option value="abs">Biggest move (|Δ|)</option>
+        <option value="sig">Most significant (×volume)</option>
+      </select>
+    </label>
+    <button id="refresh" style="padding:.5rem .9rem;border:0;border-radius:10px;background:var(--terra);color:#fff;font-weight:600;cursor:pointer">↻ Refresh</button>
+  </div>
+
+  <div id="list"></div>
   <p class="last-updated" id="label-line"></p>
+
+  <footer>
+    Read-only. Data from <a href="https://polymarket.com">Polymarket</a>'s public Gamma API. Not financial advice.<br>
+    Built by <a href="../../">Tobias</a> · <a href="../">Polymarket Scanner</a>
+  </footer>
 </main>
 
 <script>
-const SEED = [{"title":"Will JD Vance win the 2028 US Presidential Election?","cur":13.35,"prev":17.35,"delta":-4.0,"abs":4.0,"vol":19098382.048016995},{"title":"Will Gavin Newsom win the 2028 US Presidential Election?","cur":6.05,"prev":7.85,"delta":-1.8,"abs":1.8,"vol":19240060.768715005},{"title":"Will Thomas Massie win the 2028 US Presidential Election?","cur":1.15,"prev":1.85,"delta":-0.7,"abs":0.7,"vol":8826796.144212998},{"title":"Will Gavin Newsom win the 2028 Democratic presidential nomination?","cur":10.15,"prev":10.8,"delta":-0.65,"abs":0.65,"vol":28709270.998945},{"title":"Will Dwayne 'The Rock' Johnson win the 2028 US Presidential Election?","cur":1.1,"prev":1.55,"delta":-0.45,"abs":0.45,"vol":8661799.165075999},{"title":"Will Chris Van Hollen win the 2028 Democratic presidential nomination?","cur":0.65,"prev":0.25,"delta":0.4,"abs":0.4,"vol":3090354.2912330003},{"title":"Will Ron DeSantis win the 2028 US Presidential Election?","cur":6.45,"prev":6.1,"delta":0.35,"abs":0.35,"vol":13057791.906175},{"title":"Will Alexandria Ocasio-Cortez win the 2028 Democratic presidential nomination?","cur":14.55,"prev":14.25,"delta":0.3,"abs":0.3,"vol":15993804.045945005},{"title":"Will Mark Kelly win the 2028 Democratic presidential nomination?","cur":2.25,"prev":1.95,"delta":0.3,"abs":0.3,"vol":18285167.158363007},{"title":"Will James Talarico win the 2028 US Presidential Election?","cur":0.95,"prev":1.25,"delta":-0.3,"abs":0.3,"vol":9105791.973715},{"title":"Will Raphael Warnock win the 2028 Democratic presidential nomination?","cur":3.25,"prev":3.45,"delta":-0.2,"abs":0.2,"vol":34643183.58673899},{"title":"Will Rahm Emanuel win the 2028 Democratic presidential nomination?","cur":0.95,"prev":1.15,"delta":-0.2,"abs":0.2,"vol":15056916.315226998},{"title":"Will Alexandria Ocasio-Cortez win the 2028 US Presidential Election?","cur":10.35,"prev":10.55,"delta":-0.2,"abs":0.2,"vol":14448261.702646002},{"title":"Will Jamie Dimon win the 2028 US Presidential Election?","cur":0.35,"prev":0.15,"delta":0.2,"abs":0.2,"vol":11597171.457237002},{"title":"Xi Jinping out before 2027?","cur":1.6,"prev":1.45,"delta":0.15,"abs":0.15,"vol":17184998.357096},{"title":"Will Roy Cooper win the 2028 Democratic presidential nomination?","cur":0.35,"prev":0.5,"delta":-0.15,"abs":0.15,"vol":32584117.357205},{"title":"Will Ro Khanna win the 2028 Democratic presidential nomination?","cur":2.4,"prev":2.55,"delta":-0.15,"abs":0.15,"vol":11895930.237461999},{"title":"Will Pete Buttigieg win the 2028 Democratic presidential nomination?","cur":5.45,"prev":5.35,"delta":0.1,"abs":0.1,"vol":12419715.904339997},{"title":"Will Gretchen Whitmer win the 2028 Democratic presidential nomination?","cur":0.85,"prev":0.75,"delta":0.1,"abs":0.1,"vol":12278882.274201},{"title":"Will J.B. Pritzker win the 2028 Democratic presidential nomination?","cur":1.45,"prev":1.55,"delta":-0.1,"abs":0.1,"vol":15999710.349844},{"title":"Will Michelle Obama win the 2028 Democratic presidential nomination?","cur":0.45,"prev":0.55,"delta":-0.1,"abs":0.1,"vol":26850045.441516005},{"title":"Will Jon Stewart win the 2028 Democratic presidential nomination?","cur":0.25,"prev":0.35,"delta":-0.1,"abs":0.1,"vol":24969284.097111005},{"title":"Will Abdul El-Sayed win the 2028 Democratic presidential nomination?","cur":0.95,"prev":1.05,"delta":-0.1,"abs":0.1,"vol":1965936.945513},{"title":"Will Cory Booker win the 2028 Democratic presidential nomination?","cur":0.6,"prev":0.65,"delta":-0.05,"abs":0.05,"vol":26850418.146909},{"title":"Will Dwayne 'The Rock' Johnson win the 2028 Democratic presidential nomination?","cur":0.7,"prev":0.75,"delta":-0.05,"abs":0.05,"vol":12579981.629562998},{"title":"Will James Talarico win the 2028 Democratic presidential nomination?","cur":2.4,"prev":2.45,"delta":-0.05,"abs":0.05,"vol":11974855.857900003}];
-const SEED_LABEL = "snapshot_20261111T200342Z.json → snapshot_20261112T110626Z.json";
+// Market Movers — LIVE from Polymarket's Gamma API using oneDayPriceChange.
+// No manual SEED regeneration needed. Always fresh.
+const API = "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=200&order=volume24hr&ascending=false";
 
-function fmtPct(v) { return (v/100).toLocaleString(undefined,{style:'percent',minimumFractionDigits:1,maximumFractionDigits:1}); }
-function fmtDollar(v) {
-  if(v >= 1e9) return '$' + (v/1e9).toFixed(1) + 'B';
-  if(v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
-  if(v >= 1e3) return '$' + (v/1e3).toFixed(0) + 'K';
-  return '$' + v.toFixed(0);
+function esc(s) { return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+function fmtDollar(v){
+  if(!v) return "$0";
+  if(v>=1e9) return "$"+(v/1e9).toFixed(1)+"B";
+  if(v>=1e6) return "$"+(v/1e6).toFixed(1)+"M";
+  if(v>=1e3) return "$"+(v/1e3).toFixed(0)+"K";
+  return "$"+Math.round(v);
 }
 
-function render() {
-  if(!SEED || SEED.length === 0) {
-    document.getElementById('status').textContent = 'No mover data available yet. Check back after the next scan.';
+function fmtPct(v){ return (v>0?"+":"")+v.toFixed(2)+"%"; }
+
+function getYesProb(m){
+  try{
+    var prices = JSON.parse(m.outcomePrices||"[]").map(Number);
+    var outcomes = JSON.parse(m.outcomes||"[]");
+    var yesIdx = outcomes.map(function(o){ return (o||"").trim().toLowerCase(); }).indexOf("yes");
+    if(yesIdx>=0 && yesIdx<prices.length) return prices[yesIdx]*100;
+  }catch(e){}
+  return null;
+}
+
+function deltaPct(m){ return (m.oneDayPriceChange||0)*100; }
+
+function significance(m){
+  // |Δ| × volume24hr — higher = more meaningful move
+  return Math.abs(deltaPct(m)) * (m.volume24hr||0);
+}
+
+function buildMoverHTML(m, i){
+  var d = deltaPct(m);
+  var dir = d>0?"up":"dn";
+  var arrow = d>0?"▲":"▼";
+  var dirLabel = d>0?"Up":"Down";
+  var prob = getYesProb(m);
+  var probStr = prob!=null ? prob.toFixed(1)+"% now" : "";
+  var volStr = "vol "+fmtDollar(m.volume||0)+" · 24h "+fmtDollar(m.volume24hr||0);
+  var slug = m.slug || "";
+  var href = slug ? "https://polymarket.com/event/"+encodeURIComponent(slug) : "#";
+  return '<a class="mover" href="'+href+'" target="_blank" rel="noopener">' +
+    '<div class="rank">'+(i+1)+'</div>' +
+    '<div class="info">' +
+      '<div class="title">'+arrow+' '+esc(m.question||m.title||"")+'</div>' +
+      '<div class="meta">'+probStr+(probStr&&volStr?" · ":"")+volStr+'</div>' +
+    '</div>' +
+    '<div class="delta">' +
+      '<span class="pct '+dir+'">'+fmtPct(d)+'</span>' +
+      '<span class="dir">'+dirLabel+'</span>' +
+    '</div>' +
+  '</a>';
+}
+
+function render(movers){
+  var total = movers.length;
+  var up = movers.filter(function(m){ return deltaPct(m)>0; }).length;
+  var dn = movers.filter(function(m){ return deltaPct(m)<0; }).length;
+  var avg = total>0 ? movers.reduce(function(s,m){ return s+Math.abs(deltaPct(m)); },0)/total : 0;
+
+  document.getElementById("s-total").textContent = total;
+  document.getElementById("s-up").textContent = up;
+  document.getElementById("s-dn").textContent = dn;
+  document.getElementById("s-avg").textContent = avg.toFixed(2)+"pp";
+
+  var q = (document.getElementById("q").value||"").toLowerCase().trim();
+  var dirFilter = document.getElementById("dir-filter").value;
+  var sortBy = document.getElementById("sort-by").value;
+
+  var filtered = movers.filter(function(m){
+    if(q && !(m.question||m.title||"").toLowerCase().includes(q)) return false;
+    var d = deltaPct(m);
+    if(dirFilter==="up" && d<=0) return false;
+    if(dirFilter==="down" && d>=0) return false;
+    return true;
+  });
+
+  filtered.sort(function(a,b){
+    if(sortBy==="sig") return significance(b)-significance(a);
+    return Math.abs(deltaPct(b))-Math.abs(deltaPct(a)); // abs default
+  });
+
+  if(filtered.length===0){
+    document.getElementById("list").innerHTML = '<p style="color:var(--sub);text-align:center;margin:2rem 0">No markets match your filters.</p>';
     return;
   }
 
-  const up = SEED.filter(m => m.delta > 0).length;
-  const down = SEED.filter(m => m.delta < 0).length;
-  const avgDelta = SEED.reduce((s,m) => s + Math.abs(m.delta), 0) / SEED.length;
-
-  document.getElementById('summary-area').innerHTML =
-    '<div class="summary"><div class="summary-grid">' +
-      '<div class="summary-item"><span class="num">' + SEED.length + '</span><span class="lbl">Markers that moved</span></div>' +
-      '<div class="summary-item"><span class="num" style="color:var(--good)">' + up + ' ↑</span><span class="lbl">Rising</span></div>' +
-      '<div class="summary-item"><span class="num" style="color:#b83a2f">' + down + ' ↓</span><span class="lbl">Falling</span></div>' +
-    '</div></div>';
-
-  document.getElementById('status').textContent = '';
-  document.getElementById('label-line').textContent = 'Comparison: ' + SEED_LABEL;
-
-  const tbody = document.getElementById('movers-body');
-  tbody.innerHTML = '';
-  SEED.forEach((m, i) => {
-    const dir = m.delta > 0 ? '<span class="up">▲ UP</span>' : '<span class="down">▼ DOWN</span>';
-    const barW = Math.min(Math.abs(m.delta) * 20, 60);
-    const barColor = m.delta > 0 ? 'var(--good)' : '#b83a2f';
-    const bar = '<span class="delta-bar" style="width:' + barW + 'px;background:' + barColor + '"></span>';
-    const tr = document.createElement('tr');
-    tr.innerHTML =
-      '<td class="rank">' + (i+1) + '</td>' +
-      '<td>' + escapeHtml(m.title) + '</td>' +
-      '<td style="text-align:right">' + bar + (m.delta > 0 ? '+' : '') + m.delta.toFixed(2) + '%</td>' +
-      '<td>' + dir + '</td>' +
-      '<td style="text-align:right"><span class="prob">' + m.cur.toFixed(1) + '%</span></td>' +
-      '<td style="text-align:right">' + m.prev.toFixed(1) + '%</td>' +
-      '<td style="text-align:right"><span class="vol">' + fmtDollar(m.vol) + '</span></td>';
-    tbody.appendChild(tr);
-  });
+  document.getElementById("list").innerHTML = filtered.map(buildMoverHTML).join("");
+  document.getElementById("label-line").textContent = "Live from Polymarket Gamma API · " + new Date().toLocaleString();
 }
 
-function escapeHtml(s) {
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
+function load(){
+  document.getElementById("status").textContent = "Loading mover data…";
+  fetch(API)
+    .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+    .then(function(data){
+      var markets = Array.isArray(data) ? data : (data.data||[]);
+      // Filter to markets that actually moved in the last 24h
+      var movers = markets.filter(function(m){ return m.oneDayPriceChange != null && Math.abs(m.oneDayPriceChange) >= 0.0005; });
+      document.getElementById("status").textContent = movers.length+" market(s) moved in the last 24h · "+markets.length+" total live";
+      render(movers);
+    })
+    .catch(function(e){
+      document.getElementById("status").innerHTML = "Couldn't reach Polymarket's API right now — try the ↻ button in a moment. ("+e.message+")";
+    });
 }
 
-// Sorting
-let sortCol = 'rank';
-let sortAsc = true;
+document.getElementById("q").addEventListener("input", function(){ renderFromCache(); });
+document.getElementById("dir-filter").addEventListener("change", function(){ renderFromCache(); });
+document.getElementById("sort-by").addEventListener("change", function(){ renderFromCache(); });
+document.getElementById("refresh").addEventListener("click", function(){ load(); });
 
-function sortBy(col) {
-  if(col === sortCol) sortAsc = !sortAsc;
-  else { sortCol = col; sortAsc = col !== 'delta'; }
-  SEED.sort((a,b) => {
-    let va, vb;
-    switch(col) {
-      case 'rank': va = SEED.indexOf(a); vb = SEED.indexOf(b); break;
-      case 'title': va = a.title.toLowerCase(); vb = b.title.toLowerCase(); return sortAsc ? (va < vb ? -1 : va > vb ? 1 : 0) : (va < vb ? 1 : va > vb ? -1 : 0);
-      case 'delta': va = Math.abs(a.delta); vb = Math.abs(b.delta); break;
-      case 'direction': va = a.delta; vb = b.delta; break;
-      case 'cur': va = a.cur; vb = b.cur; break;
-      case 'prev': va = a.prev; vb = b.prev; break;
-      case 'vol': va = a.vol; vb = b.vol; break;
-      default: va = 0; vb = 0;
-    }
-    return sortAsc ? va - vb : vb - va;
-  });
-  render();
-  updateSortIndicators();
+var _cachedMarkets = [];
+function renderFromCache(){ render(_cachedMarkets); }
+
+// Override load to cache
+var _origLoad = load;
+load = function(){
+  document.getElementById("status").textContent = "Loading mover data…";
+  fetch(API)
+    .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+    .then(function(data){
+      var markets = Array.isArray(data) ? data : (data.data||[]);
+      _cachedMarkets = markets.filter(function(m){ return m.oneDayPriceChange != null && Math.abs(m.oneDayPriceChange) >= 0.0005; });
+      document.getElementById("status").textContent = _cachedMarkets.length+" market(s) moved in the last 24h · "+markets.length+" total live";
+      render(_cachedMarkets);
+    })
+    .catch(function(e){
+      document.getElementById("status").innerHTML = "Couldn't reach Polymarket's API right now — try the ↻ button in a moment. ("+e.message+")";
+    });
+};
+load();
+
+// G1* tool-use meter
+var _used=false;
+function markUse(){
+  if(_used) return; _used=true;
+  try{window.goatcounter&&window.goatcounter.count({path:"movers-used",title:"market movers used",event:true})}catch(e){}
 }
-
-function updateSortIndicators() {
-  document.querySelectorAll('th').forEach(th => {
-    th.classList.remove('sorted');
-    const icon = th.querySelector('.sort-icon');
-    if(icon) icon.remove();
-  });
-  const activeTh = Array.from(document.querySelectorAll('th')).find(th => th.dataset.col === sortCol);
-  if(activeTh) {
-    activeTh.classList.add('sorted');
-    const span = document.createElement('span');
-    span.className = 'sort-icon';
-    span.textContent = sortAsc ? ' ▲' : ' ▼';
-    activeTh.appendChild(span);
-  }
-}
-
-document.querySelectorAll('th[data-col]').forEach(th => {
-  th.addEventListener('click', () => sortBy(th.dataset.col));
-});
-
-render();
-</script>
-<script>
-(function(){var used=false;function mark(){if(used)return;used=true;
-  try{window.goatcounter&&window.goatcounter.count({path:"polymarket-scanner-used",title:"polymarket-scanner used",event:true})}catch(e){}}
- document.addEventListener("click",mark);document.addEventListener("keydown",mark);})();
+document.getElementById("q").addEventListener("input", markUse);
+document.getElementById("dir-filter").addEventListener("change", markUse);
+document.getElementById("sort-by").addEventListener("change", markUse);
+document.getElementById("refresh").addEventListener("click", markUse);
 </script>
 <script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<!-- tobias-footer:start -->
+<div class="tobias-footer" style="max-width:760px;margin:2.5rem auto 1.5rem;padding:1rem 1.25rem 0;border-top:1px solid rgba(127,127,127,.35);font:13px/1.6 system-ui,-apple-system,sans-serif;color:#6b7280;text-align:center">Built by Tobias · <a href="https://builtbytobias.com/" style="color:inherit;text-decoration:underline">All tools</a> · <a href="https://builtbytobias.com/colophon/#polymarket-scanner" style="color:inherit;text-decoration:underline">How this was built</a></div>
+<!-- tobias-footer:end -->
 </body>
 </html>
