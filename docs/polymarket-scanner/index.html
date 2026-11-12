@@ -100,6 +100,7 @@
     </label>
     <label><input type="checkbox" id="soon"> Closing ≤7d</label>
     <label><input type="checkbox" id="mover"> ≥0.5% move</label>
+    <label><input type="checkbox" id="new"> New (≤7d)</label>
     <button id="refresh" style="padding:.5rem .9rem;border:0;border-radius:10px;background:var(--terra);color:#fff;font-weight:600;cursor:pointer">↻</button>
   </div>
 
@@ -181,6 +182,7 @@ function render(){
   if(dir==="down") rows = rows.filter(m => m.delta24h && m.delta24h < -0.002);
   if(soon) rows = rows.filter(m => { const d=daysLeft(m.end); return d!=null && d>=0 && d<=7; });
   if($("#mover").checked) rows = rows.filter(m => m.delta24h && Math.abs(m.delta24h) >= 0.005);
+  if($("#new").checked) rows = rows.filter(m => { const d=daysLeft(m.end); return m.start && daysLeft(m.start) >= -7 && (!d || d>=0); });
   rows.sort((a,b)=>{
     if(sort==="closing") return (daysLeft(a.end)??1e9)-(daysLeft(b.end)??1e9);
     if(sort==="liquidity") return b.liq-a.liq;
@@ -229,6 +231,7 @@ $("#sort").addEventListener("change", function(){markUse();render();});
 $("#direction").addEventListener("change", function(){markUse();render();});
 $("#soon").addEventListener("change", function(){markUse();render();});
 $("#mover").addEventListener("change", function(){markUse();render();});
+$("#new").addEventListener("change", function(){markUse();render();});
 $("#refresh").addEventListener("click", function(){markUse();load();});
 load();
 </script>
