@@ -172,7 +172,7 @@ function onSearchOrFilter(){
 function refresh(){
   var label = '<strong>🟢 Loading from Polymarket API…</strong>';
   document.getElementById("list").innerHTML = '<div style="color:var(--sub);font-style:italic;margin:1rem 0">Loading live data…</div>';
-  fetch(API, {headers:{"User-Agent":"TobiasMovers/1.0"}})
+  fetch(API)
     .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
     .then(function(data){
       var markets = Array.isArray(data) ? data : (data.data||[]);
