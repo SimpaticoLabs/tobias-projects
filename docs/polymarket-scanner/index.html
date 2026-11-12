@@ -133,7 +133,7 @@
 </main>
 
 <script>
-const API = "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=120&order=volume24hr&ascending=false";
+const API = "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=120&order=volume24hr&ascending=false&withEvents=true";
 let MARKETS = [];
 const $ = s => document.querySelector(s);
 
@@ -147,8 +147,9 @@ function parse(m){
     const prices = JSON.parse(m.outcomePrices||"[]").map(Number);
     if(!outcomes.length||!prices.length) return null;
     let t=0; for(let i=1;i<prices.length;i++) if(prices[i]>prices[t]) t=i;
+    const evt = (m.events && m.events[0] && m.events[0].title) || null;
     return { q:m.question, slug:m.slug, vol:+m.volume||0, vol24:+m.volume24hr||0, liq:+m.liquidity||0,
-      end:m.endDate, start:m.startDate, topOutcome:outcomes[t], topProb:prices[t], delta24h:+m.oneDayPriceChange||0 };
+      end:m.endDate, start:m.startDate, topOutcome:outcomes[t], topProb:prices[t], delta24h:+m.oneDayPriceChange||0, evt:evt };
   }catch(e){ return null; }
 }
 
@@ -175,7 +176,7 @@ function render(){
   const sort = $("#sort").value;
   const soon = $("#soon").checked;
   const dir = $("#direction").value;
-  let rows = MARKETS.filter(m => !q || m.q.toLowerCase().includes(q));
+  let rows = MARKETS.filter(m => !q || m.q.toLowerCase().includes(q) || (m.evt && m.evt.toLowerCase().includes(q)));
   if(dir==="up") rows = rows.filter(m => m.delta24h && m.delta24h > 0.002);
   if(dir==="down") rows = rows.filter(m => m.delta24h && m.delta24h < -0.002);
   if(soon) rows = rows.filter(m => { const d=daysLeft(m.end); return d!=null && d>=0 && d<=7; });
@@ -195,7 +196,7 @@ function render(){
   $("#list").innerHTML = rows.map(m => `
     <a class="mkt" href="https://polymarket.com/event/${encodeURIComponent(m.slug)}" target="_blank" rel="noopener">
       <div class="prob"><div class="p">${Math.round(m.topProb*100)}%</div><div class="o">${(m.topOutcome||"").slice(0,10)}</div></div>
-      <div class="q">${m.q}<div class="meta">${fmtEnd(m.end)} · $${fmtNum(m.vol)} total vol${m.delta24h?` · ${m.delta24h>0?'+':''}${(m.delta24h*100).toFixed(1)}% 24h`:''}</div></div>
+      <div class="q">${m.q}<div class="meta">${m.evt?esc(m.evt)+' · ':''}${fmtEnd(m.end)} · $${fmtNum(m.vol)} total vol${m.delta24h?` · ${m.delta24h>0?'+':''}${(m.delta24h*100).toFixed(1)}% 24h`:''}</div></div>
       <div class="stat"><b>$${fmtNum(showTotal?m.vol:m.vol24)}</b>${showTotal?"total":"24h vol"}</div>
     </a>`).join("");
   $("#status").textContent = `${rows.length} market(s) shown · ${MARKETS.length} live · updated ${new Date().toLocaleTimeString()}`;
