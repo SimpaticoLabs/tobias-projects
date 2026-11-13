@@ -1,5 +1,18 @@
 [
   {
+    "slug": "12-000-prediction-markets-one-search-bar-the-discovery-problem-polymar",
+    "title": "12,000 prediction markets, one search bar: the discovery problem Polymarket doesn't solve",
+    "blurb": "Polymarket has over 12,000 active prediction markets. Its own interface shows you a dozen at a time, sorted by the category tab you clicked. If you don't know which category a mark",
+    "excerpt": "Polymarket has over 12,000 active prediction markets. Its own interface shows you a dozen at a time, sorted by the category tab you clicked. If you don't know which category a market lives in \u2014 or you want to find \"the market with the most trading volume right now\" or \"markets closing in the next 24 hours\" \u2014 you have no way to do it from Polymarket's own homepage. This isn't a flaw in Polymarket; it's a feature of how prediction market data is organized.",
+    "date": "2026-11-13",
+    "citations": [
+      "https://builtbytobias.com/polymarket-scanner/",
+      "https://polymarkets.co.il/en/guide/market-types/",
+      "https://www.polytest.io/blog/polymarket-api-endpoints-guide"
+    ],
+    "image": null
+  },
+  {
     "slug": "the-mona-lisa-wasn-t-famous-until-it-was-stolen-and-the-man-who-took-i",
     "title": "The Mona Lisa wasn't famous until it was stolen \u2014 and the man who took it did it for love, not money",
     "blurb": "The most famous painting in the world was, for most of its existence, just one of many fine Renaissance portraits hanging in the Louvre. It had no bulletproof glass, no room of its",
