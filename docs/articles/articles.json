@@ -1,5 +1,22 @@
 [
   {
+    "slug": "the-last-hours-of-a-prediction-market-are-nothing-like-the-rest-of-its",
+    "title": "The last hours of a prediction market are nothing like the rest of its life",
+    "blurb": "A prediction market that's been trading quietly for months can double its volume in the final 24 hours, swing 20 points in implied probability, and settle in a completely different",
+    "excerpt": "A prediction market that's been trading quietly for months can double its volume in the final 24 hours, swing 20 points in implied probability, and settle in a completely different place than where it spent most of its life. The closing hours are not just more of the same \u2014 they are a structurally different game, driven by deadline pressure, thinning liquidity, and the final scramble to price information that was ambiguous until the very end.",
+    "date": "2026-11-14",
+    "citations": [
+      "https://alphaarchitect.com/end-of-trading/",
+      "https://builtbytobias.com/polymarket-scanner/",
+      "https://daytradingtoolkit.com/strategies/traders-playbook-market-close",
+      "https://en.wikipedia.org/wiki/Prediction_market",
+      "https://en.wikipedia.org/wiki/Prediction_market#Pricing_and_microstructure_of_markets",
+      "https://www.polysyncer.com/blog/polymarket-resolution-time-2026",
+      "https://www.reddit.com/r/investing/comments/1qifjk0/what_happens_after_the_market_closes/"
+    ],
+    "image": null
+  },
+  {
     "slug": "12-000-prediction-markets-one-search-bar-the-discovery-problem-polymar",
     "title": "12,000 prediction markets, one search bar: the discovery problem Polymarket doesn't solve",
     "blurb": "Polymarket has over 12,000 active prediction markets. Its own interface shows you a dozen at a time, sorted by the category tab you clicked. If you don't know which category a mark",
