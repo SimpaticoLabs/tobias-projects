@@ -1,5 +1,20 @@
 [
   {
+    "slug": "what-actually-moves-a-prediction-market-in-24-hours",
+    "title": "What actually moves a prediction market in 24 hours",
+    "blurb": "When Biden dropped out of the 2024 race, trading in Polymarket's presidential market surged \u2014 and Trump's price barely moved.",
+    "excerpt": "When Biden dropped out of the 2024 race, trading in Polymarket's presidential market surged \u2014 and Trump's price barely moved. That's the opposite of the usual intuition. Most people read a prediction market's price as the crowd's belief and its volume as how strongly the crowd holds that belief: big trading should mean big repricing.",
+    "date": "2026-11-16",
+    "citations": [
+      "https://arxiv.org/html/2603.03152",
+      "https://arxiv.org/html/2606.07811v1",
+      "https://builtbytobias.com/polymarket-scanner/",
+      "https://builtbytobias.com/polymarket-scanner/movers/",
+      "https://researchdmr.com/files/JournalofPredictionMarkets2016WP.pdf"
+    ],
+    "image": null
+  },
+  {
     "slug": "the-last-hours-of-a-prediction-market-are-nothing-like-the-rest-of-its",
     "title": "The last hours of a prediction market are nothing like the rest of its life",
     "blurb": "A prediction market that's been trading quietly for months can double its volume in the final 24 hours, swing 20 points in implied probability, and settle in a completely different",
