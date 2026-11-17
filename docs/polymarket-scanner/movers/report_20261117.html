@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movement Report — Polymarket Scanner (20261117)</title>
+<meta name="description" content="Polymarket prediction market movement report: 38 markets moved. See which odds shifted most, ranked by |Δ probability|.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://builtbytobias.com/polymarket-scanner/movers/report_20261117.html">
+<style>
+  :root{--bg:#faf7f3;--card:#fff;--ink:#1f1a17;--sub:#6b625b;--line:#e7ded4;--terra:#b8562f;--terra-d:#a5461f;--good:#2f8f5b;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,Segoe UI,system-ui,Roboto,sans-serif}
+  main{max-width:920px;margin:0 auto;padding:1.25rem 1rem 3rem}
+  header h1{font-size:1.6rem;margin:.2rem 0 .3rem}
+  .sub{color:var(--sub);margin:0 0 1rem}
+  .badge{display:inline-block;background:#f0e7dd;color:var(--terra-d);border-radius:999px;padding:.15rem .6rem;font-size:.78rem;font-weight:600;margin-bottom:.6rem}
+  .back-link{margin:1rem 0;font-size:.88rem}
+  .back-link a{color:var(--terra-d)}
+  .stat-row{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0}
+  .stat-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8rem 1.2rem;text-align:center;flex:1;min-width:110px}
+  .stat-box .num{font-size:1.5rem;font-weight:700;color:var(--terra);display:block}
+  .stat-box .lbl{font-size:.72rem;color:var(--sub);text-transform:uppercase;letter-spacing:.04em}
+  .stat-box .num.up{color:var(--good)}
+  .stat-box .num.dn{color:var(--terra)}
+  table{width:100%;border-collapse:collapse;margin:.8rem 0}
+  th{text-align:left;font-size:.75rem;color:var(--sub);text-transform:uppercase;letter-spacing:.04em;padding:.5rem .6rem;border-bottom:2px solid var(--line)}
+  td{padding:.5rem .6rem;border-bottom:1px solid var(--line);font-size:.92rem}
+  tr:hover{background:rgba(184,86,47,.04)}
+  .up{color:var(--good);font-weight:600}
+  .dn{color:var(--terra);font-weight:600}
+  .vol{font-variant-numeric:tabular-nums;color:var(--sub);font-size:.85rem}
+  .title-col{max-width:400px}
+  .rank-col{width:32px;text-align:center;color:var(--sub);font-weight:600}
+  .delta-col{width:90px;text-align:right}
+  .prob-col{width:80px;text-align:center;font-variant-numeric:tabular-nums}
+  h2{font-size:1.15rem;margin:1.6rem 0 .5rem}
+  footer{margin-top:2rem;color:var(--sub);font-size:.82rem;text-align:center;border-top:1px solid var(--line);padding-top:1rem}
+  @media(max-width:560px){.stat-row{gap:.5rem}.stat-box{padding:.5rem .8rem}.stat-box .num{font-size:1.2rem}td,th{font-size:.82rem;padding:.35rem .4rem}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="badge">📊 Cross-Scan Movement Report</div>
+    <h1>Market Movement Report</h1>
+    <p class="sub">Polymarket prediction markets ranked by implied probability change between two scans.<br>Period: <code>snapshot_20261113T224541Z.json</code> → <code>snapshot_20261117T220039Z.json</code>. 38 of 120 tracked markets moved.</p>
+    <div class="back-link">← <a href="../movers/">Market Movers</a> · <a href="../">Polymarket Scanner</a></div>
+  </header>
+  <div class="stat-row">
+    <div class="stat-box"><span class="num">38</span><span class="lbl">Markets Moved</span></div>
+    <div class="stat-box"><span class="num up">20</span><span class="lbl">Up</span></div>
+    <div class="stat-box"><span class="num dn">18</span><span class="lbl">Down</span></div>
+    <div class="stat-box"><span class="num">0.27pp</span><span class="lbl">Avg |Δ|</span></div>
+  </div>
+  <h2>🔺 Biggest Movers (by |Δ Probability|)</h2>
+  <table>
+    <thead>
+      <tr><th class="rank-col">#</th><th>Market</th><th class="delta-col">Δ Prob</th><th class="prob-col">Now</th><th class="prob-col">Before</th><th style="text-align:right">Volume</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-col">1</td>
+        <td class="title-col"><strong>Will JD Vance win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="up">+2.50%</span></td>
+        <td class="prob-col">15.4%</td>
+        <td class="prob-col">12.9%</td>
+        <td style="text-align:right"><span class="vol">$19.4M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">2</td>
+        <td class="title-col"><strong>Will Jon Ossoff win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="up">+1.05%</span></td>
+        <td class="prob-col">18.4%</td>
+        <td class="prob-col">17.4%</td>
+        <td style="text-align:right"><span class="vol">$7.1M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">3</td>
+        <td class="title-col"><strong>Will Gavin Newsom win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.60%</span></td>
+        <td class="prob-col">10.2%</td>
+        <td class="prob-col">9.7%</td>
+        <td style="text-align:right"><span class="vol">$28.8M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">4</td>
+        <td class="title-col"><strong>Will Kamala Harris win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="dn">−0.60%</span></td>
+        <td class="prob-col">4.8%</td>
+        <td class="prob-col">5.3%</td>
+        <td style="text-align:right"><span class="vol">$14.9M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">5</td>
+        <td class="title-col"><strong>Will Josh Shapiro win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="dn">−0.40%</span></td>
+        <td class="prob-col">5.2%</td>
+        <td class="prob-col">5.5%</td>
+        <td style="text-align:right"><span class="vol">$10.8M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">6</td>
+        <td class="title-col"><strong>Will Jon Ossoff win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.40%</span></td>
+        <td class="prob-col">26.6%</td>
+        <td class="prob-col">26.1%</td>
+        <td style="text-align:right"><span class="vol">$15.1M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">7</td>
+        <td class="title-col"><strong>Will JB Pritzker win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="up">+0.40%</span></td>
+        <td class="prob-col">1.1%</td>
+        <td class="prob-col">0.7%</td>
+        <td style="text-align:right"><span class="vol">$13.5M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">8</td>
+        <td class="title-col"><strong>Will Wes Moore win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="dn">−0.35%</span></td>
+        <td class="prob-col">2.0%</td>
+        <td class="prob-col">2.4%</td>
+        <td style="text-align:right"><span class="vol">$18.8M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">9</td>
+        <td class="title-col"><strong>Will Marco Rubio win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="dn">−0.35%</span></td>
+        <td class="prob-col">9.1%</td>
+        <td class="prob-col">9.4%</td>
+        <td style="text-align:right"><span class="vol">$13.7M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">10</td>
+        <td class="title-col"><strong>Will Pete Buttigieg win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="dn">−0.30%</span></td>
+        <td class="prob-col">5.2%</td>
+        <td class="prob-col">5.5%</td>
+        <td style="text-align:right"><span class="vol">$12.6M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">11</td>
+        <td class="title-col"><strong>Will Elissa Slotkin win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.30%</span></td>
+        <td class="prob-col">0.5%</td>
+        <td class="prob-col">0.1%</td>
+        <td style="text-align:right"><span class="vol">$2.4M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">12</td>
+        <td class="title-col"><strong>Will J.B. Pritzker win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.25%</span></td>
+        <td class="prob-col">1.8%</td>
+        <td class="prob-col">1.5%</td>
+        <td style="text-align:right"><span class="vol">$16.1M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">13</td>
+        <td class="title-col"><strong>Will Raphael Warnock win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.25%</span></td>
+        <td class="prob-col">3.4%</td>
+        <td class="prob-col">3.1%</td>
+        <td style="text-align:right"><span class="vol">$34.7M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">14</td>
+        <td class="title-col"><strong>Will Rahm Emanuel win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.20%</span></td>
+        <td class="prob-col">0.9%</td>
+        <td class="prob-col">0.8%</td>
+        <td style="text-align:right"><span class="vol">$15.1M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">15</td>
+        <td class="title-col"><strong>Will Ro Khanna win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="dn">−0.20%</span></td>
+        <td class="prob-col">2.2%</td>
+        <td class="prob-col">2.5%</td>
+        <td style="text-align:right"><span class="vol">$11.9M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">16</td>
+        <td class="title-col"><strong>Will Ron DeSantis win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="up">+0.20%</span></td>
+        <td class="prob-col">6.5%</td>
+        <td class="prob-col">6.3%</td>
+        <td style="text-align:right"><span class="vol">$13.1M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">17</td>
+        <td class="title-col"><strong>Will Thomas Massie win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="up">+0.20%</span></td>
+        <td class="prob-col">1.4%</td>
+        <td class="prob-col">1.1%</td>
+        <td style="text-align:right"><span class="vol">$8.9M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">18</td>
+        <td class="title-col"><strong>Will Mark Kelly win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.15%</span></td>
+        <td class="prob-col">2.3%</td>
+        <td class="prob-col">2.1%</td>
+        <td style="text-align:right"><span class="vol">$18.3M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">19</td>
+        <td class="title-col"><strong>Will Chelsea Clinton win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="dn">−0.15%</span></td>
+        <td class="prob-col">0.5%</td>
+        <td class="prob-col">0.6%</td>
+        <td style="text-align:right"><span class="vol">$51.1M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">20</td>
+        <td class="title-col"><strong>Will Abdul El-Sayed win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="dn">−0.15%</span></td>
+        <td class="prob-col">0.8%</td>
+        <td class="prob-col">1.0%</td>
+        <td style="text-align:right"><span class="vol">$2.2M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">21</td>
+        <td class="title-col"><strong>Will James Talarico win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="up">+0.15%</span></td>
+        <td class="prob-col">1.1%</td>
+        <td class="prob-col">1.0%</td>
+        <td style="text-align:right"><span class="vol">$9.1M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">22</td>
+        <td class="title-col"><strong>Will Mark Cuban win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.10%</span></td>
+        <td class="prob-col">0.2%</td>
+        <td class="prob-col">0.1%</td>
+        <td style="text-align:right"><span class="vol">$23.9M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">23</td>
+        <td class="title-col"><strong>Will Chris Van Hollen win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.10%</span></td>
+        <td class="prob-col">0.8%</td>
+        <td class="prob-col">0.8%</td>
+        <td style="text-align:right"><span class="vol">$3.6M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">24</td>
+        <td class="title-col"><strong>Will Scott Colom win the 2028 Democratic presidential nomination?</strong></td>
+        <td class="delta-col"><span class="up">+0.10%</span></td>
+        <td class="prob-col">0.1%</td>
+        <td class="prob-col">0.1%</td>
+        <td style="text-align:right"><span class="vol">$876K</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">25</td>
+        <td class="title-col"><strong>Putin out as President of Russia by December 31, 2026?</strong></td>
+        <td class="delta-col"><span class="dn">−0.10%</span></td>
+        <td class="prob-col">1.6%</td>
+        <td class="prob-col">1.6%</td>
+        <td style="text-align:right"><span class="vol">$28.4M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">26</td>
+        <td class="title-col"><strong>Will Alexandria Ocasio-Cortez win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="up">+0.10%</span></td>
+        <td class="prob-col">9.3%</td>
+        <td class="prob-col">9.2%</td>
+        <td style="text-align:right"><span class="vol">$14.5M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">27</td>
+        <td class="title-col"><strong>Will Wes Moore win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="dn">−0.10%</span></td>
+        <td class="prob-col">0.9%</td>
+        <td class="prob-col">1.1%</td>
+        <td style="text-align:right"><span class="vol">$13.0M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">28</td>
+        <td class="title-col"><strong>Will Kamala Harris win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="dn">−0.10%</span></td>
+        <td class="prob-col">3.1%</td>
+        <td class="prob-col">3.2%</td>
+        <td style="text-align:right"><span class="vol">$9.9M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">29</td>
+        <td class="title-col"><strong>Will Nikki Haley win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="dn">−0.10%</span></td>
+        <td class="prob-col">0.1%</td>
+        <td class="prob-col">0.2%</td>
+        <td style="text-align:right"><span class="vol">$32.5M</span></td>
+      </tr>
+      <tr>
+        <td class="rank-col">30</td>
+        <td class="title-col"><strong>Will Jamie Dimon win the 2028 US Presidential Election?</strong></td>
+        <td class="delta-col"><span class="dn">−0.10%</span></td>
+        <td class="prob-col">0.2%</td>
+        <td class="prob-col">0.3%</td>
+        <td style="text-align:right"><span class="vol">$11.9M</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+  <footer>
+    <p>Data from <a href="https://polymarket.com">Polymarket</a>'s public Gamma API. Cross-scan probability deltas computed by the <a href="https://builtbytobias.com/polymarket-scanner/">Polymarket Scanner</a>'s Movement Tracker.<br>
+    Not affiliated with Polymarket · not financial advice.</p>
+    <p>Built by Tobias · <a href="https://builtbytobias.com/">More tools</a></p>
+  </footer>
+</main>
+<script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
