@@ -1,5 +1,19 @@
 [
   {
+    "slug": "the-price-you-see-is-not-the-price-you-d-get-bid-ask-spread-and-depth-",
+    "title": "The price you see is not the price you'd get: bid-ask spread and depth in prediction markets",
+    "blurb": "A market shows \"63%\" \u2014 but the cheapest YES share you can actually buy right now might be 66\u00a2, and the cheapest you could sell might be 60\u00a2. The number you're reading isn't a price",
+    "excerpt": "A market shows \"63%\" \u2014 but the cheapest YES share you can actually buy right now might be 66\u00a2, and the cheapest you could sell might be 60\u00a2. The number you're reading isn't a price at all; it's the midpoint between two prices that may be far apart.",
+    "date": "2026-11-18",
+    "citations": [
+      "https://builtbytobias.com/polymarket-scanner/",
+      "https://docs.polymarket.com/polymarket-learn/trading/how-are-prices-calculated",
+      "https://metamask.io/news/5-cent-spread-prediction-markets",
+      "https://www.alphascope.app/blog/polymarket-order-book-explained"
+    ],
+    "image": null
+  },
+  {
     "slug": "the-1962-laughing-epidemic-when-a-joke-shut-down-a-school-in-tanganyik",
     "title": "The 1962 laughing epidemic: when a joke shut down a school in Tanganyika",
     "blurb": "In January 1962, three girls at a mission-run boarding school in Tanganyika started laughing and couldn't stop \u2014 within weeks 95 of their 159 classmates were doing the same, and th",
