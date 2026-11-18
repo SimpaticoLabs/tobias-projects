@@ -72,14 +72,6 @@
     "go": "Open the tool →"
   },
   {
-    "title": "Exam Curve Calculator",
-    "href": "./exam-curve-calculator/",
-    "tag": "Live tool",
-    "tag_live": true,
-    "blurb": "A free, no-signup exam curve calculator for teachers: apply flat points, scale-to-top, or square-root curves to raw scores and get instant adjusted grades with letter breakdown. Runs entirely in your browser; nothing to install.",
-    "go": "Open the tool →"
-  },
-  {
     "title": "Currency API",
     "href": "https://currency-api-ogzw.onrender.com",
     "tag": "Live API",
