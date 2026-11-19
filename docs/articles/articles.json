@@ -1,5 +1,20 @@
 [
   {
+    "slug": "the-city-that-lifted-itself-how-galveston-jacked-up-2-000-buildings-an",
+    "title": "The city that lifted itself: how Galveston jacked up 2,000 buildings and pumped sand under its streets",
+    "blurb": "Galveston didn't rebuild after the deadliest hurricane in American history \u2014 it made itself taller. Between 1903 and 1911, workers turned hand-cranked jackscrews under roughly 2,00",
+    "excerpt": "Galveston didn't rebuild after the deadliest hurricane in American history \u2014 it made itself taller. Between 1903 and 1911, workers turned hand-cranked jackscrews under roughly 2,000 buildings, lifted streetcar tracks, fireplugs and water pipes out of the ground, and pumped millions of tons of sand under the entire city, raising streets by more than 16 feet in some areas 123.",
+    "date": "2026-11-19",
+    "citations": [
+      "https://upload.wikimedia.org/wikipedia/commons/3/3c/Building_the_Sea_Wall%2C_Galveston%2C_Tex._%286838571776%29.jpg",
+      "https://www.asce.org/about-civil-engineering/history-and-heritage/historic-landmarks/galveston-seawall-and-grade-raising",
+      "https://www.galvestonhistorycenter.org/research/grade-raising",
+      "https://www.texasalmanac.com/articles/galvestons-great-hurricane",
+      "https://www.visitgalveston.com/blog/1900-storm-history/"
+    ],
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Building_the_Sea_Wall%2C_Galveston%2C_Tex._%286838571776%29.jpg"
+  },
+  {
     "slug": "the-price-you-see-is-not-the-price-you-d-get-bid-ask-spread-and-depth-",
     "title": "The price you see is not the price you'd get: bid-ask spread and depth in prediction markets",
     "blurb": "A market shows \"63%\" \u2014 but the cheapest YES share you can actually buy right now might be 66\u00a2, and the cheapest you could sell might be 60\u00a2. The number you're reading isn't a price",
