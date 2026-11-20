@@ -106,6 +106,7 @@
         <option value="down">Down only</option>
       </select>
     </label>
+    <label><input type="checkbox" id="active" checked> Active only</label>
     <label><input type="checkbox" id="soon"> Closing ≤7d</label>
     <label><input type="checkbox" id="mover"> ≥0.5% move</label>
     <label><input type="checkbox" id="new"> New (≤7d)</label>
@@ -205,6 +206,9 @@ function render(){
   const soon = $("#soon").checked;
   const dir = $("#direction").value;
   let rows = MARKETS.filter(m => !q || m.q.toLowerCase().includes(q) || (m.evt && m.evt.toLowerCase().includes(q)));
+  // "Active only" (on by default): hide dead markets with negligible 24h volume so the
+  // first screen isn't filled with markets nobody is trading. Uncheck to see everything.
+  if($("#active").checked) rows = rows.filter(m => m.vol24 >= 10000);
   if(dir==="up") rows = rows.filter(m => m.delta24h && m.delta24h > 0.002);
   if(dir==="down") rows = rows.filter(m => m.delta24h && m.delta24h < -0.002);
   if(soon) rows = rows.filter(m => { const d=daysLeft(m.end); return d!=null && d>=0 && d<=7; });
@@ -318,6 +322,7 @@ function markUse(){
   try{window.goatcounter&&window.goatcounter.count({path:"scanner-used",title:"polymarket scanner used",event:true})}catch(e){}
 }
 $("#q").addEventListener("input", function(){markUse();render();});
+$("#active").addEventListener("change", function(){markUse();render();});
 $("#sort").addEventListener("change", function(){markUse();render();});
 $("#direction").addEventListener("change", function(){markUse();render();});
 $("#soon").addEventListener("change", function(){markUse();render();});
