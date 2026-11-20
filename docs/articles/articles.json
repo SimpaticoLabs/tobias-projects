@@ -1,5 +1,19 @@
 [
   {
+    "slug": "the-surest-looking-number-on-a-prediction-market-is-the-one-to-trust-l",
+    "title": "The surest-looking number on a prediction market is the one to trust least",
+    "blurb": "A market that says something has a 3% chance is systematically too expensive \u2014 and a market that says 97% is systematically too cheap. On Polymarket, buying contracts priced under ",
+    "excerpt": "A market that says something has a 3% chance is systematically too expensive \u2014 and a market that says 97% is systematically too cheap. On Polymarket, buying contracts priced under 10 cents lost 19.3 cents per dollar on average, while contracts at or above 90 cents earned money. The most extreme probabilities on the board are the least trustworthy numbers on it. The bias is older than prediction markets.",
+    "date": "2026-11-20",
+    "citations": [
+      "https://arxiv.org/html/2609.12878v1",
+      "https://blog.korolevalab.com/blog/2026/polymarket-accuracy/",
+      "https://builtbytobias.com/polymarket-scanner/",
+      "https://github.com/PDiTO/pm-calibration"
+    ],
+    "image": null
+  },
+  {
     "slug": "the-city-that-lifted-itself-how-galveston-jacked-up-2-000-buildings-an",
     "title": "The city that lifted itself: how Galveston jacked up 2,000 buildings and pumped sand under its streets",
     "blurb": "Galveston didn't rebuild after the deadliest hurricane in American history \u2014 it made itself taller. Between 1903 and 1911, workers turned hand-cranked jackscrews under roughly 2,00",
