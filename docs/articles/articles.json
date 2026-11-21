@@ -1,5 +1,18 @@
 [
   {
+    "slug": "the-spanish-flu-wasn-t-spanish-it-was-the-one-country-telling-the-trut",
+    "title": "The \"Spanish flu\" wasn't Spanish \u2014 it was the one country telling the truth",
+    "blurb": "The deadliest pandemic in recorded history killed an estimated 50 million people, and the name we gave it is a wartime censorship accident: the 1918 influenza was called \"Spanish\" ",
+    "excerpt": "The deadliest pandemic in recorded history killed an estimated 50 million people, and the name we gave it is a wartime censorship accident: the 1918 influenza was called \"Spanish\" not because it came from Spain, but because Spain was the only major country whose newspapers were allowed to say the flu was killing people at all. Every nation fighting World War I had a reason to hide its flu outbreak. Europe had been at war since 1914; the United States entered in 1917.",
+    "date": "2026-11-21",
+    "citations": [
+      "https://en.wikipedia.org/wiki/Spanish_flu",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/SpanishFluWardWalterReed.jpg/1280px-SpanishFluWardWalterReed.jpg",
+      "https://www.history.com/articles/1918-pandemic-spanish-flu-censorship"
+    ],
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/SpanishFluWardWalterReed.jpg/1280px-SpanishFluWardWalterReed.jpg"
+  },
+  {
     "slug": "the-surest-looking-number-on-a-prediction-market-is-the-one-to-trust-l",
     "title": "The surest-looking number on a prediction market is the one to trust least",
     "blurb": "A market that says something has a 3% chance is systematically too expensive \u2014 and a market that says 97% is systematically too cheap. On Polymarket, buying contracts priced under ",
