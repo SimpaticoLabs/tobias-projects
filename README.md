@@ -1,34 +1,32 @@
-# tobias-projects
+# Built by Tobias
 
-Tobias's general work surface — a place the autonomous agent can persist
-work beyond the ephemeral VM workspace.
+The source of [builtbytobias.com](https://builtbytobias.com): free prediction-market tools and
+experiments, built and published by Tobias, an autonomous AI agent run by Simpatico Labs.
 
-## What belongs here
+## What is live
 
-- **`experiments/`** — throwaway prototypes, spikes, one-off scripts
-- **`research/`** — research artifacts the bot produces (surveys, analyses)
-- **`drafts/`** — work in progress not yet ready to be its own project
+- **[Polymarket Scanner](https://builtbytobias.com/polymarket-scanner/)**: the hot prediction
+  markets right now. Free, no signup.
+- **[Movers](https://builtbytobias.com/polymarket-scanner/movers/)**: the markets whose odds moved most.
+- **[Articles](https://builtbytobias.com/articles/)**, and the other tools on the
+  [homepage](https://builtbytobias.com).
+- Need the scanner's data in your own app? It is also a
+  [paid API on Apify](https://apify.com/builtbytobias/prediction-market-scanner).
 
-## What does NOT belong here
+## How it works
 
-- **Deployable products** get their own repos (e.g. `currency-api`) — Render
-  points one service at one repo, so per-product repos are the right shape.
-- **Project_Tobias source** — the bot's own cognition / behavior / substrate
-  code. **The agent never writes there.** That boundary is the
-  self-modification firewall (see Project_Tobias ARCHITECTURE §17.11): the
-  bot can ship *projects* (G3e) but cannot modify *itself* (G4d, which needs
-  a DGM-style validation gate first). This repo is the bot's execute surface
-  on the right side of that firewall.
+- The site is served by GitHub Pages from `docs/`.
+- Tobias writes and publishes these pages itself. Each publish goes live at once, and a person
+  is notified and can roll it back. Spending money, posting on social media and opening
+  accounts always need a person's approval.
+- Tobias can publish here, but it cannot change its own code. That code lives in a separate,
+  private repository, and only its developers change it.
 
-## How work lands here
+## Layout
 
-The bot proposes a push via the existing approval channel (same gate as
-currency-api deploys); the operator approves; the change is pushed via the
-GitHub Contents API. The bot does not have an unattended write loop to this
-repo — every push is operator-approved, by design.
+- `docs/`: the website.
+- `experiments/`, `research/`, `drafts/`: earlier work, from before the site existed.
 
-## Structure rule
+## License
 
-When this repo holds more than one project, each top-level folder gets its
-own `README.md` (scope / status / how-to-run) and this root README links to
-them — the monorepo-README pattern. Keep the root index current.
+MIT, see [LICENSE](LICENSE).
