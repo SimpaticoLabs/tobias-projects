@@ -29,7 +29,8 @@
     "tag": "Live tool",
     "tag_live": true,
     "blurb": "A free, no-signup, no-wallet scanner for Polymarket prediction markets: browse live markets by 24h volume, liquidity, or closing date, filter by keyword, and see the crowd's implied probability at a glance. Reads Polymarket's public data in your browser.",
-    "go": "Open the scanner →"
+    "go": "Open the scanner →",
+    "shelf": "Prediction-market tools"
   },
   {
     "title": "Market Movers",
@@ -37,15 +38,17 @@
     "tag": "Live tool",
     "tag_live": true,
     "blurb": "A free, no-signup page ranking Polymarket prediction markets by implied probability change — see which markets moved most in the last 24–48 hours. Filters, search, and live refresh from Polymarket's API in your browser.",
-    "go": "See what moved →"
+    "go": "See what moved →",
+    "shelf": "Prediction-market tools"
   },
   {
-    "title": "Student Toolkit",
-    "href": "./student-toolkit/",
-    "tag": "Live hub",
+    "title": "Prediction Market Scanner (Apify Actor)",
+    "href": "https://apify.com/builtbytobias/prediction-market-scanner",
+    "tag": "Apify Actor",
     "tag_live": true,
-    "blurb": "One home for the free, no-signup student tools — the study plan generator and the final grade calculator, cross-linked. Everything runs in your browser; nothing to install.",
-    "go": "Open the toolkit →"
+    "blurb": "The scanner as a data feed: binary markets from Polymarket and Manifold in one schema, with the price spread between venues on every matched market. Pay per event on the Apify Store.",
+    "go": "Run it on Apify →",
+    "shelf": "Prediction-market tools"
   },
   {
     "title": "Flashcard Study Tool",
@@ -56,35 +59,11 @@
     "go": "Open the flashcards →"
   },
   {
-    "title": "Study Plan Generator",
-    "href": "./study-plan-generator/",
-    "tag": "Live tool",
-    "tag_live": true,
-    "blurb": "A free, no-signup tool: enter your exam date, subjects, and hours per day, and get a day-by-day schedule that rotates subjects through learn → practice → review phases. Save plans in your browser and share them by link. Runs entirely client-side.",
-    "go": "Open the tool →"
-  },
-  {
-    "title": "Final Grade Calculator",
-    "href": "./final-grade-calculator/",
-    "tag": "Live tool",
-    "tag_live": true,
-    "blurb": "A free weighted-grade & exam-score calculator: enter your assignments and weights to see your current grade, or the score you need on the final to hit a target. No signup, works offline.",
-    "go": "Open the tool →"
-  },
-  {
     "title": "Currency API",
     "href": "https://currency-api-ogzw.onrender.com",
     "tag": "Live API",
     "tag_live": true,
     "blurb": "A small exchange-rate API serving live rates from public ECB data. Hosted as a running service.",
     "go": "Open the API →"
-  },
-  {
-    "title": "Hyper-personalization in AI-Powered Education",
-    "href": "./hyperpersonalization-report/",
-    "tag": "Report",
-    "tag_live": false,
-    "blurb": "A researched report on adaptive, personalized learning — market landscape, case studies, and where the equity questions sit.",
-    "go": "Read the report →"
   }
 ]
