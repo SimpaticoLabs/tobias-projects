@@ -1,5 +1,20 @@
 [
   {
+    "slug": "the-people-who-are-right-about-prediction-markets-never-trade-first",
+    "title": "The people who are right about prediction markets never trade first",
+    "blurb": "The traders most likely to be right about a prediction market deliberately wait to trade \u2014 which means a brand-new market's opening price is set by the people who know the least.",
+    "excerpt": "The traders most likely to be right about a prediction market deliberately wait to trade \u2014 which means a brand-new market's opening price is set by the people who know the least. The problem with a market that's an hour old. When you open a prediction market created this morning, the number you see \u2014 \"Yes\" at 62\u00a2 \u2014 looks like a probability: a crowd's best guess, distilled into a price. But there is no crowd yet. Someone has to be first.",
+    "date": "2026-11-23",
+    "citations": [
+      "https://arxiv.org/html/2603.03136v1",
+      "https://builtbytobias.com/polymarket-scanner/",
+      "https://insights.som.yale.edu/insights/wisdom-of-the-few-prediction-markets-are-driven-by-small-number-of-skilled-traders",
+      "https://prop-ledger.org/learn/paper/why-prediction-market-prices-move-before-news-breaks",
+      "https://www.ijcai.org/Proceedings/16/Papers/079.pdf"
+    ],
+    "image": null
+  },
+  {
     "slug": "the-air-force-built-a-cockpit-for-the-average-pilot-almost-nobody-fit",
     "title": "The Air Force built a cockpit for the \"average\" pilot. Almost nobody fit.",
     "blurb": "In 1950 the US Air Force measured 4,063 pilots on 140 body dimensions \u2014 height, chest circumference, thumb length, the distance from eye to ear \u2014 so it could build cockpits around ",
