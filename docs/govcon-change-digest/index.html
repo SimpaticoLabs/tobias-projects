@@ -29,8 +29,6 @@
   .doc-meta a { color: #1565c0; }
   .doc-meta a:hover { text-decoration: underline; }
   .doc-abstract { font-size: 0.85em; color: #555; margin-top: 6px; line-height: 1.4; }
-  .doc-title-link { color: #1a237e; text-decoration: none; }
-  .doc-title-link:hover { text-decoration: underline; }
   .stat-box { background: #e8eaf6; border-radius: 6px; padding: 12px 16px; margin: 16px 0; display: inline-block; }
   .stat-box span { font-size: 1.8em; font-weight: 700; color: #1a237e; display: block; }
   .stat-box small { font-size: 0.8em; color: #666; }
@@ -47,7 +45,7 @@
 <p id="src">Loading…</p>
 
 <div class="stat-box" id="statbox">
-  <span id="statcount">3</span>
+  <span id="statcount">1</span>
   <small>procurement-related changes this period</small>
 </div>
 
@@ -62,8 +60,8 @@
 const API = "https://www.federalregister.gov/api/v1/documents.json";
 const TERMS = ["\"Federal Acquisition Regulation\"", "DFARS", "\"Small Business\" procurement", "\"FAR\" clause", "\"Cost Accounting Standards\"", "\"Federal Procurement\""];
 const KEEP = new Set(["Rule", "Proposed Rule", "Presidential Document"]);
-const SEED = [{"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": null, "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}, {"t": "Rule", "ti": "Medicare and Medicaid Programs; Organ Procurement Organizations Conditions for Coverage: Revisions to the Conditions for Coverage", "p": "2026-11-03", "e": null, "c": null, "a": "Health and Human Services Department; Centers for Medicare & Medicaid Services", "u": "https://www.federalregister.gov/documents/2026/11/03/2026-22381/medicare-and-medicaid-programs-organ-procurement-organizations-conditions-for-coverage-revisions-to"}, {"t": "Rule", "ti": "Improving Transparency Into Pharmacy Benefit Manager Fee Disclosure", "p": "2026-11-02", "e": null, "c": null, "a": "Labor Department; Employee Benefits Security Administration", "u": "https://www.federalregister.gov/documents/2026/11/02/2026-22306/improving-transparency-into-pharmacy-benefit-manager-fee-disclosure"}];
-const SEED_DATE = "2026-11-21";
+const SEED = [{"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": null, "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}];
+const SEED_DATE = "2026-11-24";
 
 function esc(s) {
   return String(s == null ? "" : s)
@@ -84,6 +82,7 @@ function isoDaysAgo(n) {
 
 function relevance(d) {
   if (!KEEP.has(d.t || "")) return false;
+  if (d.g === false) return false;
   const title = (d.ti || "").toLowerCase();
   if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0) return false;
   const blob = title + " " + ((d.ab || "").toLowerCase());
@@ -135,11 +134,8 @@ function docCard(d) {
   if (cmt) metaParts.push(cmt);
   if (d.a) metaParts.push(esc(d.a));
   var link = d.u ? '<a href="' + esc(d.u) + '" target="_blank">📄 View in Federal Register</a>' : "";
-  var title = esc((d.ti || "Untitled").slice(0, 150));
-  var titleHtml = d.u ? '<a class="doc-title-link" href="' + esc(d.u) + '" target="_blank">' + title + '</a>'
-                      : '<strong>' + title + '</strong>';
   return '<div class="doc-card">' +
-    '<div>' + typeLabel(d.t) + ' ' + titleHtml + '</div>' +
+    '<div>' + typeLabel(d.t) + ' <strong>' + esc((d.ti || "Untitled").slice(0, 150)) + '</strong></div>' +
     absHtml +
     '<div class="doc-meta">' + metaParts.join(" · ") + (link ? " · " + link : "") + '</div>' +
     '</div>';
@@ -178,8 +174,12 @@ function apiUrl(term, gte) {
 }
 
 function normalize(r) {
-  var ag = (r.agencies || []).map(function (a) { return a && a.name ? a.name : ""; })
-    .filter(Boolean).map(function (n) {
+  var rawAgencies = (r.agencies || []).map(function (a) { return a && a.name ? a.name : ""; })
+    .filter(Boolean);
+  var agencyOk = ["acquisition", "procurement", "small business administration",
+                  "general services administration", "executive office of the president"]
+    .some(function (h) { return rawAgencies.join(" ").toLowerCase().indexOf(h) >= 0; });
+  var ag = rawAgencies.map(function (n) {
       return n.replace("Management and Budget Office; Federal Procurement Policy Office", "OFPP")
               .replace("Defense Department; Defense Acquisition Regulations System", "DoD (DARS)")
               .replace("General Services Administration", "GSA");
@@ -192,6 +192,7 @@ function normalize(r) {
     c: r.comments_close_on || null,
     ab: (r.abstract || "").trim(),
     a: ag,
+    g: agencyOk,
     u: r.html_url || ""
   };
 }
