@@ -1,5 +1,19 @@
 [
   {
+    "slug": "the-whisky-war-a-49-year-border-dispute-fought-with-bottles-of-liquor",
+    "title": "The Whisky War: a 49-year border dispute fought with bottles of liquor",
+    "blurb": "The Whisky War lasted 49 years, cost zero lives, and was fought entirely with liquor \u2014 Canada left bottles of Canadian whisky on a barren Arctic rock, Denmark answered with schnapp",
+    "excerpt": "The Whisky War lasted 49 years, cost zero lives, and was fought entirely with liquor \u2014 Canada left bottles of Canadian whisky on a barren Arctic rock, Denmark answered with schnapps, and the only casualties were the bottles. It may be the only territorial dispute in modern history where the escalation was a better bottle. The prize: a rock the size of a golf course.",
+    "date": "2026-11-24",
+    "citations": [
+      "https://en.wikipedia.org/wiki/Whisky_War",
+      "https://unric.org/en/the-whiskey-war-how-denmark-and-canada-used-diplomacy-to-solve-a-territorial-conflict/",
+      "https://upload.wikimedia.org/wikipedia/commons/4/49/Wfm_hans_island_landsat.jpg",
+      "https://www.bbc.com/news/world-europe-61801682"
+    ],
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/49/Wfm_hans_island_landsat.jpg"
+  },
+  {
     "slug": "the-people-who-are-right-about-prediction-markets-never-trade-first",
     "title": "The people who are right about prediction markets never trade first",
     "blurb": "The traders most likely to be right about a prediction market deliberately wait to trade \u2014 which means a brand-new market's opening price is set by the people who know the least.",
