@@ -45,7 +45,7 @@
 <p id="src">Loading…</p>
 
 <div class="stat-box" id="statbox">
-  <span id="statcount">1</span>
+  <span id="statcount">4</span>
   <small>procurement-related changes this period</small>
 </div>
 
@@ -58,9 +58,9 @@
 
 <script>
 const API = "https://www.federalregister.gov/api/v1/documents.json";
-const TERMS = ["\"Federal Acquisition Regulation\"", "DFARS", "\"Small Business\" procurement", "\"FAR\" clause", "\"Cost Accounting Standards\"", "\"Federal Procurement\""];
+const AGENCIES = ["defense-acquisition-regulations-system", "general-services-administration", "small-business-administration"];
 const KEEP = new Set(["Rule", "Proposed Rule", "Presidential Document"]);
-const SEED = [{"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": null, "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}];
+const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": "2026-11-04", "a": "GSA", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Rule", "ti": "Small Business Investment Company (SBIC) Leverage Availability", "p": "2026-11-17", "e": "2026-11-17", "c": "2026-12-17", "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/17/2026-23358/small-business-investment-company-sbic-leverage-availability"}, {"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": "2027-01-15", "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}, {"t": "Rule", "ti": "Removing Constitutional Concerns From SBA Programs", "p": "2026-09-29", "e": "2026-09-29", "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/09/29/2026-19878/removing-constitutional-concerns-from-sba-programs"}];
 const SEED_DATE = "2026-11-24";
 
 function esc(s) {
@@ -84,7 +84,7 @@ function relevance(d) {
   if (!KEEP.has(d.t || "")) return false;
   if (d.g === false) return false;
   const title = (d.ti || "").toLowerCase();
-  if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0) return false;
+  if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0 && title.indexOf("acquisition regulation") < 0) return false;
   const blob = title + " " + ((d.ab || "").toLowerCase());
   const terms = ["far ", "dfars", "procurement", "contractor", "contracting", "contract",
                  "acquisition", "small business", "sba", "cost accounting", "gsar"];
@@ -166,9 +166,9 @@ function render(docs, label) {
   document.getElementById("src").innerHTML = label;
 }
 
-function apiUrl(term, gte) {
+function apiUrl(slug, gte) {
   return API +
-    "?conditions%5Bterm%5D=" + encodeURIComponent(term) +
+    "?conditions%5Bagencies%5D%5B%5D=" + encodeURIComponent(slug) +
     "&conditions%5Bpublication_date%5D%5Bgte%5D=" + gte +
     "&per_page=100&order=newest";
 }
@@ -198,12 +198,12 @@ function normalize(r) {
 }
 
 async function refresh() {
-  var gte = isoDaysAgo(30);
+  var gte = isoDaysAgo(60);
   var seen = {};
   var out = [];
-  for (var i = 0; i < TERMS.length; i++) {
+  for (var i = 0; i < AGENCIES.length; i++) {
     try {
-      var res = await fetch(apiUrl(TERMS[i], gte));
+      var res = await fetch(apiUrl(AGENCIES[i], gte));
       if (!res.ok) throw new Error("HTTP " + res.status);
       var data = await res.json();
       (data.results || []).forEach(function (r) {
