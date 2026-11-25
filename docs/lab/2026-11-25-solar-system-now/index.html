@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Solar System, Right Now</title>
+<style>
+  :root{
+    --bg:#05070f; --panel:#0b1020; --ink:#d7e0f0; --dim:#7a86a0;
+    --line:#1c2740; --sun:#ffd75e; --accent:#6fb6ff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:980px; margin:0 auto; padding:24px 18px 80px}
+  header h1{font-size:clamp(22px,4vw,34px); margin:0 0 4px; letter-spacing:.5px}
+  header .sub{color:var(--dim); margin:0 0 18px; font-size:15px}
+  .controls{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:12px 14px; margin-bottom:16px;
+  }
+  .controls label{color:var(--dim); font-size:13px; text-transform:uppercase; letter-spacing:1px}
+  input[type=date]{
+    background:#0e1730; color:var(--ink); border:1px solid var(--line);
+    border-radius:8px; padding:7px 10px; font-size:15px; font-family:inherit;
+  }
+  button{
+    background:#13203c; color:var(--ink); border:1px solid var(--line);
+    border-radius:8px; padding:7px 14px; font-size:14px; cursor:pointer; font-family:inherit;
+  }
+  button:hover{background:#1a2b4d}
+  button.primary{background:#1e3a66; border-color:#2c4f8a}
+  .date-readout{color:var(--accent); font-size:15px; font-weight:600; margin-left:auto}
+  .canvas-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:10px; margin-bottom:16px; position:relative;
+  }
+  canvas{width:100%; height:auto; display:block; border-radius:10px; background:radial-gradient(circle at 50% 50%, #0a1226 0%, #05070f 75%)}
+  .scale-note{color:var(--dim); font-size:12px; text-align:center; padding:8px 0 2px}
+  .planets{display:grid; grid-template-columns:repeat(auto-fill,minmax(225px,1fr)); gap:12px}
+  .planet{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:12px 14px; cursor:pointer; transition:border-color .15s, transform .15s;
+  }
+  .planet:hover{border-color:#3a5488; transform:translateY(-2px)}
+  .planet.active{border-color:var(--accent)}
+  .planet .top{display:flex; align-items:center; gap:9px; margin-bottom:4px}
+  .dot{width:13px; height:13px; border-radius:50%; flex:none}
+  .planet h3{margin:0; font-size:17px; font-weight:700}
+  .planet .where{color:var(--accent); font-size:13px; font-weight:600; margin:2px 0 6px}
+  .planet .facts{color:var(--dim); font-size:12.5px; margin:0}
+  .planet .facts b{color:var(--ink); font-weight:600}
+  footer{margin-top:26px; color:var(--dim); font-size:12.5px; border-top:1px solid var(--line); padding-top:14px}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>The Solar System, Right Now</h1>
+    <p class="sub">Real orbital mechanics, computed in your browser. Where every planet is today — or on the day you were born.</p>
+  </header>
+
+  <div class="controls">
+    <label for="date">Date</label>
+    <input type="date" id="date">
+    <button id="today">Today</button>
+    <button id="play">▶ Move</button>
+    <div class="date-readout" id="readout"></div>
+  </div>
+
+  <div class="canvas-card">
+    <canvas id="sky"></canvas>
+    <div class="scale-note">Top-down view of the ecliptic plane. Distances use a √ scale so the inner planets stay visible; the Sun is the bright dot at center. Click a planet below to find it.</div>
+  </div>
+
+  <div class="planets" id="planets"></div>
+
+  <footer>
+    Positions computed from NASA JPL's approximate Keplerian elements (Standish &amp; Williams 1992, valid 1800–2050). Accurate to roughly a few hundredths of a degree for the inner planets, less for the outer ones — plenty for "which constellation," not for navigation. The constellation shown is each planet's <em>geocentric</em> position (where you'd see it in the sky from Earth, ignoring light-travel time). The Sun's sign is its apparent position from Earth — the astronomical version of the horoscope's "your sign."
+  </footer>
+</div>
+
+<script>
+// --- JPL approximate Keplerian elements, Table 1 (1800-2050), Standish & Williams 1992.
+// Each row: [a0, adot, e0, edot, I0, Idot, L0, Ldot, varpi0, varpidot, Omega0, Omegadot]
+var ELEMS = {
+  Mercury:[0.38709927,0.00000037,0.20563593,0.00001906,7.00497902,-0.00594749,252.25032350,149472.67411175,77.45779628,0.16047689,48.33076593,-0.12534081],
+  Venus:  [0.72333566,0.00000390,0.00677672,-0.00004107,3.39467605,-0.00078890,181.97909950,58517.81538729,131.60246718,0.00268329,76.67984255,-0.27769418],
+  Earth:  [1.00000261,0.00000562,0.01671123,-0.00004392,-0.00001531,-0.01294668,100.46457166,35999.37244981,102.93768193,0.32327364,0.0,0.0],
+  Mars:   [1.52371034,0.00001847,0.09339410,0.00007882,1.84969142,-0.00813131,-4.55343205,19140.30268499,-23.94362959,0.44441088,49.55953891,-0.29257343],
+  Jupiter:[5.20288700,-0.00011607,0.04838624,-0.00013253,1.30439695,-0.00183714,34.39644051,3034.74612775,14.72847983,0.21252668,100.47390909,0.20469106],
+  Saturn: [9.53667594,-0.00125060,0.05386179,-0.00050991,2.48599187,0.00193609,49.95424423,1222.49362201,92.59887831,-0.41897216,113.66242448,-0.28867794],
+  Uranus: [19.18916464,-0.00196176,0.04725744,-0.00004397,0.77263783,-0.00242939,313.23810451,428.48202785,170.95427630,0.40805281,74.01692503,0.04240589],
+  Neptune:[30.06992276,0.00026291,0.00859048,0.00005105,1.77004347,0.00035372,-55.12002969,218.45945325,44.96476227,-0.32241464,131.78422574,-0.00508664]
+};
+
+var COLORS = {
+  Mercury:'#a8a8a8', Venus:'#e8cda0', Earth:'#4d9de0', Mars:'#d1694a',
+  Jupiter:'#d8a86b', Saturn:'#e3d9a0', Uranus:'#9fd9e0', Neptune:'#6b7fd8'
+};
+
+var FACTS = {
+  Mercury:"Closest to the Sun, fastest of all — a year here is 88 days. Almost no atmosphere, so it swings from −173°C at night to 427°C by day.",
+  Venus:"The hottest planet (464°C) despite being second from the Sun — a runaway greenhouse. It spins backwards, and its day is longer than its year.",
+  Earth:"The only known place with life. From here the Sun's yearly path across the sky is the ecliptic — the reference line every planet in this map hugs.",
+  Mars:"The red comes from rusted iron. Home to Olympus Mons, the tallest volcano in the solar system, ~22 km high — nearly three Everests.",
+  Jupiter:"More than twice the mass of every other planet combined. The Great Red Spot is a storm wider than Earth that has raged for centuries.",
+  Saturn:"So light it would float in water. Its rings span 280,000 km yet are usually only a few tens of meters thick.",
+  Uranus:"Knocked onto its side — its axis is tilted 98°, so it rolls around the Sun. A planet that orbits lying down.",
+  Neptune:"The windiest place known: gusts past 2,100 km/h. It was found by mathematics before anyone saw it — predicted from wobbles in Uranus's orbit."
+};
+
+// Approximate ecliptic-longitude ranges of the constellations the ecliptic crosses (J2000).
+var ZODIAC = [
+  ["Aries",0,29],["Taurus",29,53],["Gemini",53,90],["Cancer",90,117],
+  ["Leo",117,153],["Virgo",153,178],["Libra",178,204],["Scorpius",204,224],
+  ["Ophiuchus",224,244],["Sagittarius",244,266],["Capricornus",266,299],
+  ["Aquarius",299,328],["Pisces",328,360]
+];
+
+function mod360(x){ x = x % 360; return x < 0 ? x + 360 : x; }
+
+// Julian Day from a Gregorian date.
+function jdFromDate(y,m,d){
+  if(m<=2){ y-=1; m+=12; }
+  var A=Math.floor(y/100), B=2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716)) + Math.floor(30.6001*(m+1)) + d + B - 1524.5;
+}
+
+// Heliocentric ecliptic (J2000) position of a planet at Julian date jd.
+function planetPos(name, jd){
+  var e=ELEMS[name], T=(jd-2451545.0)/36525.0;
+  var a=e[0]+e[1]*T, ec=e[2]+e[3]*T, I=e[4]+e[5]*T,
+      L=e[6]+e[7]*T, varpi=e[8]+e[9]*T, Omega=e[10]+e[11]*T;
+  var w=varpi-Omega, M=mod360(L-varpi);
+  // Solve Kepler's equation: M = E - e*·sin E  (e* = 180/pi·e), E in degrees.
+  var Estar=(180/Math.PI)*ec;
+  var E=M+Estar*Math.sin(M*Math.PI/180);
+  for(var i=0;i<25;i++){
+    var dM=M-(E-Estar*Math.sin(E*Math.PI/180));
+    var dE=dM/(1-ec*Math.cos(E*Math.PI/180));
+    E+=dE;
+    if(Math.abs(dE)<1e-6) break;
+  }
+  var Er=E*Math.PI/180;
+  var xp=a*(Math.cos(Er)-ec), yp=a*Math.sqrt(1-ec*ec)*Math.sin(Er);
+  var wR=w*Math.PI/180, OR=Omega*Math.PI/180, IR=I*Math.PI/180;
+  var cw=Math.cos(wR),sw=Math.sin(wR),cO=Math.cos(OR),sO=Math.sin(OR),cI=Math.cos(IR),sI=Math.sin(IR);
+  var xe=(cw*cO-sw*sO*cI)*xp+(-sw*cO-cw*sO*cI)*yp;
+  var ye=(cw*sO+sw*cO*cI)*xp+(-sw*sO+cw*cO*cI)*yp;
+  var ze=(sw*sI)*xp+(cw*sI)*yp;
+  return {x:xe,y:ye,z:ze,r:Math.sqrt(xe*xe+ye*ye+ze*ze)};
+}
+
+// Geocentric ecliptic longitude of a planet (vector from Earth to planet).
+function geocentricLon(name, jd){
+  var p=planetPos(name,jd), earth=planetPos('Earth',jd);
+  var dx=p.x-earth.x, dy=p.y-earth.y;
+  return mod360(Math.atan2(dy,dx)*180/Math.PI);
+}
+
+function constellation(lon){
+  for(var i=0;i<ZODIAC.length;i++){
+    var z=ZODIAC[i];
+    if(lon>=z[1] && lon<z[2]) return z[0];
+  }
+  return "Pisces";
+}
+
+// --- drawing ---
+var canvas=document.getElementById('sky'), ctx=canvas.getContext('2d');
+var names=Object.keys(ELEMS);
+var activePlanet='Earth';
+
+function draw(jd){
+  var w=canvas.width, h=canvas.height, cx=w/2, cy=h/2;
+  var maxR=31; // Neptune ~30 AU
+  function scale(r){ return Math.sqrt(r/maxR); }
+  var px=Math.min(w,h)*0.44; // pixels at full scale
+
+  ctx.clearRect(0,0,w,h);
+  // faint grid rings
+  ctx.strokeStyle='rgba(90,110,150,0.10)';
+  ctx.lineWidth=1;
+  [1,5,10,20,30].forEach(function(au){
+    var rr=scale(au)*px;
+    ctx.beginPath(); ctx.arc(cx,cy,rr,0,Math.PI*2); ctx.stroke();
+  });
+
+  // orbit ellipses (projected onto the ecliptic)
+  names.forEach(function(n){
+    var e=ELEMS[n], T=(jd-2451545.0)/36525.0;
+    var a=e[0]+e[1]*T, ec=e[2]+e[3]*T, I=e[4]+e[5]*T, varpi=e[8]+e[9]*T, Omega=e[10]+e[11]*T;
+    var w=varpi-Omega, wR=w*Math.PI/180, OR=Omega*Math.PI/180, IR=I*Math.PI/180;
+    var cw=Math.cos(wR),sw=Math.sin(wR),cO=Math.cos(OR),sO=Math.sin(OR),cI=Math.cos(IR),sI=Math.sin(IR);
+    ctx.strokeStyle='rgba(110,130,170,0.18)';
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    for(var k=0;k<=72;k++){
+      var th=k/72*2*Math.PI;
+      var r=a*(1-ec*ec)/(1+ec*Math.cos(th));
+      var xp=r*Math.cos(th), yp=r*Math.sin(th);
+      var xe=(cw*cO-sw*sO*cI)*xp+(-sw*cO-cw*sO*cI)*yp;
+      var ye=(cw*sO+sw*cO*cI)*xp+(-sw*sO+cw*cO*cI)*yp;
+      var ro=Math.sqrt(xe*xe+ye*ye);
+      var s=Math.sqrt(ro/maxR);
+      var X=cx+xe/ro*s*px, Y=cy-ye/ro*s*px;
+      if(k===0) ctx.moveTo(X,Y); else ctx.lineTo(X,Y);
+    }
+    ctx.stroke();
+  });
+
+  // Sun
+  ctx.fillStyle='#ffd75e';
+  ctx.shadowColor='#ffd75e'; ctx.shadowBlur=16;
+  ctx.beginPath(); ctx.arc(cx,cy,6,0,Math.PI*2); ctx.fill();
+  ctx.shadowBlur=0;
+
+  // planets
+  names.forEach(function(n){
+    var p=planetPos(n,jd);
+    var s=Math.sqrt(p.r/maxR);
+    var X=cx+(p.x/p.r)*s*px, Y=cy-(p.y/p.r)*s*px;
+    var isActive=(n===activePlanet);
+    ctx.fillStyle=COLORS[n];
+    var dotR=isActive?5.5:4;
+    if(isActive){ ctx.shadowColor=COLORS[n]; ctx.shadowBlur=10; }
+    ctx.beginPath(); ctx.arc(X,Y,dotR,0,Math.PI*2); ctx.fill();
+    ctx.shadowBlur=0;
+    if(isActive){
+      ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.arc(X,Y,dotR+5,0,Math.PI*2); ctx.stroke();
+    }
+  });
+}
+
+// --- UI ---
+var dateInput=document.getElementById('date');
+var today=new Date();
+function toInput(d){
+  var p=function(x){return (x<10?'0':'')+x;};
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+}
+dateInput.value=toInput(today);
+
+function currentJD(){
+  var parts=dateInput.value.split('-').map(Number);
+  return jdFromDate(parts[0],parts[1],parts[2]);
+}
+
+function update(){
+  var jd=currentJD();
+  draw(jd);
+  var parts=dateInput.value.split('-');
+  var d=new Date(parts[0],parts[1]-1,parts[2]);
+  var opts={weekday:'long', year:'numeric', month:'long', day:'numeric'};
+  document.getElementById('readout').textContent=d.toLocaleDateString(undefined,opts);
+  renderList(jd);
+}
+
+function renderList(jd){
+  var box=document.getElementById('planets');
+  var html='';
+  names.forEach(function(n){
+    var lon, whereLabel;
+    if(n==='Earth'){
+      var er=planetPos('Earth',jd);
+      lon=mod360(Math.atan2(-er.y,-er.x)*180/Math.PI); // the Sun, seen from Earth
+      whereLabel='Sun in '+constellation(lon);
+    } else {
+      lon=geocentricLon(n,jd);
+      whereLabel='in '+constellation(lon);
+    }
+    var r=planetPos(n,jd).r;
+    var cls=(n===activePlanet)?'planet active':'planet';
+    html+='<div class="'+cls+'" data-name="'+n+'">'
+      +'<div class="top"><span class="dot" style="background:'+COLORS[n]+'"></span><h3>'+n+'</h3></div>'
+      +'<div class="where">'+whereLabel+' · '+r.toFixed(2)+' AU from the Sun</div>'
+      +'<p class="facts">'+FACTS[n]+'</p>'
+      +'</div>';
+  });
+  box.innerHTML=html;
+  Array.prototype.forEach.call(box.children,function(el){
+    el.addEventListener('click',function(){ activePlanet=this.getAttribute('data-name'); update(); });
+  });
+}
+
+document.getElementById('today').addEventListener('click',function(){
+  dateInput.value=toInput(new Date()); update();
+});
+
+var playing=false, timer=null;
+document.getElementById('play').addEventListener('click',function(){
+  if(!playing){
+    playing=true; this.textContent='❚❚ Pause';
+    timer=setInterval(function(){
+      var d=new Date(dateInput.value);
+      d.setDate(d.getDate()+1);
+      dateInput.value=toInput(d);
+      update();
+    },120);
+  }else{
+    playing=false; this.textContent='▶ Move';
+    clearInterval(timer);
+  }
+});
+
+dateInput.addEventListener('change',update);
+
+function sizeCanvas(){
+  var w=canvas.parentNode.clientWidth-20;
+  canvas.width=Math.max(300,Math.min(w,960));
+  canvas.height=Math.round(canvas.width*0.72);
+  update();
+}
+window.addEventListener('resize',sizeCanvas);
+sizeCanvas();
+</script>
+<script>
+(function(){var used=false;function mark(){if(used)return;used=true;
+  try{window.goatcounter&&window.goatcounter.count({path:"lab-used",title:"lab used",event:true})}catch(e){}}
+ document.addEventListener("click",mark);document.addEventListener("keydown",mark);})();
+</script>
+<script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
