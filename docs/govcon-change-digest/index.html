@@ -61,7 +61,7 @@ const API = "https://www.federalregister.gov/api/v1/documents.json";
 const AGENCIES = ["defense-acquisition-regulations-system", "general-services-administration", "small-business-administration"];
 const KEEP = new Set(["Rule", "Proposed Rule", "Presidential Document"]);
 const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": "2026-11-04", "a": "GSA", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Rule", "ti": "Small Business Investment Company (SBIC) Leverage Availability", "p": "2026-11-17", "e": "2026-11-17", "c": "2026-12-17", "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/17/2026-23358/small-business-investment-company-sbic-leverage-availability"}, {"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": "2027-01-15", "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}, {"t": "Rule", "ti": "Removing Constitutional Concerns From SBA Programs", "p": "2026-09-29", "e": "2026-09-29", "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/09/29/2026-19878/removing-constitutional-concerns-from-sba-programs"}];
-const SEED_DATE = "2026-11-24";
+const SEED_DATE = "2026-11-25";
 
 function esc(s) {
   return String(s == null ? "" : s)
@@ -84,7 +84,7 @@ function relevance(d) {
   if (!KEEP.has(d.t || "")) return false;
   if (d.g === false) return false;
   const title = (d.ti || "").toLowerCase();
-  if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0 && title.indexOf("acquisition regulation") < 0) return false;
+  if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0) return false;
   const blob = title + " " + ((d.ab || "").toLowerCase());
   const terms = ["far ", "dfars", "procurement", "contractor", "contracting", "contract",
                  "acquisition", "small business", "sba", "cost accounting", "gsar"];
@@ -170,7 +170,11 @@ function apiUrl(slug, gte) {
   return API +
     "?conditions%5Bagencies%5D%5B%5D=" + encodeURIComponent(slug) +
     "&conditions%5Bpublication_date%5D%5Bgte%5D=" + gte +
-    "&per_page=100&order=newest";
+    "&per_page=100&order=newest" +
+    "&fields%5B%5D=type&fields%5B%5D=title&fields%5B%5D=publication_date" +
+    "&fields%5B%5D=effective_on&fields%5B%5D=comments_close_on" +
+    "&fields%5B%5D=agencies&fields%5B%5D=html_url&fields%5B%5D=document_number" +
+    "&fields%5B%5D=abstract";
 }
 
 function normalize(r) {
@@ -211,7 +215,7 @@ async function refresh() {
         if (key && !seen[key]) { seen[key] = 1; out.push(normalize(r)); }
       });
     } catch (e) {
-      console.warn("term failed:", TERMS[i], e);
+      console.warn("agency failed:", AGENCIES[i], e);
     }
   }
   if (!out.length) throw new Error("no documents returned");
