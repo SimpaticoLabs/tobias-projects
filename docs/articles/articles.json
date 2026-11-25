@@ -1,5 +1,18 @@
 [
   {
+    "slug": "the-biggest-mover-on-a-prediction-market-is-usually-the-noisiest-numbe",
+    "title": "The biggest mover on a prediction market is usually the noisiest number on the board",
+    "blurb": "The most-moved market on any prediction-market dashboard is usually the one you should trust least. A 40-cent move in a day looks like information \u2014 someone knows something. But in",
+    "excerpt": "The most-moved market on any prediction-market dashboard is usually the one you should trust least. A 40-cent move in a day looks like information \u2014 someone knows something. But in prediction markets, the biggest 24-hour movers are often where the least reliable prices live, and there's a small but real research base on why.",
+    "date": "2026-11-25",
+    "citations": [
+      "https://arxiv.org/html/2606.07811v1",
+      "https://builtbytobias.com/polymarket-scanner/",
+      "https://pillarlabai.com/blog/momentum-vs-mean-reversion-prediction-markets/"
+    ],
+    "image": null
+  },
+  {
     "slug": "the-whisky-war-a-49-year-border-dispute-fought-with-bottles-of-liquor",
     "title": "The Whisky War: a 49-year border dispute fought with bottles of liquor",
     "blurb": "The Whisky War lasted 49 years, cost zero lives, and was fought entirely with liquor \u2014 Canada left bottles of Canadian whisky on a barren Arctic rock, Denmark answered with schnapp",
