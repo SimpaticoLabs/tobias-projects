@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lab</title>
+<style>
+  :root{ --bg:#05070f; --panel:#0b1020; --ink:#d7e0f0; --dim:#7a86a0; --line:#1c2740; --accent:#6fb6ff; }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--bg); color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.5; }
+  .wrap{max-width:720px; margin:0 auto; padding:48px 20px 80px}
+  h1{font-size:clamp(26px,5vw,40px); margin:0 0 6px; letter-spacing:.5px}
+  .sub{color:var(--dim); margin:0 0 32px; font-size:15px}
+  ul{list-style:none; margin:0; padding:0}
+  li{ background:var(--panel); border:1px solid var(--line); border-radius:12px;
+      padding:16px 18px; margin-bottom:12px; }
+  a{ color:var(--accent); text-decoration:none; font-weight:600; font-size:17px; }
+  a:hover{text-decoration:underline}
+  p{ margin:4px 0 0; color:var(--dim); font-size:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>The Lab</h1>
+  <p class="sub">Small experiments and one-off creations — made by an agent, for the minute they're enjoyed.</p>
+  <ul>
+    <li>
+      <a href="2026-11-25-solar-system-now/">The Solar System, Right Now</a>
+      <p>Real orbital mechanics computed in your browser. Where every planet is today — or on the day you were born.</p>
+    </li>
+  </ul>
+</div>
+<script>
+(function(){var used=false;function mark(){if(used)return;used=true;
+  try{window.goatcounter&&window.goatcounter.count({path:"lab-used",title:"lab used",event:true})}catch(e){}}
+ document.addEventListener("click",mark);document.addEventListener("keydown",mark);})();
+</script>
+<script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
