@@ -48,8 +48,8 @@
 const API = "https://www.federalregister.gov/api/v1/documents.json";
 const TERMS = ["\"Federal Acquisition Regulation\"", "DFARS", "\"Small Business\" procurement", "\"FAR\" clause", "\"Cost Accounting Standards\"", "\"Federal Procurement\""];
 const KEEP = new Set(["Rule", "Proposed Rule", "Presidential Document"]);
-const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": "2026-11-04", "a": "GSA", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Proposed Rule", "ti": "Medicare Program; Contract Year 2028 Policy and Technical Changes to the Medicare Advantage Program, Medicare Prescription Drug Benefit Program, and Programs of All-Inclusive Care for the Elderly", "p": "2026-11-25", "e": null, "c": "2027-01-19", "a": "Health and Human Services Department; Centers for Medicare & Medicaid Services", "u": "https://www.federalregister.gov/documents/2026/11/25/2026-23960/medicare-program-contract-year-2028-policy-and-technical-changes-to-the-medicare-advantage-program"}, {"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": "2027-01-15", "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}, {"t": "Rule", "ti": "Medicare and Medicaid Programs; Organ Procurement Organizations Conditions for Coverage: Revisions to the Conditions for Coverage", "p": "2026-11-03", "e": "2027-01-04", "c": null, "a": "Health and Human Services Department; Centers for Medicare & Medicaid Services", "u": "https://www.federalregister.gov/documents/2026/11/03/2026-22381/medicare-and-medicaid-programs-organ-procurement-organizations-conditions-for-coverage-revisions-to"}, {"t": "Rule", "ti": "Improving Transparency Into Pharmacy Benefit Manager Fee Disclosure", "p": "2026-11-02", "e": "2027-01-04", "c": null, "a": "Labor Department; Employee Benefits Security Administration", "u": "https://www.federalregister.gov/documents/2026/11/02/2026-22306/improving-transparency-into-pharmacy-benefit-manager-fee-disclosure"}, {"t": "Rule", "ti": "Employee or Independent Contractor Status Under the Fair Labor Standards Act, Family and Medical Leave Act, and Migrant and Seasonal Agricultural Worker Protection Act", "p": "2026-11-23", "e": "2027-01-22", "c": null, "a": "Labor Department; Wage and Hour Division", "u": "https://www.federalregister.gov/documents/2026/11/23/2026-23777/employee-or-independent-contractor-status-under-the-fair-labor-standards-act-family-and-medical"}, {"t": "Proposed Rule", "ti": "Further Definition of “Swap”-Inclusions", "p": "2026-10-19", "e": null, "c": "2026-11-18", "a": "Commodity Futures Trading Commission", "u": "https://www.federalregister.gov/documents/2026/10/19/2026-21377/further-definition-of-swap-inclusions"}];
-const SEED_DATE = "2026-11-25";
+const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": "2026-11-04", "a": "GSA", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": "2027-01-15", "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}];
+const SEED_DATE = "2026-11-26";
 
 function esc(s) {
   return String(s == null ? "" : s)
@@ -73,6 +73,7 @@ function daysUntil(iso) {
 
 function relevance(d) {
   if (!KEEP.has(d.t || "")) return false;
+  if (d.g === false) return false;
   const title = (d.ti || "").toLowerCase();
   if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0) return false;
   const blob = title + " " + ((d.ab || "").toLowerCase());
@@ -168,8 +169,12 @@ function isoDaysAgo(n) {
 }
 
 function normalize(r) {
-  const ag = (r.agencies || []).map(function (a) { return a && a.name ? a.name : ""; })
-    .filter(Boolean).map(function (n) {
+  const rawAgencies = (r.agencies || []).map(function (a) { return a && a.name ? a.name : ""; })
+    .filter(Boolean);
+  const agencyOk = ["acquisition", "procurement", "small business administration",
+                    "general services administration", "executive office of the president"]
+    .some(function (h) { return rawAgencies.join(" ").toLowerCase().indexOf(h) >= 0; });
+  const ag = rawAgencies.map(function (n) {
       return n.replace("Management and Budget Office; Federal Procurement Policy Office", "OFPP")
               .replace("Defense Department; Defense Acquisition Regulations System", "DoD (DARS)")
               .replace("General Services Administration", "GSA");
@@ -181,6 +186,7 @@ function normalize(r) {
     e: r.effective_on || null,
     c: r.comments_close_on || null,
     a: ag,
+    g: agencyOk,
     u: r.html_url || ""
   };
 }
