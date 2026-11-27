@@ -48,7 +48,7 @@
 const API = "https://www.federalregister.gov/api/v1/documents.json";
 const TERMS = ["\"Federal Acquisition Regulation\"", "DFARS", "\"Small Business\" procurement", "\"FAR\" clause", "\"Cost Accounting Standards\"", "\"Federal Procurement\""];
 const KEEP = new Set(["Rule", "Proposed Rule", "Presidential Document"]);
-const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": "2026-11-04", "a": "GSA", "ab": "GSA is proposing to amend the General Services Administration Acquisition Regulation (GSAR) part 541 which outlines procedures and guidance for the procurement of utility services. GSA guidance does not apply to agencies using their special authorities listed in Federal Acquisition Regulation (FAR) section 41.103(a)(2) and (3). This proposed rule would align the GSAR with the FAR Council's proposed rule for FAR part 41.", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": "2027-01-15", "c": null, "a": "Small Business Administration", "ab": "This final rule makes several changes to the U.S. Small Business Administration (SBA) Surety Bond Guarantee (SBG) program regulations. The rule reduces the burden on participating surety companies for submission and retention of documents. The rule also corrects conflicting provisions, as well as revising the obsolete Preferred Surety admissions requirements and the Quarterly Contract Completion Report.", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}];
+const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": "2026-11-04", "a": "GSA", "ab": "GSA is proposing to amend the General Services Administration Acquisition Regulation (GSAR) part 541 which outlines procedures and guidance for the procurement of utility services. GSA guidance does not apply to agencies using their special authorities listed in Federal Acquisition Regulation (FAR) section 41.103(a)(2) and (3). This proposed rule would align the GSAR with the FAR Council's proposed rule for FAR part 41.", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Notice", "ti": "Information Collection; Presolicitation Notice and Response", "p": "2026-10-02", "e": null, "c": "2026-12-01", "a": "Management and Budget Office; Federal Procurement Policy Office; Defense Department", "ab": "In accordance with the Paperwork Reduction Act of 1995 and OMB regulations, OFPP, DoD, GSA, and NASA invite the public to comment on an extension concerning presolicitation notice and response. OFPP, DoD, GSA, and NASA invite comments on: whether the proposed collection of information is necessary for the proper performance of the functions of Federal Government acquisitions, including whether the information will have practical utility; the accuracy of the estimate of the burden of the proposed information collection; ways to enhance the quality, utility, and clarity of the information to be collected; and ways to minimize the burden of the information collection on respondents, including the use of automated collection techniques or other forms of information technology. OMB has approved this information collection for use through January 31, 2027. OFPP, DoD, GSA, and NASA propose that OMB extend its approval for use for three additional years beyond the current expiration date.", "u": "https://www.federalregister.gov/documents/2026/10/02/2026-20270/information-collection-presolicitation-notice-and-response"}, {"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": "2027-01-15", "c": null, "a": "Small Business Administration", "ab": "This final rule makes several changes to the U.S. Small Business Administration (SBA) Surety Bond Guarantee (SBG) program regulations. The rule reduces the burden on participating surety companies for submission and retention of documents. The rule also corrects conflicting provisions, as well as revising the obsolete Preferred Surety admissions requirements and the Quarterly Contract Completion Report.", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}];
 const SEED_DATE = "2026-11-27";
 
 function esc(s) {
@@ -72,10 +72,17 @@ function daysUntil(iso) {
 }
 
 function relevance(d) {
-  if (!KEEP.has(d.t || "")) return false;
-  if (d.g === false) return false;
   const title = (d.ti || "").toLowerCase();
-  if (title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0) return false;
+  const isIC = title.indexOf("information collection") >= 0 && title.indexOf("notice") >= 0;
+  // IC notices have type "Notice" (not in KEEP) — admit them only while their
+  // comment period is open (2026-11-27, visitor-check product decision).
+  if (!KEEP.has(d.t || "") && !(isIC && d.t === "Notice")) return false;
+  if (d.g === false) return false;
+  if (isIC) {
+    if (!d.c) return false;
+    const cd = daysUntil(d.c);
+    if (cd === null || cd < 0) return false;
+  }
   const blob = title + " " + ((d.ab || "").toLowerCase());
   const terms = ["far ", "dfars", "procurement", "contractor", "contracting", "contract",
                  "acquisition", "small business", "sba", "cost accounting", "gsar"];
