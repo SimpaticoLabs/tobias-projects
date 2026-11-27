@@ -48,8 +48,8 @@
 const API = "https://www.federalregister.gov/api/v1/documents.json";
 const TERMS = ["\"Federal Acquisition Regulation\"", "DFARS", "\"Small Business\" procurement", "\"FAR\" clause", "\"Cost Accounting Standards\"", "\"Federal Procurement\""];
 const KEEP = new Set(["Rule", "Proposed Rule", "Presidential Document"]);
-const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": "2026-11-04", "a": "GSA", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": "2027-01-15", "c": null, "a": "Small Business Administration", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}];
-const SEED_DATE = "2026-11-26";
+const SEED = [{"t": "Proposed Rule", "ti": "General Services Administration Acquisition Regulation; GSAR Implementation of Executive Order 14275, Acquisition of Utility Services", "p": "2026-10-05", "e": null, "c": "2026-11-04", "a": "GSA", "ab": "GSA is proposing to amend the General Services Administration Acquisition Regulation (GSAR) part 541 which outlines procedures and guidance for the procurement of utility services. GSA guidance does not apply to agencies using their special authorities listed in Federal Acquisition Regulation (FAR) section 41.103(a)(2) and (3). This proposed rule would align the GSAR with the FAR Council's proposed rule for FAR part 41.", "u": "https://www.federalregister.gov/documents/2026/10/05/2026-20317/general-services-administration-acquisition-regulation-gsar-implementation-of-executive-order-14275"}, {"t": "Rule", "ti": "Surety Bond Guarantee Program: Streamlining and Modernizing", "p": "2026-11-16", "e": "2027-01-15", "c": null, "a": "Small Business Administration", "ab": "This final rule makes several changes to the U.S. Small Business Administration (SBA) Surety Bond Guarantee (SBG) program regulations. The rule reduces the burden on participating surety companies for submission and retention of documents. The rule also corrects conflicting provisions, as well as revising the obsolete Preferred Surety admissions requirements and the Quarterly Contract Completion Report.", "u": "https://www.federalregister.gov/documents/2026/11/16/2026-23225/surety-bond-guarantee-program-streamlining-and-modernizing"}];
+const SEED_DATE = "2026-11-27";
 
 function esc(s) {
   return String(s == null ? "" : s)
@@ -186,6 +186,7 @@ function normalize(r) {
     e: r.effective_on || null,
     c: r.comments_close_on || null,
     a: ag,
+    ab: r.abstract || "",
     g: agencyOk,
     u: r.html_url || ""
   };
