@@ -153,6 +153,10 @@
 <script>
 const API = "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=120&order=volume24hr&ascending=false&withEvents=true";
 let MARKETS = [];
+// 2026-11-28: when Gamma fails, the page shows the daily snapshot (snapshot.json, written by
+// the VM recorder) and says how old it is, instead of an empty page.
+let SNAPSHOT_AT = null;
+function ageText(iso){ const h=(Date.now()-new Date(iso))/36e5; if(h<1) return "less than an hour ago"; if(h<48) return Math.round(h)+" hours ago"; return Math.round(h/24)+" days ago"; }
 const $ = s => document.querySelector(s);
 
 function fmtNum(n){ if(!n) return "0"; if(n>=1e6) return (n/1e6).toFixed(1)+"M"; if(n>=1e3) return (n/1e3).toFixed(1)+"K"; return String(Math.round(n)); }
@@ -241,7 +245,9 @@ function render(){
       '<div class="stat" title="Order book depth within 2¢ of the mid price (USD)"><b>'+(BOOKS_LOADED?(m.depth==null?'no book':'$'+fmtNum(m.depth)):'…')+'</b>depth ±2¢</div>' +
       '<div class="stat" title="Best ask minus best bid"><b>'+(BOOKS_LOADED?(m.spread==null?'—':(m.spread*100).toFixed(1)+'¢'):'…')+'</b>spread</div></a></div>';
   }).join("");
-  $("#status").textContent = `${rows.length} market(s) shown · ${MARKETS.length} live · updated ${new Date().toLocaleTimeString()}`;
+  $("#status").textContent = SNAPSHOT_AT
+    ? `${rows.length} market(s) shown · Polymarket's API is not answering, so this is the snapshot from ${new Date(SNAPSHOT_AT).toLocaleString()} (${ageText(SNAPSHOT_AT)}). Prices may have moved; ↻ retries the live data.`
+    : `${rows.length} market(s) shown · ${MARKETS.length} live · updated ${new Date().toLocaleTimeString()}`;
   renderTopMovers();
   renderWatchedSummary();
 }
@@ -306,10 +312,22 @@ async function load(){
     if(!res.ok) throw new Error("HTTP "+res.status);
     const data = await res.json();
     MARKETS = (Array.isArray(data)?data:(data.data||[])).map(parse).filter(Boolean);
+    SNAPSHOT_AT = null;
     loadBooks();
     render();
   }catch(e){
-    $("#status").innerHTML = "Couldn't reach Polymarket's API right now — try the ↻ button in a moment. (" + e.message + ")";
+    try{
+      const sr = await fetch("./snapshot.json", {cache:"no-cache"});
+      if(!sr.ok) throw new Error("no snapshot");
+      const snap = await sr.json();
+      MARKETS = (snap.markets||[]).map(parse).filter(Boolean);
+      if(!MARKETS.length) throw new Error("empty snapshot");
+      SNAPSHOT_AT = snap.fetched_at;
+      BOOKS_LOADED = true;  // order books are live-only; the snapshot has none
+      render();
+    }catch(e2){
+      $("#status").innerHTML = "Couldn't reach Polymarket's API right now — try the ↻ button in a moment. (" + e.message + ")";
+    }
   }
 }
 // G1* tool-use meter (2026-09-02). The page auto-load()s, so a pageview already implies a
