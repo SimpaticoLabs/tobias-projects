@@ -57,13 +57,5 @@
     "tag_live": true,
     "blurb": "A free flashcard app with SM-0 spaced repetition, multiple decks, and statistics — no signup, no ads, works offline. Installs to your homescreen as a PWA. All your data stays in your browser.",
     "go": "Open the flashcards →"
-  },
-  {
-    "title": "Currency API",
-    "href": "https://currency-api-ogzw.onrender.com",
-    "tag": "Live API",
-    "tag_live": true,
-    "blurb": "A small exchange-rate API serving live rates from public ECB data. Hosted as a running service.",
-    "go": "Open the API →"
   }
 ]
