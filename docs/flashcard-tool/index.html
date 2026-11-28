@@ -534,13 +534,14 @@ function showCard() {
   
   const card = studyState.cards[studyState.index];
   studyState.flipped = false;
+  // Rebuild the card DOM every time: the session-complete branch replaces
+  // #flashcard's innerHTML (destroying #cardFront), so re-create it here or a
+  // second study session crashes on a null #cardFront (live-but-buggy fix).
+  document.getElementById('flashcard').innerHTML =
+    '<div class="front" id="cardFront"></div><div class="hint">Click to reveal answer</div>';
   document.getElementById('cardFront').textContent = card.front;
-  document.getElementById('flashcard').querySelector('.back')?.remove();
   document.getElementById('studyButtons').style.display = 'none';
   document.getElementById('studyProgress').textContent = 'Card ' + (studyState.index + 1) + ' of ' + studyState.cards.length;
-  
-  const existingBack = document.getElementById('flashcard').querySelector('.back');
-  if (existingBack) existingBack.remove();
 }
 
 function flipCard() {
