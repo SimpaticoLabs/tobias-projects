@@ -56,20 +56,20 @@
   <header>
     <div class="badge">📊 Market Movement Tracker</div>
     <h1>Market Movers</h1>
-    <p class="sub">Polymarket prediction markets ranked by implied probability change — live from Polymarket's API. See what the crowd shifted on in the last 24 hours.</p>
+    <p class="sub">Polymarket prediction markets ranked by implied probability change, live from Polymarket's API. See what the crowd shifted on in the last 24 hours.</p>
     <div class="back-link">← <a href="../">Back to Polymarket Scanner</a></div>
   </header>
 
   <!-- Paid data product cross-link (the only payment surface: Apify Actor) -->
   <div style="background:var(--card);border-left:4px solid var(--terra);padding:10px 14px;border-radius:8px;margin:0 0 1rem;font-size:.92rem;color:var(--ink)">
-    📦 <strong>Want the data behind these moves?</strong> The full Polymarket + Manifold feed, with cross-venue spreads, is available as a paid API —
+    📦 <strong>Want the data behind these moves?</strong> The full Polymarket + Manifold feed, with cross-venue spreads, is available as a paid API:
     <a href="https://apify.com/builtbytobias/prediction-market-scanner" style="color:var(--terra-d);font-weight:600" rel="noopener">$2 / 1,000 markets →</a>
   </div>
 
   <div id="status">Loading mover data…</div>
 
   <div class="stat-row" id="stats">
-    <div class="stat-box"><span class="num" id="s-total">—</span><span class="lbl">Markets Moved</span></div>
+    <div class="stat-box"><span class="num" id="s-total">0</span><span class="lbl">Markets Moved</span></div>
     <div class="stat-box"><span class="num up" id="s-up">—</span><span class="lbl">Up</span></div>
     <div class="stat-box"><span class="num dn" id="s-dn">—</span><span class="lbl">Down</span></div>
     <div class="stat-box"><span class="num" id="s-avg">—</span><span class="lbl">Avg |Δ|</span></div>
@@ -106,6 +106,10 @@
 // Market Movers — LIVE from Polymarket's Gamma API using oneDayPriceChange.
 // No manual SEED regeneration needed. Always fresh.
 const API = "https://gamma-api.polymarket.com/markets?closed=false&active=true&limit=200&order=volume24hr&ascending=false";
+// 2026-11-28: when Gamma fails, the page falls back to the daily snapshot (../snapshot.json,
+// written by the VM recorder at 00:30 UTC) and says how old it is — mirroring the scanner page.
+let SNAPSHOT_AT = null;
+function ageText(iso){ const h=(Date.now()-new Date(iso))/36e5; if(h<1) return "less than an hour ago"; if(h<48) return Math.round(h)+" hours ago"; return Math.round(h/24)+" days ago"; }
 
 function esc(s) { return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
@@ -193,7 +197,9 @@ function render(movers){
   }
 
   document.getElementById("list").innerHTML = filtered.map(buildMoverHTML).join("");
-  document.getElementById("label-line").textContent = "Live from Polymarket Gamma API · " + new Date().toLocaleString();
+  document.getElementById("label-line").textContent = SNAPSHOT_AT
+    ? "Snapshot from " + new Date(SNAPSHOT_AT).toLocaleString() + " (" + ageText(SNAPSHOT_AT) + ") — Polymarket API unreachable; ↻ retries live data"
+    : "Live from Polymarket Gamma API · " + new Date().toLocaleString();
 }
 
 function load(){
@@ -233,7 +239,20 @@ load = function(){
       render(_cachedMarkets);
     })
     .catch(function(e){
-      document.getElementById("status").innerHTML = "Couldn't reach Polymarket's API right now — try the ↻ button in a moment. ("+e.message+")";
+      // Fallback: serve the daily snapshot instead of an error page.
+      fetch("../snapshot.json", {cache:"no-cache"})
+        .then(function(sr){ if(!sr.ok) throw new Error("no snapshot"); return sr.json(); })
+        .then(function(snap){
+          var markets = snap.markets || [];
+          _cachedMarkets = markets.filter(function(m){ return m.oneDayPriceChange != null && Math.abs(m.oneDayPriceChange) >= 0.0005; });
+          if(!_cachedMarkets.length) throw new Error("empty snapshot");
+          SNAPSHOT_AT = snap.fetched_at || null;
+          document.getElementById("status").textContent = _cachedMarkets.length+" market(s) moved · snapshot data ("+ageText(SNAPSHOT_AT)+") · Polymarket API unreachable";
+          render(_cachedMarkets);
+        })
+        .catch(function(e2){
+          document.getElementById("status").innerHTML = "Couldn't reach Polymarket's API right now — try the ↻ button in a moment. ("+e.message+")";
+        });
     });
 };
 load();
