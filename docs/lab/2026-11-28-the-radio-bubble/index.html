@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Radio Bubble</title>
+<style>
+  :root{
+    --bg:#05070f; --panel:#0b1020; --ink:#d7e0f0; --dim:#7a86a0;
+    --line:#1c2740; --accent:#6fb6ff; --gold:#ffd75e;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:980px; margin:0 auto; padding:24px 18px 80px}
+  header h1{font-size:clamp(22px,4vw,34px); margin:0 0 4px; letter-spacing:.5px}
+  header .sub{color:var(--dim); margin:0 0 18px; font-size:15px}
+  .controls{
+    display:flex; flex-wrap:wrap; gap:12px; align-items:center;
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:12px 14px; margin-bottom:16px;
+  }
+  .controls label{color:var(--dim); font-size:13px; text-transform:uppercase; letter-spacing:1px}
+  input[type=range]{flex:1; min-width:180px; accent-color:var(--gold)}
+  .date-readout{color:var(--gold); font-size:16px; font-weight:700; min-width:120px; text-align:right}
+  .canvas-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:10px; margin-bottom:16px; position:relative;
+  }
+  canvas{width:100%; height:auto; display:block; border-radius:10px; background:radial-gradient(circle at 50% 50%, #0a1226 0%, #05070f 75%)}
+  .scale-note{color:var(--dim); font-size:12px; text-align:center; padding:8px 0 2px}
+  .details{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:16px 18px; min-height:96px;
+  }
+  .details .star-name{font-size:18px; font-weight:700; color:var(--ink)}
+  .details .star-when{color:var(--gold); font-size:14px; font-weight:600; margin:2px 0 6px}
+  .details p{color:var(--dim); font-size:14px; margin:0 0 8px}
+  .details p b{color:var(--ink)}
+  .hint{color:var(--dim); font-size:13px; margin-top:8px; font-style:italic}
+  footer{margin-top:26px; color:var(--dim); font-size:12.5px; border-top:1px solid var(--line); padding-top:14px}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>The Radio Bubble</h1>
+    <p class="sub">We've been broadcasting into space for over a century. Here is exactly how far the news of us has traveled, and which stars have heard it.</p>
+  </header>
+
+  <div class="controls">
+    <label for="year">Year</label>
+    <input type="range" id="year" min="1895" max="2300" step="1" value="2026">
+    <div class="date-readout" id="readout">2026</div>
+  </div>
+
+  <div class="canvas-card">
+    <canvas id="sky"></canvas>
+    <div class="scale-note">A slice around the Sun. Each star sits at its true distance; directions are schematic. The glowing ring is Earth's radio bubble, growing one light-year per year. Click a star.</div>
+  </div>
+
+  <div class="details" id="details">
+    <div class="star-name">The Sun</div>
+    <div class="star-when">This is where the noise starts.</div>
+    <p id="sundetail">Drag the slider forward. Every year you move the clock, the bubble of our broadcasts pushes one light-year deeper into space. Gold stars are ones the news of us has already reached; dim ones still haven't heard a thing.</p>
+  </div>
+
+  <footer>
+    Broadcasting began around 1895 (Marconi's spark-gap experiments); the deliberate Arecibo Message to the stars followed in 1974. Sirius, 8.6 light-years away, and Vega, 25, have already "received" decades of Earth's history; the strongest Arecibo-era radar could in principle be detected from as far as ~12,000 light-years — but the galaxy is ~100,000 light-years across. Distances are the well-established published values (rounded); on-sky directions are schematic so the map stays readable. Frame from the Earth-radio-bubble concept; figures per 2026 analysis.
+  </footer>
+</div>
+
+<script>
+var STARS = [
+  // name, distance (light-years), layout angle (degrees, schematic)
+  ["α Centauri", 4.37, 15],
+  ["Barnard's Star", 5.96, 210],
+  ["Wolf 359", 7.86, 310],
+  ["Sirius", 8.6, 100],
+  ["Epsilon Eridani", 10.5, 250],
+  ["Procyon", 11.46, 130],
+  ["Tau Ceti", 11.9, 45],
+  ["Groombridge 34", 11.6, 330],
+  ["Gliese 832", 16.2, 290],
+  ["Altair", 16.73, 200],
+  ["82 Eridani", 19.7, 170],
+  ["Fomalhaut", 25.1, 40],
+  ["Vega", 25.3, 75],
+  ["Pollux", 33.7, 160],
+  ["Arcturus", 36.7, 20],
+  ["Capella", 42.9, 300],
+  ["Aldebaran", 65.3, 110],
+  ["Regulus", 79.3, 260],
+  ["Polaris", 433, 340],
+  ["Canopus", 310, 180],
+  ["Betelgeuse", 548, 220],
+  ["Antares", 554, 55],
+  ["Rigel", 860, 240],
+  ["Deneb", 2600, 90]
+];
+
+var START_YEAR = 1895;          // when our broadcasts began
+var GALAXY_DIAMETER = 100000;   // light-years, for the scale note
+
+// What Earth had already sent by a given arrival year.
+function eraFor(arrivalYear){
+  if (arrivalYear < 1900) return "spark-gap crackle — the very first experiments in radio.";
+  if (arrivalYear < 1921) return "Marconi's transatlantic tests and the first human voice to cross an ocean.";
+  if (arrivalYear < 1948) return "commercial radio broadcasting — music, news, the roar of a noisy planet.";
+  if (arrivalYear < 1974) return "half a century of AM and FM, then the first television leaking into the sky.";
+  if (arrivalYear < 2000) return "the Arecibo Message of 1974 — our one deliberate hello — riding on decades of broadcast TV.";
+  return "our own era: planetary radar, satellite chatter, and a planet that got much quieter as it went digital.";
+}
+
+var canvas=document.getElementById('sky'), ctx=canvas.getContext('2d');
+var slider=document.getElementById('year');
+var readout=document.getElementById('readout');
+var details=document.getElementById('details');
+var selected=null;
+
+function bubbleRadius(year){ return Math.max(0, year - START_YEAR); }
+
+function draw(){
+  var w=canvas.width, h=canvas.height, cx=w/2, cy=h/2;
+  var year=+slider.value, R=bubbleRadius(year);
+  var maxR=3000, px=Math.min(w,h)*0.45;
+
+  ctx.clearRect(0,0,w,h);
+
+  // faint galaxy backdrop rings (for scale perspective)
+  ctx.strokeStyle='rgba(90,110,150,0.06)';
+  ctx.lineWidth=1;
+  [10,100,1000,3000].forEach(function(ly){
+    var rr=Math.pow(ly/maxR,0.4)*px;
+    ctx.beginPath(); ctx.arc(cx,cy,rr,0,Math.PI*2); ctx.stroke();
+  });
+
+  // stars
+  STARS.forEach(function(s){
+    var name=s[0], d=s[1], ang=s[2]*Math.PI/180;
+    var rr=Math.pow(d/maxR,0.4)*px;
+    var X=cx+Math.cos(ang)*rr, Y=cy-Math.sin(ang)*rr;
+    var heard = (year >= START_YEAR + d);
+    var near = (d <= R); // inside current bubble edge
+
+    if (heard){
+      // reached: bright, golden
+      ctx.fillStyle='#ffd75e';
+      ctx.shadowColor='#ffd75e'; ctx.shadowBlur=10;
+      ctx.beginPath(); ctx.arc(X,Y,4.5,0,Math.PI*2); ctx.fill();
+      ctx.shadowBlur=0;
+      if(near){
+        ctx.strokeStyle='rgba(255,215,94,0.5)'; ctx.lineWidth=1;
+        ctx.beginPath(); ctx.arc(X,Y,7,0,Math.PI*2); ctx.stroke();
+      }
+    } else {
+      ctx.fillStyle= heard===false ? '#7a86a0' : '#5a6a8a';
+      ctx.globalAlpha=0.55;
+      ctx.beginPath(); ctx.arc(X,Y,3,0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha=1;
+    }
+  });
+
+  // the bubble edge
+  var bubblePx=Math.pow(Math.max(0.1,R)/maxR,0.4)*px;
+  ctx.strokeStyle='rgba(111,182,255,0.35)';
+  ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.arc(cx,cy,bubblePx,0,Math.PI*2); ctx.stroke();
+  // radial tick marks on the bubble
+  for(var k=0;k<36;k++){
+    var a=k/36*2*Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(a)*(bubblePx-4), cy-Math.sin(a)*(bubblePx-4));
+    ctx.lineTo(cx+Math.cos(a)*(bubblePx+3), cy-Math.sin(a)*(bubblePx+3));
+    ctx.stroke();
+  }
+
+  // the Sun
+  ctx.fillStyle='#fff3c4';
+  ctx.shadowColor='#ffd75e'; ctx.shadowBlur=16;
+  ctx.beginPath(); ctx.arc(cx,cy,5,0,Math.PI*2); ctx.fill();
+  ctx.shadowBlur=0;
+
+  readout.textContent=year;
+}
+
+function selectStar(idx){
+  var s=STARS[idx];
+  var arrival=Math.round(START_YEAR + s[1]);
+  var reached = (+slider.value) >= arrival;
+  var era=eraFor(arrival);
+  var pct=(s[1]/GALAXY_DIAMETER*100).toFixed(4);
+  var html='<div class="star-name">'+s[0]+'</div>';
+  if (reached){
+    html+='<div class="star-when">Our signal arrived here in '+arrival+'.</div>';
+  } else {
+    html+='<div class="star-when">Our signal reaches this star in '+arrival+'.</div>';
+  }
+  html+='<p><b>'+s[1].toFixed(1)+' light-years</b> from the Sun — about '+pct+'% of the way across the galaxy. '
+       +(reached ? 'What it would have picked up: '+era : 'By the time we get there, it would hear: '+era)
+       +'</p>';
+  details.innerHTML=html;
+}
+
+slider.addEventListener('input', function(){ draw(); });
+canvas.addEventListener('click', function(ev){
+  var rect=canvas.getBoundingClientRect();
+  var mx=(ev.clientX-rect.left)*canvas.width/rect.width;
+  var my=(ev.clientY-rect.top)*canvas.height/rect.height;
+  var w=canvas.width, h=canvas.height, cx=w/2, cy=h/2;
+  var px=Math.min(w,h)*0.45, maxR=3000;
+  var best=-1, bestD=1e9;
+  STARS.forEach(function(s,i){
+    var ang=s[2]*Math.PI/180;
+    var rr=Math.pow(s[1]/maxR,0.4)*px;
+    var X=cx+Math.cos(ang)*rr, Y=cy-Math.sin(ang)*rr;
+    var dd=Math.hypot(X-mx, Y-my);
+    if(dd<Math.min(24,rr*0.3) && dd<bestD){ bestD=dd; best=i; }
+  });
+  if(best>=0) selectStar(best);
+});
+
+function sizeCanvas(){
+  var w=canvas.parentNode.clientWidth-20;
+  canvas.width=Math.max(320,Math.min(w,960));
+  canvas.height=Math.round(canvas.width*0.72);
+  draw();
+}
+window.addEventListener('resize',sizeCanvas);
+sizeCanvas();
+</script>
+<script>
+(function(){var used=false;function mark(){if(used)return;used=true;
+  try{window.goatcounter&&window.goatcounter.count({path:"lab-used",title:"lab used",event:true})}catch(e){}}
+ document.addEventListener("click",mark);document.addEventListener("keydown",mark);})();
+</script>
+<script data-goatcounter="https://simpaticolabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
